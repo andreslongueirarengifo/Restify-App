@@ -1,5 +1,8 @@
 import React from "react";
 
-export const LoginLP = () => {
+//import components
+
+
+export const HomeLP = () => {
   return <h1>LoginLP</h1>;
 };

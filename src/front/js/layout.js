@@ -10,8 +10,7 @@ import { MenuCP } from "./pages/controlpanel/cp_menu";
 
 //landing-page
 import { CreateRestaurantLP } from "./pages/landing/landing_createRestaurant";
-import { LoginLP } from "./pages/landing/landing_login";
-import { RegisterLP } from "./pages/landing/landing_register";
+import { HomeLP } from "./pages/landing/landing_home";
 import { RestManagerLP } from "./pages/landing/landing_restManager";
 
 //template
@@ -31,8 +30,7 @@ return (
     <div>
     <BrowserRouter>
             <Routes>
-                <Route element={<LoginLP />} path="/" />
-                <Route element={<RegisterLP />} path="/register" />
+                <Route element={<HomeLP />} path="/" />
                 <Route element={<RestManagerLP />} path="/rest-manager" />
                 <Route element={<CreateRestaurantLP />} path="/create-restaurant" />
                 <Route element={<ContactTEMP />} path="/:web-name/contact" />
@@ -42,6 +40,11 @@ return (
                 <Route element={<HomeCP />} path="/controlpanel/home/:web-name" />
                 <Route element={<MenuCP />} path="/controlpanel/menu/:web-name" />
                 <Route element={<h1>Not found!</h1>} />
+
+                {/* Testing */}
+                <Route element={<MenuTEMP />} path="/test-menu" />
+                <Route element={<HomeTEMP />} path="/test-home" />
+                <Route element={<ContactTEMP />} path="/test-contact" />
             </Routes>
     </BrowserRouter>
     </div>
