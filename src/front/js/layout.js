@@ -27,7 +27,7 @@ const Layout = () => {
   //const basename = process.env.BASENAME || "";
 
 return (
-    <div>
+    <>
     <BrowserRouter>
             <Routes>
                 <Route element={<HomeLP />} path="/" />
@@ -47,7 +47,7 @@ return (
                 <Route element={<ContactTEMP />} path="/test-contact" />
             </Routes>
     </BrowserRouter>
-    </div>
+    </>
 );
 };
 
