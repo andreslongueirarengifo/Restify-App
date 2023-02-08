@@ -21,11 +21,13 @@ def handle_hello():
 @api.route('/signup', methods=['POST'])
 def login_signup():
     data = json.loads(request.data)
-    #user = User.query.filter_by(name=data["name"],lastname=data["lastname"],email=data["email"], password=data["password"]).first()
+    user = User.query.filter_by(name=data["name"],lastname=data["lastname"],email=data["email"], password=data["password"]).first()
     userObj = User(name=data["name"],lastname=data["lastname"],email=data["email"], password=data["password"])
-    #if user is None:
-        #return jsonify({"msg": "Bad username or password"}), 401
-    access_token = create_access_token(identity=user.id)
+
+    if user is None:
+        return jsonify({"msg": "Bad username or password"}), 401
+
+    #access_token = create_access_token(identity=user.id)
     db.session.add(userObj)
     db.session.commit()
     #return jsonify({ "token": access_token, "user_id": user.id, "user": user }), 200
