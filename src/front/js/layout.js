@@ -10,7 +10,7 @@ import { MenuCP } from "./pages/controlpanel/cp_menu";
 
 //landing-page
 import { CreateRestaurantLP } from "./pages/landing/landing_createRestaurant";
-import { HomeLP } from "./pages/landing/landing_home";
+import { HomeLP } from "./pages/landing/landing_home.jsx";
 import { RestManagerLP } from "./pages/landing/landing_restManager";
 
 //template
