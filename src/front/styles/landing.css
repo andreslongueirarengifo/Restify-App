@@ -12,6 +12,10 @@
   font-family: "Gotham", sans-serif;
 }
 
+body{
+  background-color: #F3F4F8;
+}
+
 .nav-size {
   height: 50px;
 }
@@ -25,15 +29,26 @@
 /*RestManager Landing-Page styles*/
 
 .img-card {
-  margin: auto;
   margin-top: 1.5rem;
   background-color: #e1dfea;
   border-radius: 50%;
-  height: 7rem;
-  width: 7rem;
+  height: 10rem;
+  width: 10rem;
   object-fit: contain;
   padding: 0.5rem;
 }
+
+.img-card-add {
+  cursor: pointer;
+  color: #9f9f9f;
+  font-size: 2rem;
+  background-color: #e1dfea;
+  border-radius: 50%;
+  height: 10rem;
+  width: 10rem;
+  padding: 0.5rem;
+}
+
 
 .copy-text {
   background-color: #e8e8e8;
@@ -57,4 +72,24 @@
   border: 2px solid #025d8b;
   background-color: #025d8b;
   color: white;
+}
+
+
+.cont{
+  margin-left: 5rem;
+  margin-right: 3rem;
+}
+
+.welcome > b > span{
+  color: #025d8b;
+}
+
+.subtitle{
+  color: #352970;
+  margin-bottom: 2rem;
+}
+
+.card-rest{
+  background-color: white;
+  border-radius: 1rem;
 }
