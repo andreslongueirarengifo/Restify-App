@@ -13,7 +13,7 @@ export const CardRestaurant =()=>{
             <div className="card-body">
                 <h6><i><b>Url del restaurante</b></i></h6>
                     <CopyToClipboard text="restify.com/res/restaurant_1">
-                    <div className="copy-text rounded d-flex justify-content-between align-items-center">
+                    <div className="copy-text rounded d-flex justify-content-between">
                         <p><b><i>restify.com/res/restaurant_1</i></b></p>
                         <i className="fa-regular fa-copy"></i>
                     </div>

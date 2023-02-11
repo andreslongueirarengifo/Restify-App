@@ -51,6 +51,7 @@ body{
 
 
 .copy-text {
+  height: 1.5rem;
   background-color: #e8e8e8;
   color: #9f9f9f;
   cursor: pointer;
