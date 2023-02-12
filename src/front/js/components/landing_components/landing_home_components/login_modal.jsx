@@ -17,30 +17,32 @@ const LoginModal = () => {
   return (
     <>
       {/* <!-- Button trigger modal --> */}
-      <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
+      <button type="button" className="btn btn-light btn-rounded" data-bs-toggle="modal" data-bs-target="#loginModal">
         Ingresar
       </button>
 
       {/* <!-- Modal --> */}
-      <div className="modal fade" id="loginModal" tabIndex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div className="modal fade modal-fade-blur" id="loginModal" tabIndex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content p-4">
-            <h1 className="modal-title fs-5 text-center" id="loginModalLabel">
-              Ingresa los datos tu usuario. ☝
-            </h1>
+          <div className="modal-content modal-rounded-corners">
+            <h2 className="modal-title text-center" id="loginModalLabel">
+              Inicia sesión en tu cuenta
+            </h2>
             <div className="modal-body p-0 py-3">
               <div className="row py-3">
                 <div className="col">
-                  <input type="text" onChange={handleChange} id="email" className="form-control" placeholder="Email" aria-label="Email"/>
+                  <label htmlFor="email" className="form-label">Email</label>
+                  <input type="text" onChange={handleChange} id="email" className="form-control" aria-label="Email"/>
                 </div>
               </div>
               <div className="row">
                 <div className="col">
-                  <input type="text" onChange={handleChange} id="password" className="form-control" placeholder="Contraseña" aria-label="Contraseña"/>
+                  <label htmlFor="password" className="form-label">Contraseña</label>
+                  <input type="password" onChange={handleChange} id="password" className="form-control" aria-label="Contraseña"/>
                 </div>
               </div>
             </div>
-            <button type="button" onClick={handleClick} className="btn btn-primary">
+            <button type="button" onClick={handleClick} className="btn btn-primary btn-form">
               Ingresar
             </button>
           </div>

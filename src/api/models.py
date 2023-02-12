@@ -11,7 +11,7 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
 
     def __repr__(self):
-        return f'{self.name}-{self.lastname}-{self.email}'
+        return f'{self.email}'
 
     def serialize(self):
         return {
@@ -30,12 +30,13 @@ class Web(db.Model):
     user = db.relationship('User', backref='web')
 
     def __repr__(self):
-        return f'{self.name}-{self.phone_number}'
+        return f'{self.id}-{self.name}'
 
     def serialize(self):
         return {
             "id": self.id,
-            "name": self.name
+            "name": self.name,
+            "phone_number": self.phone_number,
         }
 
 class Branding(db.Model):
@@ -56,7 +57,10 @@ class Branding(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "color": self.color,
+            "color_bg1": self.color_bg1,
+            "color_bg2": self.color_bg2,
+            "color_font1": self.color_font1,
+            "color_hover1": self.color_hover1,
             "logo": self.logo,
             "logo_favicon": self.logo_favicon,
             "font": self.font,
@@ -79,8 +83,13 @@ class Content(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "description": self.color,
-            "header": self.logo
+            "description": self.description,
+            "instagram": self.instagram,
+            "twitter": self.twitter,
+            "facebook": self.facebook,
+            "tiktok": self.tiktok,
+            "location": self.location,
+            "header": self.header
         }
 
 class Food_category(db.Model):
@@ -119,4 +128,3 @@ class Food(db.Model):
             "image": self.image,
             "category": self.category
         }
-
