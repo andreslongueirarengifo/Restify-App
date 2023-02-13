@@ -9,9 +9,9 @@ import { HomeCP } from "./pages/controlpanel/cp_home";
 import { MenuCP } from "./pages/controlpanel/cp_menu";
 
 //landing-page
-import { CreateRestaurantLP } from "./pages/landing/landing_createRestaurant";
+import { CreateRestaurantLP } from "./pages/landing/landing_createRestaurant.jsx";
 import { HomeLP } from "./pages/landing/landing_home.jsx";
-import { RestManagerLP } from "./pages/landing/landing_restManager";
+import { RestManagerLP } from "./pages/landing/landing_restManager.jsx";
 
 //template
 import { ContactTEMP } from "./pages/template/template_contact";
