@@ -25,7 +25,6 @@ class Web(db.Model):
     __tablename__ = 'web'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
-    phone_number = db.Column(db.Integer, unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', backref='web')
 
@@ -35,8 +34,7 @@ class Web(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "name": self.name,
-            "phone_number": self.phone_number,
+            "name": self.name
         }
 
 class Branding(db.Model):
@@ -70,6 +68,7 @@ class Branding(db.Model):
 class Content(db.Model):
     __tablename__ = 'content'
     id = db.Column(db.Integer, primary_key=True)
+    phone_number = db.Column(db.Integer, unique=True, nullable=False)
     description = db.Column(db.String(500), unique=False, nullable=False)
     instagram = db.Column(db.String(100), unique=True, nullable=True)
     twitter = db.Column(db.String(100), unique=True, nullable=True)
@@ -83,6 +82,7 @@ class Content(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "phone_number": self.phone_number,
             "description": self.description,
             "instagram": self.instagram,
             "twitter": self.twitter,
