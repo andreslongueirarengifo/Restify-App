@@ -29,13 +29,16 @@ def login_signup():
 def login():
     data = json.loads(request.data)
     user = User.query.filter_by(email=data["email"]).first()
-
+    
+    salt = bcrypt.gensalt()
+    hash_pass = bcrypt.hashpw(user.password.encode('utf-8'),salt)
+    
     if not user:
         return 'User not found', 404
-    
-    if bcrypt.checkpw(data["password"].encode('utf-8'),user.password):
+
+    if bcrypt.checkpw(user.password.encode('utf-8'), hash_pass):
         access_token = create_access_token(identity=user.id)
-        return  jsonify({"status":"ok", "token":token})
+        return  jsonify({"status":"ok", "token":access_token, "user":user.email})
     else:
         return jsonify({"status":"error"})
 
