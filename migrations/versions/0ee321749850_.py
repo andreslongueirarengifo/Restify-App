@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 13f5829a6ce0
+Revision ID: 0ee321749850
 Revises: 
-Create Date: 2023-01-31 19:17:03.313967
+Create Date: 2023-02-13 19:07:16.096766
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '13f5829a6ce0'
+revision = '0ee321749850'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,14 +32,20 @@ def upgrade():
     op.create_table('web',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
+    sa.Column('phone_number', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
+    sa.UniqueConstraint('name'),
+    sa.UniqueConstraint('phone_number')
     )
     op.create_table('branding',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('color', sa.String(length=100), nullable=False),
+    sa.Column('color_bg1', sa.String(length=100), nullable=False),
+    sa.Column('color_bg2', sa.String(length=100), nullable=False),
+    sa.Column('color_font1', sa.String(length=100), nullable=False),
+    sa.Column('color_font2', sa.String(length=100), nullable=False),
+    sa.Column('color_hover1', sa.String(length=100), nullable=False),
     sa.Column('logo', sa.String(length=200), nullable=False),
     sa.Column('logo_favicon', sa.String(length=200), nullable=False),
     sa.Column('font', sa.String(length=200), nullable=False),
@@ -62,16 +68,27 @@ def upgrade():
     op.create_table('content',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('description', sa.String(length=500), nullable=False),
+    sa.Column('instagram', sa.String(length=100), nullable=True),
+    sa.Column('twitter', sa.String(length=100), nullable=True),
+    sa.Column('facebook', sa.String(length=100), nullable=True),
+    sa.Column('tiktok', sa.String(length=100), nullable=True),
+    sa.Column('location', sa.String(length=100), nullable=True),
     sa.Column('header', sa.String(length=200), nullable=False),
     sa.Column('web_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['web_id'], ['web.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('header')
+    sa.UniqueConstraint('facebook'),
+    sa.UniqueConstraint('header'),
+    sa.UniqueConstraint('instagram'),
+    sa.UniqueConstraint('location'),
+    sa.UniqueConstraint('tiktok'),
+    sa.UniqueConstraint('twitter')
     )
     op.create_table('food',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('description', sa.String(length=250), nullable=False),
+    sa.Column('allergens', sa.String(length=250), nullable=False),
     sa.Column('image', sa.String(length=200), nullable=True),
     sa.Column('category_id', sa.Integer(), nullable=True),
     sa.Column('web_id', sa.Integer(), nullable=True),

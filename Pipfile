@@ -7,8 +7,7 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-sqlalchemy = "*"
-flask-sqlalchemy = "*"
+sqlalchemy = "==1.4.46"
 flask-migrate = "*"
 flask-swagger = "*"
 psycopg2-binary = "*"
@@ -18,6 +17,10 @@ gunicorn = "*"
 cloudinary = "*"
 flask-admin = "*"
 typing-extensions = "*"
+flask-sqlalchemy = "1.4.46"
+flask-jwt-extended = "*"
+bcrypt = "*"
+flask-bcrypt = "*"
 
 [requires]
 python_version = "3.10"

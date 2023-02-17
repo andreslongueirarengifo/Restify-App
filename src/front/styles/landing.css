@@ -1,0 +1,266 @@
+@import url("https://fonts.cdnfonts.com/css/gotham");
+
+* {
+  font-family: "Gotham", sans-serif;
+}
+
+body {
+  background-color: #f3f4f8;
+}
+
+h1, h2{
+  letter-spacing: -0.8px;
+  font-weight: bold !important;
+}
+
+h1 {
+  font-size: 38px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+.caption-text{
+  color: #352970 !important;
+  font-size: 18px !important;
+}
+
+.white-test{
+  background-color: white;
+}
+
+.primary-test{
+  background-color: #352970;
+}
+
+/* Landing Home Modals */
+
+.modal-fade-blur{
+  background: rgba(0, 0, 0, 0.15) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+.modal-rounded-corners{
+  border-radius: 20px !important;
+  padding: 35px
+}
+
+/*#region Buttons*/
+
+.btn, .btn-rounded{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  font-weight: bold !important;
+  letter-spacing: -0.6px !important;
+}
+
+.btn-rounded{
+  
+  border-radius: 25px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+
+.btn-form{
+  height: 45px !important;
+}
+
+/* Color primary */
+
+.btn-primary{
+  background-color: #352970 !important;
+  border-color: #352970 !important;
+}
+
+.btn-primary:hover {
+  background-color: #0a2540 !important;
+  border-color: #0a2540 !important;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: none !important;
+}
+
+/* Color secondary */
+
+.btn-secondary{
+  background-color: #0B638F !important;
+  border-color: #0B638F !important;
+}
+
+.btn-secondary:hover {
+  background-color: #0a2540 !important;
+  border-color: #0a2540 !important;
+}
+
+.btn-secondary:focus,
+.btn-secondary.focus {
+  box-shadow: none !important;
+}
+
+/* Color light */
+.btn-light, .btn-light:hover{
+  color: #352970 !important;
+}
+
+.btn-light{
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.btn-light:hover {
+  background-color: #0a2540 !important;
+  border-color: #0a2540 !important;
+  color: #ffffff !important;
+}
+
+.btn-light:focus,
+.btn-light.focus {
+    box-shadow: none !important;
+}
+
+/*#endregion Buttons*/
+
+/*#region Inputs  */
+
+/* Labels */
+
+label{
+  font-size: 14px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  font-weight: bold !important;
+  letter-spacing: -0.6px !important;
+}
+
+input, select{
+  height: 45px !important;
+}
+
+input:focus,
+input.focus,
+select:focus,
+select.focus {
+    box-shadow: 0 0 0 .1rem #c6baff !important
+}
+
+/*#endregion Inputs  */
+
+.footer{
+  width: 100%;
+  height: 40px;
+  background-color: #352970;
+  margin: auto;
+}
+
+.footer-content{
+  color: white;
+  vertical-align: middle;
+  line-height: 40px;
+}
+
+.nav-size {
+  height: 50px;
+}
+
+/* For jumbotron */
+.landing-jumbotron {
+  width: 100%;
+  height: 400px;
+}
+
+/*RestManager Landing-Page styles*/
+
+.img-card {
+  margin-top: 1.5rem;
+  background-color: #e1dfea;
+  border-radius: 50%;
+  height: 10rem;
+  width: 10rem;
+  object-fit: contain;
+  padding: 0.5rem;
+}
+
+.img-card-add {
+  cursor: pointer;
+  color: #9f9f9f;
+  font-size: 2rem;
+  background-color: #e1dfea;
+  border-radius: 50%;
+  height: 10rem;
+  width: 10rem;
+  padding: 0.5rem;
+}
+
+.copy-text {
+  height: 1.5rem;
+  background-color: #e8e8e8;
+  color: #9f9f9f;
+  cursor: pointer;
+}
+
+.copy-text:hover {
+  background-color: #f3f4f8;
+}
+
+.btn-control-panel {
+  border-radius: 2rem;
+  border: 2px solid #025d8b;
+  background-color: transparent;
+  color: #025d8b;
+}
+
+.btn-web {
+  border-radius: 2rem;
+  border: 2px solid #025d8b;
+  background-color: #025d8b;
+  color: white;
+}
+
+.cont {
+  margin-left: 5rem;
+  margin-right: 3rem;
+}
+
+.welcome > b > span {
+  color: #025d8b;
+}
+
+.subtitle {
+  color: #352970;
+  margin-bottom: 2rem;
+}
+
+.card-rest {
+  background-color: white;
+  border-radius: 1rem;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-user {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 2rem;
+}
+
+.img-user {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: #025d8b;
+}
+
+.data-user-dropdown {
+  margin-left: 0.5rem;
+}
+
+.data-user-dropdown > p {
+  font-size: 0.7rem;
+  margin: 0;
+}
