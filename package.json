@@ -76,7 +76,7 @@
 		"bootstrap": "^5.2.3",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
-		"react-bootstrap": "^2.7.1",
+		"react-bootstrap": "^2.7.2",
 		"react-copy-to-clipboard": "^5.1.0",
 		"react-dom": "^16.8.4",
 		"react-polyfills": "0.0.1",
