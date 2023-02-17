@@ -13,7 +13,7 @@ api = Blueprint('api', __name__)
 @api.route('/signup', methods=['POST'])
 def login_signup():
     data = json.loads(request.data)
-    
+
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(data["password"].encode('utf-8'),salt)
 
@@ -22,11 +22,11 @@ def login_signup():
     user = User(name=data["name"],lastname=data["lastname"],email=data["email"], password=decoded_password)
     db.session.add(user)
     db.session.commit()
-    
+
     access_token = create_access_token(identity=user.id)
 
     return jsonify({"status":"ok", "token": access_token, "user_id":user.id}), 200
-    
+
 @api.route('/login', methods=['POST'])
 def login():
     data = json.loads(request.data)
@@ -38,9 +38,9 @@ def login():
 
     if bcrypt.checkpw(data["password"].encode('utf-8'), user.password.encode('utf-8')):
         access_token = create_access_token(identity=user.id)
-        return  jsonify({"status":"ok", "token":access_token, "user":user.email})
+        return  jsonify({"status":"ok", "token":access_token, "user":user.email}), 200
     else:
-        return jsonify({"status":"error"})
+        return jsonify({"status":"error"}), 404
 
 @api.route('/users', methods=['GET'])
 def get_users():
