@@ -26,32 +26,30 @@ const Layout = () => {
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
   //const basename = process.env.BASENAME || "";
 
-  return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<HomeLP />} path="/" />
-          <Route element={<RestManagerLP />} path="/rest-manager" />
-          <Route element={<CreateRestaurantLP />} path="/create-restaurant" />
-          <Route element={<ContactTEMP />} path="/:web-name/contact" />
-          <Route element={<HomeTEMP />} path="/:web-name/home" />
-          <Route element={<MenuTEMP />} path="/:web-name/menu" />
-          <Route
-            element={<BrandingCP />}
-            path="/controlpanel/branding/:web-name"
-          />
-          <Route element={<HomeCP />} path="/controlpanel/home/:web-name" />
-          <Route element={<MenuCP />} path="/controlpanel/menu/:web-name" />
-          <Route element={<h1>Not found!</h1>} />
+return (
+    <>
+    <BrowserRouter>
+            <Routes>
+                <Route element={<HomeLP />} path="/" />
+                <Route element={<RestManagerLP />} path="/rest-manager" />
+                <Route element={<CreateRestaurantLP />} path="/create-restaurant" />
+                <Route element={<ContactTEMP />} path="/:web-name/contact" />
+                <Route element={<HomeTEMP />} path="/:web-name/home" />
+                <Route element={<MenuTEMP />} path="/:web-name/menu" />
+                <Route element={<BrandingCP />}path="/controlpanel/branding/:web-name" />
+                <Route element={<HomeCP />} path="/controlpanel/home/:web-name" />
+                <Route element={<MenuCP />} path="/controlpanel/menu/:web-name" />
+                <Route element={<h1>Not found!</h1>} />
 
-          {/* Testing */}
-          <Route element={<MenuTEMP />} path="/test-menu" />
-          <Route element={<HomeTEMP />} path="/test-home" />
-          <Route element={<ContactTEMP />} path="/test-contact" />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+                {/* Testing */}
+                <Route element={<MenuTEMP />} path="/test-menu" />
+                <Route element={<HomeTEMP />} path="/test-home" />
+                <Route element={<ContactTEMP />} path="/test-contact" />
+            </Routes>
+    </BrowserRouter>
+    </>
+);
+
 };
 
 export default injectContext(Layout);
