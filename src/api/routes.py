@@ -16,8 +16,10 @@ def login_signup():
     
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(data["password"].encode('utf-8'),salt)
-    
-    user = User(name=data["name"],lastname=data["lastname"],email=data["email"], password=hashed_password)
+
+    decoded_password = hashed_password.decode('utf-8')
+
+    user = User(name=data["name"],lastname=data["lastname"],email=data["email"], password=decoded_password)
     db.session.add(user)
     db.session.commit()
     
@@ -29,14 +31,12 @@ def login_signup():
 def login():
     data = json.loads(request.data)
     user = User.query.filter_by(email=data["email"]).first()
-    
-    salt = bcrypt.gensalt()
-    hash_pass = bcrypt.hashpw(user.password.encode('utf-8'),salt)
-    
-    if not user:
-        return 'User not found', 404
 
-    if bcrypt.checkpw(user.password.encode('utf-8'), hash_pass):
+    if not user:
+        return jsonify({"message":"User not found"}), 404
+
+
+    if bcrypt.checkpw(data["password"].encode('utf-8'), user.password.encode('utf-8')):
         access_token = create_access_token(identity=user.id)
         return  jsonify({"status":"ok", "token":access_token, "user":user.email})
     else:

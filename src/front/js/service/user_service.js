@@ -25,6 +25,7 @@ export const loginUser = async (formData) => { // formData = {email: "sample@ema
             }
         })
         const data = await response.json();
+        console.log(data)
         return data;
     }
     catch(e){
