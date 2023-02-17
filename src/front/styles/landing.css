@@ -1,20 +1,11 @@
-/*
-    home.css: This website contains selectors only used in home.css
-
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
-
-/* General Styles */
-
-body{
-  background-color: #F3F4F8;
-}
+@import url("https://fonts.cdnfonts.com/css/gotham");
 
 * {
-  font-family: 'Helvetica', 'Arial', sans-serif;
-  color: #0a2540;
+  font-family: "Gotham", sans-serif;
+}
+
+body {
+  background-color: #f3f4f8;
 }
 
 h1, h2{
@@ -178,4 +169,98 @@ select.focus {
 .landing-jumbotron {
   width: 100%;
   height: 400px;
+}
+
+/*RestManager Landing-Page styles*/
+
+.img-card {
+  margin-top: 1.5rem;
+  background-color: #e1dfea;
+  border-radius: 50%;
+  height: 10rem;
+  width: 10rem;
+  object-fit: contain;
+  padding: 0.5rem;
+}
+
+.img-card-add {
+  cursor: pointer;
+  color: #9f9f9f;
+  font-size: 2rem;
+  background-color: #e1dfea;
+  border-radius: 50%;
+  height: 10rem;
+  width: 10rem;
+  padding: 0.5rem;
+}
+
+.copy-text {
+  height: 1.5rem;
+  background-color: #e8e8e8;
+  color: #9f9f9f;
+  cursor: pointer;
+}
+
+.copy-text:hover {
+  background-color: #f3f4f8;
+}
+
+.btn-control-panel {
+  border-radius: 2rem;
+  border: 2px solid #025d8b;
+  background-color: transparent;
+  color: #025d8b;
+}
+
+.btn-web {
+  border-radius: 2rem;
+  border: 2px solid #025d8b;
+  background-color: #025d8b;
+  color: white;
+}
+
+.cont {
+  margin-left: 5rem;
+  margin-right: 3rem;
+}
+
+.welcome > b > span {
+  color: #025d8b;
+}
+
+.subtitle {
+  color: #352970;
+  margin-bottom: 2rem;
+}
+
+.card-rest {
+  background-color: white;
+  border-radius: 1rem;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-user {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 2rem;
+}
+
+.img-user {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: #025d8b;
+}
+
+.data-user-dropdown {
+  margin-left: 0.5rem;
+}
+
+.data-user-dropdown > p {
+  font-size: 0.7rem;
+  margin: 0;
 }
