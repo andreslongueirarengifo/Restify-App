@@ -12,8 +12,8 @@
   font-family: "Gotham", sans-serif;
 }
 
-body{
-  background-color: #F3F4F8;
+body {
+  background-color: #f3f4f8;
 }
 
 .nav-size {
@@ -49,7 +49,6 @@ body{
   padding: 0.5rem;
 }
 
-
 .copy-text {
   height: 1.5rem;
   background-color: #e8e8e8;
@@ -75,22 +74,48 @@ body{
   color: white;
 }
 
-
-.cont{
+.cont {
   margin-left: 5rem;
   margin-right: 3rem;
 }
 
-.welcome > b > span{
+.welcome > b > span {
   color: #025d8b;
 }
 
-.subtitle{
+.subtitle {
   color: #352970;
   margin-bottom: 2rem;
 }
 
-.card-rest{
+.card-rest {
   background-color: white;
   border-radius: 1rem;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-user {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 2rem;
+}
+
+.img-user {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: #025d8b;
+}
+
+.data-user-dropdown {
+  margin-left: 0.5rem;
+}
+
+.data-user-dropdown > p {
+  font-size: 0.7rem;
+  margin: 0;
 }

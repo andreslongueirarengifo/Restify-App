@@ -14,7 +14,7 @@ const tstArrWebs = [{name:"web1"},{name:"web2"},{name:"web3"}]
 return (
     <Row xs={1} md={4} className="g-4">
     {Array.from({ length: 4 }).map((_, idx) => (
-        <Col>
+        <Col key={idx}>
             <CardRestaurant />
         </Col>
         ))}
