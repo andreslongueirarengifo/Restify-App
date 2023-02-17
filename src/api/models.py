@@ -8,10 +8,10 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     name = db.Column(db.String(50), unique=True, nullable=False)
     lastname = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
+    password = db.Column(db.String(200), unique=False, nullable=False)
 
     def __repr__(self):
-        return f'{self.name}-{self.lastname}-{self.email}'
+        return f'{self.email}'
 
     def serialize(self):
         return {
@@ -25,12 +25,11 @@ class Web(db.Model):
     __tablename__ = 'web'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
-    phone_number = db.Column(db.Integer, unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', backref='web')
 
     def __repr__(self):
-        return f'{self.name}-{self.phone_number}'
+        return f'{self.id}-{self.name}'
 
     def serialize(self):
         return {
@@ -44,7 +43,7 @@ class Branding(db.Model):
     color_bg1 = db.Column(db.String(100), unique=False, nullable=False)
     color_bg2 = db.Column(db.String(100), unique=False, nullable=False)
     color_font1 = db.Column(db.String(100), unique=False, nullable=False)
-    color_font1 = db.Column(db.String(100), unique=False, nullable=False)
+    color_font2 = db.Column(db.String(100), unique=False, nullable=False)
     color_hover1 = db.Column(db.String(100), unique=False, nullable=False)
     logo = db.Column(db.String(200), unique=True, nullable=False)
     logo_favicon = db.Column(db.String(200), unique=True, nullable=False)
@@ -56,7 +55,10 @@ class Branding(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "color": self.color,
+            "color_bg1": self.color_bg1,
+            "color_bg2": self.color_bg2,
+            "color_font1": self.color_font1,
+            "color_hover1": self.color_hover1,
             "logo": self.logo,
             "logo_favicon": self.logo_favicon,
             "font": self.font,
@@ -66,6 +68,7 @@ class Branding(db.Model):
 class Content(db.Model):
     __tablename__ = 'content'
     id = db.Column(db.Integer, primary_key=True)
+    phone_number = db.Column(db.Integer, unique=True, nullable=False)
     description = db.Column(db.String(500), unique=False, nullable=False)
     instagram = db.Column(db.String(100), unique=True, nullable=True)
     twitter = db.Column(db.String(100), unique=True, nullable=True)
@@ -79,8 +82,14 @@ class Content(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "description": self.color,
-            "header": self.logo
+            "phone_number": self.phone_number,
+            "description": self.description,
+            "instagram": self.instagram,
+            "twitter": self.twitter,
+            "facebook": self.facebook,
+            "tiktok": self.tiktok,
+            "location": self.location,
+            "header": self.header
         }
 
 class Food_category(db.Model):
@@ -119,4 +128,3 @@ class Food(db.Model):
             "image": self.image,
             "category": self.category
         }
-

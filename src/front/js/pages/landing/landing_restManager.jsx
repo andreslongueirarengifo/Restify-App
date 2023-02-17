@@ -1,6 +1,5 @@
 import React from "react";
 
-//include your index.scss file into the bundle
 import "../../../styles/landing.css";
 
 //import components
