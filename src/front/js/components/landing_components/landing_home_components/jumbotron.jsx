@@ -12,7 +12,7 @@ const JumbotronLP = () => {
             <Row>
                 <Col className="d-flex align-items-center">
                     <div className="jumbotron">
-                        <h1>La mejor plataforma para <span style={{color: ""}}>tu restaurante</span></h1>
+                        <h1>La mejor plataforma para <span style={{color: "#352970"}}>tu restaurante</span></h1>
                         <p>
                             This is a simple hero unit, a simple jumbotron-style component for calling
                             extra attention to featured content or information.

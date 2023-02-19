@@ -83,7 +83,9 @@ const LoginModal = () => {
             <button
               type="button"
               onClick={handleClick}
-              className="btn btn-primary btn-form">
+              className="btn btn-primary btn-form"
+              data-bs-dismiss="modal"
+              >
               Ingresar
             </button>
           </div>

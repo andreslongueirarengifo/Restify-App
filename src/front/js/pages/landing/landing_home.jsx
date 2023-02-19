@@ -8,6 +8,7 @@ import { NavbarHome } from "../../components/landing_components/landing_home_com
 import JumbotronLP from "../../components/landing_components/landing_home_components/jumbotron.jsx";
 import { Footer } from "../../components/landing_components/footer.jsx";
 import { ServicesLP } from "../../components/landing_components/landing_home_components/landing_services/landing_services.jsx";
+import { AboutUsLP } from "../../components/landing_components/landing_home_components/aboutus_lp.jsx";
 
 export const HomeLP = () => {
   return (
@@ -15,7 +16,8 @@ export const HomeLP = () => {
       <NavbarHome />
       <div className="cont">
         <JumbotronLP />
-        <ServicesLP />      
+        <ServicesLP /> 
+        <AboutUsLP/>     
       </div>
       <Footer />
     </div>
