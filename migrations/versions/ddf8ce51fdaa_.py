@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 0ee321749850
+Revision ID: ddf8ce51fdaa
 Revises: 
-Create Date: 2023-02-13 19:07:16.096766
+Create Date: 2023-02-19 18:22:05.003974
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '0ee321749850'
+revision = 'ddf8ce51fdaa'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,7 +23,7 @@ def upgrade():
     sa.Column('email', sa.String(length=120), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('lastname', sa.String(length=50), nullable=False),
-    sa.Column('password', sa.String(length=80), nullable=False),
+    sa.Column('password', sa.String(length=200), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('lastname'),
@@ -32,12 +32,10 @@ def upgrade():
     op.create_table('web',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
-    sa.Column('phone_number', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name'),
-    sa.UniqueConstraint('phone_number')
+    sa.UniqueConstraint('name')
     )
     op.create_table('branding',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -67,6 +65,7 @@ def upgrade():
     )
     op.create_table('content',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('phone_number', sa.Integer(), nullable=False),
     sa.Column('description', sa.String(length=500), nullable=False),
     sa.Column('instagram', sa.String(length=100), nullable=True),
     sa.Column('twitter', sa.String(length=100), nullable=True),
@@ -81,6 +80,7 @@ def upgrade():
     sa.UniqueConstraint('header'),
     sa.UniqueConstraint('instagram'),
     sa.UniqueConstraint('location'),
+    sa.UniqueConstraint('phone_number'),
     sa.UniqueConstraint('tiktok'),
     sa.UniqueConstraint('twitter')
     )

@@ -8,7 +8,8 @@ body {
   background-color: #f3f4f8;
 }
 
-h1, h2{
+h1,
+h2 {
   letter-spacing: -0.8px;
   font-weight: bold !important;
 }
@@ -21,41 +22,41 @@ h2 {
   font-size: 24px;
 }
 
-.caption-text{
+.caption-text {
   color: #352970 !important;
   font-size: 18px !important;
 }
 
-.white-test{
+.white-test {
   background-color: white;
 }
 
-.primary-test{
+.primary-test {
   background-color: #352970;
 }
 
 /* Landing Home Modals */
 
-.modal-fade-blur{
+.modal-fade-blur {
   background: rgba(0, 0, 0, 0.15) !important;
   backdrop-filter: blur(2px) !important;
 }
 
-.modal-rounded-corners{
+.modal-rounded-corners {
   border-radius: 20px !important;
-  padding: 35px
+  padding: 35px;
 }
 
 /*#region Buttons*/
 
-.btn, .btn-rounded{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+.btn,
+.btn-rounded {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
   font-weight: bold !important;
   letter-spacing: -0.6px !important;
 }
 
-.btn-rounded{
-  
+.btn-rounded {
   border-radius: 25px !important;
   padding-left: 20px !important;
   padding-right: 20px !important;
@@ -63,13 +64,13 @@ h2 {
   padding-bottom: 4px !important;
 }
 
-.btn-form{
+.btn-form {
   height: 45px !important;
 }
 
 /* Color primary */
 
-.btn-primary{
+.btn-primary {
   background-color: #352970 !important;
   border-color: #352970 !important;
 }
@@ -86,9 +87,9 @@ h2 {
 
 /* Color secondary */
 
-.btn-secondary{
-  background-color: #0B638F !important;
-  border-color: #0B638F !important;
+.btn-secondary {
+  background-color: #0b638f !important;
+  border-color: #0b638f !important;
 }
 
 .btn-secondary:hover {
@@ -102,11 +103,12 @@ h2 {
 }
 
 /* Color light */
-.btn-light, .btn-light:hover{
+.btn-light,
+.btn-light:hover {
   color: #352970 !important;
 }
 
-.btn-light{
+.btn-light {
   background-color: #ffffff !important;
   border-color: #ffffff !important;
 }
@@ -119,7 +121,7 @@ h2 {
 
 .btn-light:focus,
 .btn-light.focus {
-    box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 /*#endregion Buttons*/
@@ -128,14 +130,15 @@ h2 {
 
 /* Labels */
 
-label{
+label {
   font-size: 14px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
   font-weight: bold !important;
   letter-spacing: -0.6px !important;
 }
 
-input, select{
+input,
+select {
   height: 45px !important;
 }
 
@@ -143,19 +146,19 @@ input:focus,
 input.focus,
 select:focus,
 select.focus {
-    box-shadow: 0 0 0 .1rem #c6baff !important
+  box-shadow: 0 0 0 0.1rem #c6baff !important;
 }
 
 /*#endregion Inputs  */
 
-.footer{
+.footer {
   width: 100%;
   height: 40px;
   background-color: #352970;
   margin: auto;
 }
 
-.footer-content{
+.footer-content {
   color: white;
   vertical-align: middle;
   line-height: 40px;
@@ -264,3 +267,16 @@ select.focus {
   font-size: 0.7rem;
   margin: 0;
 }
+
+/*landing page home - Services */
+
+.service-list-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+}
+
