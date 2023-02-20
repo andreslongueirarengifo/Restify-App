@@ -170,3 +170,57 @@ def get_content_from_restaurant(web_id):
         "result": content_from_restaurant
     }
     return jsonify(response_body), 200
+
+#endpoint for template data
+@api.route('/template_data/<int:restaurant_name>', methods=['GET'])
+def get_template_data(restaurant_name):
+    restaurant_web = Web.query.filter_by(restaurant_name=name).first()
+    web_id = restaurant_web.id
+    web_branding = Branding.filter_by(web_id=web_id).first()
+    web_content = Content.filter_by(web_id=web_id).first()
+    web_categories = Food_category.filter_by(web_id=web_id).all()
+    food_categories = []
+    for category in web_categories:
+        category_dict = {}
+        category_dict['name'] = category.name
+        category_dict['photo_url'] = category.photo_url
+        category_foods = Food.query.filter_by(category_id=category.id).all()
+        category_dict['dishes'] = []
+        for food in category_foods:
+            food_dict = {}
+            food_dict['name'] = food.name
+            food_dict['description'] = food.description
+            food_dict['photo_url'] = food.image 
+            category_dict['dishes'].append(food_dict)
+        food_categories.append(category_dict)
+    if web_branding or web_content or food_categories is None:
+        abort(404)
+    response_body = {
+        "message": "ok",
+        "from_restaurant_name": restaurant_name,
+        "result": {
+            "color1": web_branding.color_font1,
+            "color2": web_branding.color_font2,
+            "colorback1": web_branding.color_bg1,
+            "colorback2": web_branding.color_bg2,
+            "colorextra1": web_branding.color_hover1,
+            "logo_url": web_branding.logo,
+            "logo_favicon_url": web_branding.logo_favicon,
+            "font": web_branding.font,
+            "facebook_url": web_content.facebook,
+            "instagram_url": web_content.instagram,
+            "twitter_url": web_content.twitter,
+            "phone_number": web_content.phone_number,
+            "restaurant_name": restaurant_name,
+            "restaurant_city": web_content.location_city,
+            "restaurant_street": web_content.location_street,
+            "restaurant_coordinates": web_content.location_coordinates,
+            "food_categories": food_categories
+        }
+    }
+    return jsonify(response_body), 200
+
+
+
+
+
