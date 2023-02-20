@@ -44,6 +44,11 @@ h2 {
   overflow-y: auto; /* make the div scrollable vertically */
 }
 
+.vertical-navbar{
+  height: 100vh;
+  background-color: #0a2540;
+}
+
 /* Landing Home Modals */
 
 .modal-fade-blur{
