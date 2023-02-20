@@ -32,7 +32,7 @@ return (
             <Routes>
                 <Route element={<HomeLP />} path="/" />
                 <Route element={<RestManagerLP />} path="/rest-manager" />
-                <Route element={<CreateRestaurantLP />} path="/create-restaurant" />
+                <Route element={<CreateRestaurantLP />} path="/createrestaurant" />
                 <Route element={<ContactTEMP />} path="/:web-name/contact" />
                 <Route element={<HomeTEMP />} path="/:web-name/home" />
                 <Route element={<MenuTEMP />} path="/:web-name/menu" />

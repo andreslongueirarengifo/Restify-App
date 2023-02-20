@@ -1,23 +1,30 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
-import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { getCurrentUserRestaurants } from "../../../service/rest_manager_service.js";
 import { CardAddRestaurant } from "./card_add_rest_lp.jsx";
 import { CardRestaurant } from "./card_restaurant_lp.jsx";
 
 
 export const CardListRest = ()=>{
 
-const tstArrWebs = [{name:"web1"},{name:"web2"},{name:"web3"}]
+    const [currentUserRestaurants, setCurrentUserRestaurants] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    
+    useEffect(() => {
+    const getRestaurantsData = async () => {
+        const data = await getCurrentUserRestaurants();
+        setCurrentUserRestaurants(data.result)
+    }
+    getRestaurantsData();
+    },[])
 
 return (
-    <Row xs={1} md={4} className="g-4">
-    {Array.from({ length: 4 }).map((_, idx) => (
-        <Col key={idx}>
-            <CardRestaurant />
-        </Col>
-        ))}
+    <Row xs={1} md={3} className="g-4">
+        {currentUserRestaurants.map((restaurant, index) => {
+            return <Col key={index}><CardRestaurant id={restaurant.id} name={restaurant.name} key={index}/></Col>
+        })}
         <Col>
         <CardAddRestaurant />
         </Col>
