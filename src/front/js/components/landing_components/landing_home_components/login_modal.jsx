@@ -33,7 +33,7 @@ const LoginModal = () => {
       ) : null}
       <button
         type="button"
-        className="btn btn-light btn-rounded"
+        className="btn btn-restify-light btn-rounded"
         data-bs-toggle="modal"
         data-bs-target="#loginModal">
         Ingresar

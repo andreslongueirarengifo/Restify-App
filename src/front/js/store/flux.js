@@ -2,6 +2,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			isAuthenticated: false,
+			createRestaurantFormData:{},
+			setBrandingFormData:{}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -10,6 +12,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			logoutState: () => {
 				setStore({isAuthenticated:false});
+			},
+			setRestautantFormData: (input, inputValue) => {
+				const store = getStore();
+				setStore({createRestaurantFormData: {...store.createRestaurantFormData, [input]:inputValue}})
+			},
+			setSetBrandingFormData: (obj) => {
+				const store = getStore();
+				setStore({setBrandingFormData: {...store.setBrandingFormData, ...obj}})
 			},
 
 			getMessage: async () => {

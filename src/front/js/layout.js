@@ -4,9 +4,9 @@ import { BrowserRouter, Route, Routes, redirect } from "react-router-dom";
 //IMPORT PAGES
 
 //control-panel
-import { BrandingCP } from "./pages/controlpanel/cp_branding";
-import { HomeCP } from "./pages/controlpanel/cp_home";
-import { MenuCP } from "./pages/controlpanel/cp_menu";
+import { BrandingCP } from "./pages/controlpanel/cp_branding.jsx";
+import { HomeCP } from "./pages/controlpanel/cp_home.jsx";
+import { MenuCP } from "./pages/controlpanel/cp_menu.jsx";
 
 //landing-page
 import { CreateRestaurantLP } from "./pages/landing/landing_createRestaurant.jsx";
@@ -26,29 +26,32 @@ const Layout = () => {
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
   //const basename = process.env.BASENAME || "";
 
-return (
+  return (
     <>
-    <BrowserRouter>
-            <Routes>
-                <Route element={<HomeLP />} path="/" />
-                <Route element={<RestManagerLP />} path="/rest-manager" />
-                <Route element={<CreateRestaurantLP />} path="/create-restaurant" />
-                <Route element={<ContactTEMP />} path="/:web-name/contact" />
-                <Route element={<HomeTEMP />} path="/:web-name/home" />
-                <Route element={<MenuTEMP />} path="/:web-name/menu" />
-                <Route element={<BrandingCP />}path="/controlpanel/branding/:web-name" />
-                <Route element={<HomeCP />} path="/controlpanel/home/:web-name" />
-                <Route element={<MenuCP />} path="/controlpanel/menu/:web-name" />
-                <Route element={<h1>Not found!</h1>} />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<HomeLP />} path="/" />
+          <Route element={<RestManagerLP />} path="/rest-manager" />
+          <Route element={<CreateRestaurantLP />} path="/createrestaurant" />
+          <Route element={<ContactTEMP />} path="/:web-name/contact" />
+          <Route element={<HomeTEMP />} path="/:web-name/home" />
+          <Route element={<MenuTEMP />} path="/:web-name/menu" />
+          <Route element={<BrandingCP />} path="/controlpanel/branding/:web-name" />
+          <Route element={<HomeCP />} path="/controlpanel/home/:web-name" />
+          <Route element={<MenuCP />} path="/controlpanel/menu/:web-name" />
+          <Route element={<h1>Not found!</h1>} />
 
-                {/* Testing */}
-                <Route element={<MenuTEMP />} path="/test-menu" />
-                <Route element={<HomeTEMP />} path="/test-home" />
-                <Route element={<ContactTEMP />} path="/test-contact" />
-            </Routes>
-    </BrowserRouter>
+          {/* Testing */}
+          <Route element={<MenuTEMP />} path="/test-menu" />
+          <Route element={<HomeTEMP />} path="/test-home" />
+          <Route element={<ContactTEMP />} path="/test-contact" />
+          <Route element={<BrandingCP />} path="/test-cp-branding" />
+          <Route element={<HomeCP />} path="/test-cp-home" />
+          <Route element={<MenuCP />} path="/test-cp-menu" />
+        </Routes>
+      </BrowserRouter>
     </>
-);
+  );
 
 };
 

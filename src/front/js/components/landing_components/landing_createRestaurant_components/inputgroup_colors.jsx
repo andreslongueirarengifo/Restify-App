@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import { Context } from "../../../store/appContext";
 
 export const InputGroupColors = () => {
 
+    const {store, actions} = useContext(Context);
     const [registerForm, setRegisterForm]= useState({
         color_bg1: "#352970",
         color_bg2: "#F3F4F8",
@@ -9,12 +11,15 @@ export const InputGroupColors = () => {
         color_font2: "#cecece",
         color_hover1: "#000000",
     })
-    const [paletteColors, setPaletteColors]= useState("")
-
+    
     const handleChange = (event) => {
-        console.log(event)
         setRegisterForm({...registerForm, [event.target.id]:event.target.value})
+        actions.setSetBrandingFormData(registerForm)
     }
+
+    useEffect(() => {
+        actions.setSetBrandingFormData(registerForm)
+    },[])
 
     return (
     <div className="p-0">
@@ -42,7 +47,7 @@ export const InputGroupColors = () => {
             </div>
         </div>
 
-        <button type="button" className="btn btn-secondary btn-rounded mt-3">Generar paleta aleatoria</button>
+        <button type="button" className="btn btn-restify btn-restify-secondary btn-rounded mt-3">Generar paleta aleatoria</button>
     </div>
     );
 }

@@ -61,7 +61,7 @@ const RegisterModal = () => {
                 </div>
               </div>
             </div>
-            <button onClick={handleClick} type="button" className="btn btn-primary btn-form">
+            <button onClick={handleClick} type="button" className="btn-restify btn-restify-primary btn-form">
               Registrar usuario
             </button>
           </div>
