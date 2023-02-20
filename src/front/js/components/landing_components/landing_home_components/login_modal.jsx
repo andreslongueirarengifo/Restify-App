@@ -5,6 +5,8 @@ import { Context } from "../../../store/appContext.js";
 
 import { Navigate } from "react-router-dom";
 
+import toast, { Toaster } from 'react-hot-toast';
+
 const LoginModal = () => {
   const { store, actions } = useContext(Context);
 
@@ -20,6 +22,7 @@ const LoginModal = () => {
     if (data.token) {
       actions.loginState();
     }
+    toast.error("Usuario o contraseña incorrectos")
   };
 
   return (
@@ -83,12 +86,18 @@ const LoginModal = () => {
             <button
               type="button"
               onClick={handleClick}
-              className="btn-restify btn-restify-primary btn-form">
+              className="btn btn-primary btn-form"
+              data-bs-dismiss="modal"
+              >
               Ingresar
             </button>
           </div>
         </div>
       </div>
+
+      <Toaster   
+      position="bottom-center"
+      reverseOrder={false}/>
     </>
   );
 };
