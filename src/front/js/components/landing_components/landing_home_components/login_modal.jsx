@@ -30,7 +30,7 @@ const LoginModal = () => {
       ) : null}
       <button
         type="button"
-        className="btn btn-light btn-rounded"
+        className="btn btn-restify-light btn-rounded"
         data-bs-toggle="modal"
         data-bs-target="#loginModal">
         Ingresar
@@ -83,7 +83,7 @@ const LoginModal = () => {
             <button
               type="button"
               onClick={handleClick}
-              className="btn btn-primary btn-form">
+              className="btn-restify btn-restify-primary btn-form">
               Ingresar
             </button>
           </div>

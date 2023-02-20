@@ -1,12 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import { Context } from "../../../store/appContext.js";
 
 export const InputGroupBasicInfo = () => {
 
+    const {store, actions} = useContext(Context);
     const [registerForm, setRegisterForm]= useState({})
     const [urlPreview, setUrlPreview]= useState("")
 
     const handleChange = (event) => {
         setRegisterForm({...registerForm, [event.target.id]:event.target.value})
+        actions.setRestautantFormData(event.target.id, event.target.value)
     }
 
     useEffect(() => {
@@ -22,10 +25,6 @@ export const InputGroupBasicInfo = () => {
                 Nombre de URL
             </label>
             <input type="text" onChange={handleChange} id="url_name" className="form-control" aria-label="Nombre"/>
-        </div>
-        <div className="col">
-            <label htmlFor="phone_number" className="form-label">Teléfono de contacto</label>
-            <input type="text" onChange={handleChange} id="phone_number" className="form-control" aria-label="Telefono"/>
         </div>
         </div>
         <p className="mt-2">La url de la web del restaurante será: restify.com/res/{urlPreview}</p>
