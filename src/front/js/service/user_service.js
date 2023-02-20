@@ -14,7 +14,7 @@ export const createUser = async (formData) => {
             }
         })
         const data = await response.json();
-        
+        console.log(data)
         localStorage.setItem("jwt-token", data.token);
         return data;
     }

@@ -4,26 +4,27 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import ImgJumbotron from '../../../../img/img_jumbotron.png'
 
 
 const JumbotronLP = () => {
     return(
 
-            <Row>
+            <Row className="mt-5">
                 <Col className="d-flex align-items-center">
                     <div className="jumbotron">
-                        <h1>La mejor plataforma para <span style={{color: "#352970"}}>tu restaurante</span></h1>
-                        <p>
-                            This is a simple hero unit, a simple jumbotron-style component for calling
-                            extra attention to featured content or information.
+                        <h1 style={{fontSize:"3.7rem"}}>La mejor plataforma para <span style={{color: "#352970"}}>tu restaurante</span></h1>
+                        <p style={{fontSize:"1.25rem"}}>
+                            ¡Crea tu restaurante en pocos pasos! Estamos para ayudarte a crecer y mejorar tu negocio
+                            con una increible web que <b>tú podrás crear 😎</b>
                         </p>
                         <p>
                             <RegisterModal/>
                         </p>
                     </div>
                 </Col>
-                <Col>
-                    <img src="https://www.freepnglogos.com/uploads/logo-website-png/logo-website-website-logo-png-transparent-background-background-15.png" width={"100%"} />
+                <Col className="d-flex justify-content-center">
+                    <img src={ImgJumbotron} alt="" />
                 </Col>
             </Row>
         

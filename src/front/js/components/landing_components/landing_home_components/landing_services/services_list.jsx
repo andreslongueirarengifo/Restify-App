@@ -10,17 +10,17 @@ export const ListServicesLP = () =>{
         service: "Página web",
         icon: <i className="fa-solid fa-table-columns"></i>,
         color: {backgroundColor: "#E1DFEA", color:"#352970"},
-        content: ""
+        content: "Crearás y mantendrás tu web ¡De forma rápida y sencilla!"
     },{
         service: "Branding",
         icon: <i className="fa-solid fa-palette"></i>,
         color: {backgroundColor: "#F6E9E0", color:"#BE6C31"},
-        content: ""
+        content: "¡Podrás añadir a la web estilos a tu gusto!"
     },{
         service: "Menu",
         icon: <i className="fa-regular fa-file-lines"></i>,
         color: {backgroundColor: "#DCE8DD", color:"#146117"},
-        content: ""
+        content: "No importa cual sea tu carta, la podrás crear sin problemas"
     }]
 
 
@@ -35,9 +35,7 @@ export const ListServicesLP = () =>{
             <Card.Body>
               <Card.Title className='mt-3'>{e.service}</Card.Title>
               <Card.Text className='mt-4'>
-                This is a longer card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
+                {e.content}
               </Card.Text>
             </Card.Body>
           </Card>

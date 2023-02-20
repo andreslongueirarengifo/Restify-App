@@ -9,16 +9,20 @@ const RegisterModal = () => {
     setRegisterForm({...registerForm, [event.target.id]:event.target.value})
   }
 
-  const handleClick = (event) => {
+  const test = () =>{
+
+  }
+
+  const handleClick = async (event) => {
     event.preventDefault();
-    createUser(registerForm)
+    const data = await createUser(registerForm)
   }
 
 
   return (
     <>
       {/* <!-- Button trigger modal --> */}
-      <button type="button" className="btn btn-secondary btn-rounded" data-bs-toggle="modal" data-bs-target="#registerModal">
+      <button type="button" className="btn btn-secondary btn-rounded" data-bs-toggle="modal" data-bs-target="#registerModal" style={{fontSize:"1.25rem"}}>
         Regístrate
       </button>
 

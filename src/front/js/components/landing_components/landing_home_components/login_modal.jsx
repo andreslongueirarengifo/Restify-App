@@ -5,6 +5,8 @@ import { Context } from "../../../store/appContext.js";
 
 import { Navigate } from "react-router-dom";
 
+import toast, { Toaster } from 'react-hot-toast';
+
 const LoginModal = () => {
   const { store, actions } = useContext(Context);
 
@@ -20,6 +22,7 @@ const LoginModal = () => {
     if (data.token) {
       actions.loginState();
     }
+    toast.error("Usuario o contraseña incorrectos")
   };
 
   return (
@@ -91,6 +94,10 @@ const LoginModal = () => {
           </div>
         </div>
       </div>
+
+      <Toaster   
+      position="bottom-center"
+      reverseOrder={false}/>
     </>
   );
 };
