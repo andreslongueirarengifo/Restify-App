@@ -22,7 +22,7 @@ const RegisterModal = () => {
   return (
     <>
       {/* <!-- Button trigger modal --> */}
-      <button type="button" className="btn btn-secondary btn-rounded" data-bs-toggle="modal" data-bs-target="#registerModal" style={{fontSize:"1.25rem"}}>
+      <button type="button" className="btn btn-secondary btn-restify-primary btn-rounded" data-bs-toggle="modal" data-bs-target="#registerModal" style={{fontSize:"1.25rem"}}>
         Regístrate
       </button>
 
@@ -61,7 +61,7 @@ const RegisterModal = () => {
                 </div>
               </div>
             </div>
-            <button onClick={handleClick} type="button" className="btn-restify btn-restify-primary btn-form">
+            <button onClick={handleClick} type="button" className="btn btn-restify btn-restify-primary btn-form">
               Registrar usuario
             </button>
           </div>
