@@ -63,7 +63,6 @@ def get_user(id):
     return jsonify(response_body), 200
 
 #restaurant endpoints
-
 #endpoint to create the restaurant by form button
 @api.route('/createrestautant', methods=['POST']) #necesita autenticación
 def create_restaurant():
@@ -159,7 +158,7 @@ def set_content():
     return jsonify({"message":"ok"}), 200
 
 #public endpoint to get all restaurant branding
-@api.route('/web_content/<int:web_id>', methods=['GET'])
+@api.route('/api/<int:web_id>', methods=['GET'])
 def get_content_from_restaurant(web_id):
     content_from_restaurant = Content.query.filter_by(web_id=web_id).first().serialize()
     if content_from_restaurant is None:
@@ -183,14 +182,31 @@ def get_template_data(restaurant_name):
     for category in web_categories:
         category_dict = {}
         category_dict['name'] = category.name
-        category_dict['photo_url'] = category.photo_url
         category_foods = Food.query.filter_by(category_id=category.id).all()
         category_dict['dishes'] = []
         for food in category_foods:
             food_dict = {}
             food_dict['name'] = food.name
             food_dict['description'] = food.description
-            food_dict['photo_url'] = food.image 
+            food_dict['price'] = food.price
+            food_dict['photo_url'] = food.image
+            allergens = Allergens.query.filter_by(food_id=food.id).first()
+            food_dict['allergens'] = {}
+            if allergens:
+                food_dict['allergens']['egg'] = allergens.egg
+                food_dict['allergens']['fish'] = allergens.fish
+                food_dict['allergens']['peanuts'] = allergens.peanuts
+                food_dict['allergens']['soja'] = allergens.soja
+                food_dict['allergens']['dairy'] = allergens.dairy
+                food_dict['allergens']['nuts'] = allergens.nuts
+                food_dict['allergens']['celery'] = allergens.celery
+                food_dict['allergens']['mustard'] = allergens.mustard
+                food_dict['allergens']['sesame'] = allergens.sesame
+                food_dict['allergens']['sulphites'] = allergens.sulphites
+                food_dict['allergens']['mollusks'] = allergens.mollusks
+                food_dict['allergens']['lupines'] = allergens.lupines
+                food_dict['allergens']['gluten'] = allergens.gluten
+                food_dict['allergens']['crustaceans'] = allergens.crustaceans
             category_dict['dishes'].append(food_dict)
         food_categories.append(category_dict)
     if web_branding or web_content or food_categories is None:
@@ -211,7 +227,7 @@ def get_template_data(restaurant_name):
             "instagram_url": web_content.instagram,
             "twitter_url": web_content.twitter,
             "phone_number": web_content.phone_number,
-            "restaurant_name": restaurant_name,
+            "restaurant_name": web_branding.branding_name,
             "restaurant_city": web_content.location_city,
             "restaurant_street": web_content.location_street,
             "restaurant_coordinates": web_content.location_coordinates,
