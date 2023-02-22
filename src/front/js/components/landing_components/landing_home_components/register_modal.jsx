@@ -1,30 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createUser } from "../../../service/user_service.js";
 
+import toast, { Toaster } from 'react-hot-toast';
 
 const RegisterModal = () => {
   const [registerForm, setRegisterForm] = useState({});
-
   const [ showButton, setShowButton ] = useState(false);
 
   const handleChange = (event) => {
     setRegisterForm({ ...registerForm, [event.target.id]: event.target.value });
-    
-    if(Object.keys(registerForm).length == 5){
-      if(!(registerForm.name === '' || registerForm.lastname === '' || registerForm.password === '' || registerForm.passwordRepeat === '')){
-        setShowButton(true)
-      }else{
-        setShowButton(false)
-      }
     }
+
+    useEffect(()=>{
+      if(Object.keys(registerForm).length == 5){
+        if(!(registerForm.name === '' || registerForm.lastname === '' || registerForm.password === '' || registerForm.passwordRepeat === '' || registerForm.email === '')){
+          setShowButton(true)
+        }else{
+          setShowButton(false)
+        }
+    }},[registerForm])
     
     console.log(registerForm)
-  };
 
   const handleClick = async (event) => {
     event.preventDefault();
     //createUser(registerForm);
     console.log(showButton)
+    toast.success('Registro exitoso😎')
   };
 
   return (
@@ -132,7 +134,8 @@ const RegisterModal = () => {
             <button
               onClick={handleClick}
               type="button"
-              className="btn btn-restify btn-restify-primary btn-form">
+              className="btn btn-restify btn-restify-primary btn-form"
+              data-bs-dismiss="modal">
               Registrar usuario
               </button>
             }
@@ -140,6 +143,11 @@ const RegisterModal = () => {
           </div>
         </div>
       </div>
+
+      <Toaster
+        position="bottom-left"
+        reverseOrder={false}
+      />
     </>
   );
 };

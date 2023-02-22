@@ -96,7 +96,7 @@ const LoginModal = () => {
       </div>
 
       <Toaster   
-      position="bottom-center"
+      position="bottom-left"
       reverseOrder={false}/>
     </>
   );
