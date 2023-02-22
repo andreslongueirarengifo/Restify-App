@@ -21,6 +21,10 @@ export const RestManagerLP = () => {
     getCurrentUserData();
   },[])
 
+  if(isLoading){
+    return <h1>Loading</h1>
+  }
+
   return (
     <div className="container-fluid p-0">
       <NavbarRestManager />
