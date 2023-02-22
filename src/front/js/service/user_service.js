@@ -53,3 +53,22 @@ export const getCurrentUser= async ()=>{
         return e
     }
 }
+
+export const getUsers = async ()=>{
+    try {
+        const response = await fetch(process.env.BACKEND_URL+"/api/users", {
+            method: "GET",
+            body: JSON.stringify(formData),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        const data = await response.json();
+        console.log(data)
+        localStorage.setItem("jwt-token", data.token);
+        return data;
+    }
+    catch(e){
+        return e
+    }
+}

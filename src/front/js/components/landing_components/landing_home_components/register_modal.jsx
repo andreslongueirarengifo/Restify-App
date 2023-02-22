@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createUser } from "../../../service/user_service.js";
+import { createUser, getUsers } from "../../../service/user_service.js";
 
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -12,6 +12,10 @@ const RegisterModal = () => {
     }
 
     useEffect(()=>{
+      console.log(getUsers())
+    },[])
+
+    useEffect(()=>{
       if(Object.keys(registerForm).length == 5){
         if(!(registerForm.name === '' || registerForm.lastname === '' || registerForm.password === '' || registerForm.passwordRepeat === '' || registerForm.email === '')){
           setShowButton(true)
@@ -20,12 +24,9 @@ const RegisterModal = () => {
         }
     }},[registerForm])
     
-    console.log(registerForm)
-
   const handleClick = async (event) => {
     event.preventDefault();
     //createUser(registerForm);
-    console.log(showButton)
     toast.success('Registro exitoso😎')
   };
 
