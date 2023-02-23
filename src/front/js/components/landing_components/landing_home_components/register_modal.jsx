@@ -5,19 +5,37 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const RegisterModal = () => {
   const [registerForm, setRegisterForm] = useState({});
+
+  const [email, setEmail] = useState({});
+
   const [ showButton, setShowButton ] = useState(false);
+
+  const [ usersList, setUsersList ] = useState([]);
+
+  const [ emailExist, setEmailExist ] = useState(false);
 
   const handleChange = (event) => {
     setRegisterForm({ ...registerForm, [event.target.id]: event.target.value });
     }
 
-    useEffect(()=>{
-      console.log(getUsers())
+    const handleChangeEmail = (e) =>{
+      setRegisterForm({ ...registerForm, [e.target.id]: e.target.value });
+      setEmail({...email,[e.target.id]: e.target.value })
+      let arrayEmails = []
+      usersList.map((el)=>{
+        arrayEmails.push(el.email)
+      })
+      setEmailExist(arrayEmails.includes(e.target.value))
+    }
+
+    useEffect(async ()=>{
+      const data = await getUsers()
+      setUsersList([...data.result])
     },[])
 
     useEffect(()=>{
       if(Object.keys(registerForm).length == 5){
-        if(!(registerForm.name === '' || registerForm.lastname === '' || registerForm.password === '' || registerForm.passwordRepeat === '' || registerForm.email === '')){
+        if(!(registerForm.name === '' || registerForm.lastname === '' || registerForm.password === '' || registerForm.passwordRepeat === '' || registerForm.email === '') && emailExist==false){
           setShowButton(true)
         }else{
           setShowButton(false)
@@ -54,13 +72,13 @@ const RegisterModal = () => {
         <div className="modal-dialog modal-lg modal-dialog-centered">
           <div className="modal-content modal-rounded-corners">
             <label className="modal-title text-center h3" id="registerModalLabel">
-              Crea tu cuenta de Restify
+              Crea tu cuenta de <span style={{color:"#352970"}}>Restify</span>
             </label>
             <div className="modal-body p-0 py-3">
               <div className="row">
                 <div className="col">
                   <label htmlFor="name" className="form-label">
-                    Nombre
+                    Nombre *
                   </label>
                   <input
                     type="text"
@@ -73,7 +91,7 @@ const RegisterModal = () => {
 
                 <div className="col">
                   <label htmlFor="lastname" className="form-label">
-                    Apellidos
+                    Apellidos *
                   </label>
                   <input
                     type="text"
@@ -87,21 +105,22 @@ const RegisterModal = () => {
               <div className="row py-3">
                 <div className="col">
                   <label htmlFor="email" className="form-label">
-                    Email
+                    Email *
                   </label>
                   <input
                     type="text"
-                    onKeyUp={handleChange}
+                    onKeyUp={handleChangeEmail}
                     id="email"
                     className="form-control"
                     aria-label="Email"
                   />
+                  {emailExist?<label style={{color:"#A81409"}}>El email ya ha sido registrado anteriormente</label>: null}
                 </div>
               </div>
               <div className="row">
                 <div className="col">
                   <label htmlFor="password" className="form-label">
-                    Contraseña
+                    Contraseña *
                   </label>
                   <input
                     type="password"
@@ -113,7 +132,7 @@ const RegisterModal = () => {
                 </div>
                 <div className="col">
                   <label htmlFor="passwordRepeat" className="form-label">
-                    Confirmar contraseña
+                    Confirmar contraseña *
                   </label>
                   <input
                     type="password"
@@ -124,8 +143,8 @@ const RegisterModal = () => {
                   />
                 </div>
               </div>
+              <label style={{color:"#9f9f9f"}}>Los campos con * son obligatorios</label>
             </div>
-
             {!showButton?<button
               onClick={handleClick}
               type="button"
