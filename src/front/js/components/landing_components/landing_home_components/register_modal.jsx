@@ -29,6 +29,10 @@ const RegisterModal = () => {
       }
   }},[registerForm])
 
+  useEffect( () =>{
+    setPassValidation(registerForm.password===registerForm.passwordRepeat)
+  },[registerForm])
+    
   const handleChange = (event) => {
     setRegisterForm({ ...registerForm, [event.target.id]: event.target.value });
   }
@@ -42,10 +46,6 @@ const RegisterModal = () => {
     setEmailExist(arrayEmails.includes(e.target.value))
   }
 
-  useEffect( () =>{
-    setPassValidation(registerForm.password===registerForm.passwordRepeat)
-  },[registerForm])
-    
   const handleClick = async (event) => {
     event.preventDefault();
     createUser(registerForm);
