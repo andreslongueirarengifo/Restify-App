@@ -6,45 +6,49 @@ import toast, { Toaster } from 'react-hot-toast';
 const RegisterModal = () => {
   const [registerForm, setRegisterForm] = useState({});
 
-  const [email, setEmail] = useState({});
-
   const [ showButton, setShowButton ] = useState(false);
 
   const [ usersList, setUsersList ] = useState([]);
 
   const [ emailExist, setEmailExist ] = useState(false);
 
+  const [ passValidation, setPassValidation ] = useState(true);
+
+
+  useEffect(async ()=>{
+    const data = await getUsers()
+    setUsersList([...data.result])
+  },[])
+
+  useEffect(()=>{
+    if(Object.keys(registerForm).length == 5){
+      if(!(registerForm.name === '' || registerForm.lastname === '' || registerForm.password === '' || registerForm.passwordRepeat === '' || registerForm.email === '') && emailExist==false){
+        setShowButton(true)
+      }else{
+        setShowButton(false)
+      }
+  }},[registerForm])
+
   const handleChange = (event) => {
     setRegisterForm({ ...registerForm, [event.target.id]: event.target.value });
-    }
+  }
 
-    const handleChangeEmail = (e) =>{
-      setRegisterForm({ ...registerForm, [e.target.id]: e.target.value });
-      setEmail({...email,[e.target.id]: e.target.value })
-      let arrayEmails = []
-      usersList.map((el)=>{
-        arrayEmails.push(el.email)
-      })
-      setEmailExist(arrayEmails.includes(e.target.value))
-    }
+  const handleChangeEmail = (e) =>{
+    setRegisterForm({ ...registerForm, [e.target.id]: e.target.value });
+    let arrayEmails = []
+    usersList.map((el)=>{
+      arrayEmails.push(el.email)
+    })
+    setEmailExist(arrayEmails.includes(e.target.value))
+  }
 
-    useEffect(async ()=>{
-      const data = await getUsers()
-      setUsersList([...data.result])
-    },[])
-
-    useEffect(()=>{
-      if(Object.keys(registerForm).length == 5){
-        if(!(registerForm.name === '' || registerForm.lastname === '' || registerForm.password === '' || registerForm.passwordRepeat === '' || registerForm.email === '') && emailExist==false){
-          setShowButton(true)
-        }else{
-          setShowButton(false)
-        }
-    }},[registerForm])
+  useEffect( () =>{
+    setPassValidation(registerForm.password===registerForm.passwordRepeat)
+  },[registerForm])
     
   const handleClick = async (event) => {
     event.preventDefault();
-    //createUser(registerForm);
+    createUser(registerForm);
     toast.success('Registro exitoso😎')
   };
 
@@ -141,6 +145,7 @@ const RegisterModal = () => {
                     className="form-control"
                     aria-label="Confirmar contraseña"
                   />
+                  {!passValidation?<label style={{color:"#A81409"}}>Las contraseñas deben coincidir</label>: null}
                 </div>
               </div>
               <label style={{color:"#9f9f9f"}}>Los campos con * son obligatorios</label>
