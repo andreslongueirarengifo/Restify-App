@@ -52,6 +52,7 @@ class Branding(db.Model):
     web_id = db.Column(db.Integer, db.ForeignKey('web.id'))
     web = db.relationship('Web', backref='branding')
 
+
     def serialize(self):
         return {
             "id": self.id,
@@ -72,7 +73,6 @@ class Content(db.Model):
     instagram = db.Column(db.String(100), unique=True, nullable=True)
     twitter = db.Column(db.String(100), unique=True, nullable=True)
     facebook = db.Column(db.String(100), unique=True, nullable=True)
-    tiktok = db.Column(db.String(100), unique=True, nullable=True)
     location_street = db.Column(db.String(100), unique=True, nullable=True)
     location_city = db.Column(db.String(100), unique=True, nullable=True)
     location_coordinates = db.Column(db.String(25), unique=True, nullable=True)
@@ -113,27 +113,26 @@ class Food_category(db.Model):
 class Allergens(db.Model):
     __tablename__ = 'allergens'
     id = db.Column(db.Integer, primary_key=True)
-    food_id = db.Column(db.Intenger, db.ForeignKey('food.id'), unique=True, nullable=False)
-    egg = db.Column(db.Boolean, unique=False default=False)
-    fish = db.Column(db.Boolean, unique=False default=False)
-    peanuts = db.Column(db.Boolean, unique=False default=False)
-    soja = db.Column(db.Boolean, unique=False default=False)
-    dairy = db.Column(db.Boolean, unique=False default=False)
-    nuts = db.Column(db.Boolean, unique=False default=False)
-    celery = db.Column(db.Boolean, unique=False default=False)
-    mustard = db.Column(db.Boolean, unique=False default=False)
-    sesame = db.Column(db.Boolean, unique=False default=False)
-    sulphites = db.Column(db.Boolean, unique=False default=False)
-    mollusks = db.Column(db.Boolean, unique=False default=False)
-    lupines = db.Column(db.Boolean, unique=False default=False)
-    gluten = db.Column(db.Boolean, unique=False default=False)
-    crustaceans = db.Column(db.Boolean, unique=False default=False)
+    food_id = db.Column(db.Integer, db.ForeignKey('food.id'))
+    egg = db.Column(db.Boolean, unique=False, default=False)
+    fish = db.Column(db.Boolean, unique=False, default=False)
+    peanuts = db.Column(db.Boolean, unique=False, default=False)
+    soja = db.Column(db.Boolean, unique=False, default=False)
+    dairy = db.Column(db.Boolean, unique=False, default=False)
+    nuts = db.Column(db.Boolean, unique=False, default=False)
+    celery = db.Column(db.Boolean, unique=False, default=False)
+    mustard = db.Column(db.Boolean, unique=False, default=False)
+    sesame = db.Column(db.Boolean, unique=False, default=False)
+    sulphites = db.Column(db.Boolean, unique=False, default=False)
+    mollusks = db.Column(db.Boolean, unique=False, default=False)
+    lupines = db.Column(db.Boolean, unique=False, default=False)
+    gluten = db.Column(db.Boolean, unique=False, default=False)
+    crustaceans = db.Column(db.Boolean, unique=False, default=False)
     food = db.relationship("Food", backref='allergens')
 
     def serialize(self):
         return{
             "id": self.id,
-            "food_id": self.id,
             "egg": self.egg,
             "fish": self.fish,
             "peanuts": self.peanuts,

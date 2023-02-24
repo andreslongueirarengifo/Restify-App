@@ -1,8 +1,8 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint, json
-from api.models import db, User, Web, Branding, Content
+from flask import Flask, request, jsonify, url_for, Blueprint, json, abort
+from api.models import db, User, Web, Branding, Content, Food, Food_category, Allergens
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token,jwt_required, get_jwt_identity
 import bcrypt
@@ -158,7 +158,7 @@ def set_content():
     return jsonify({"message":"ok"}), 200
 
 #public endpoint to get all restaurant branding
-@api.route('/api/<int:web_id>', methods=['GET'])
+@api.route('/<int:web_id>', methods=['GET'])
 def get_content_from_restaurant(web_id):
     content_from_restaurant = Content.query.filter_by(web_id=web_id).first().serialize()
     if content_from_restaurant is None:
@@ -171,13 +171,13 @@ def get_content_from_restaurant(web_id):
     return jsonify(response_body), 200
 
 #endpoint for template data
-@api.route('/template_data/<int:restaurant_name>', methods=['GET'])
+@api.route('/template_data/<string:restaurant_name>', methods=['GET'])
 def get_template_data(restaurant_name):
-    restaurant_web = Web.query.filter_by(restaurant_name=name).first()
+    restaurant_web = Web.query.filter_by(name=restaurant_name).first()
     web_id = restaurant_web.id
-    web_branding = Branding.filter_by(web_id=web_id).first()
-    web_content = Content.filter_by(web_id=web_id).first()
-    web_categories = Food_category.filter_by(web_id=web_id).all()
+    web_branding = Branding.query.filter_by(web_id=web_id).first()
+    web_content = Content.query.filter_by(web_id=web_id).first()
+    web_categories = Food_category.query.filter_by(web_id=web_id).all()
     food_categories = []
     for category in web_categories:
         category_dict = {}
@@ -209,7 +209,8 @@ def get_template_data(restaurant_name):
                 food_dict['allergens']['crustaceans'] = allergens.crustaceans
             category_dict['dishes'].append(food_dict)
         food_categories.append(category_dict)
-    if web_branding or web_content or food_categories is None:
+    print (food_categories)
+    if restaurant_name is None:
         abort(404)
     response_body = {
         "message": "ok",
@@ -227,7 +228,7 @@ def get_template_data(restaurant_name):
             "instagram_url": web_content.instagram,
             "twitter_url": web_content.twitter,
             "phone_number": web_content.phone_number,
-            "restaurant_name": web_branding.branding_name,
+            "restaurant_name": web_branding.brand_name,
             "restaurant_city": web_content.location_city,
             "restaurant_street": web_content.location_street,
             "restaurant_coordinates": web_content.location_coordinates,
@@ -235,8 +236,3 @@ def get_template_data(restaurant_name):
         }
     }
     return jsonify(response_body), 200
-
-
-
-
-
