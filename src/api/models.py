@@ -128,6 +128,7 @@ class Allergens(db.Model):
     lupines = db.Column(db.Boolean, unique=False default=False)
     gluten = db.Column(db.Boolean, unique=False default=False)
     crustaceans = db.Column(db.Boolean, unique=False default=False)
+    food = db.relationship("Food", backref='allergens')
 
     def serialize(self):
         return{
