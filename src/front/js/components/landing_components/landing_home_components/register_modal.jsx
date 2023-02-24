@@ -15,9 +15,12 @@ const RegisterModal = () => {
   const [ passValidation, setPassValidation ] = useState(true);
 
 
-  useEffect(async ()=>{
-    const data = await getUsers()
-    setUsersList([...data.result])
+  useEffect(()=>{
+    const test = async ()=>{
+      const data = await getUsers()
+      setUsersList([...data.result])
+    }
+    test()
   },[])
 
   useEffect(()=>{
