@@ -341,3 +341,9 @@ select.focus {
 	margin-top: 10rem;
 	margin-bottom: 6rem;
 }
+
+
+/*Justify text*/
+.justify{
+  text-align: justify ;
+}
