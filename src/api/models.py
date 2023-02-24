@@ -37,6 +37,11 @@ class Web(db.Model):
             "name": self.name
         }
 
+    def serialize_id(self):
+        return {
+            "web_id": self.id
+        }
+
 class Branding(db.Model):
     __tablename__ = 'branding'
     id = db.Column(db.Integer, primary_key=True)

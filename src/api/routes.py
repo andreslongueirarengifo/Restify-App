@@ -4,6 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint, json, abort
 from api.models import db, User, Web, Branding, Content, Food, Food_category, Allergens
 from api.utils import generate_sitemap, APIException
+from flask_cors import cross_origin
 from flask_jwt_extended import create_access_token,jwt_required, get_jwt_identity
 import bcrypt
 
@@ -13,7 +14,7 @@ api = Blueprint('api', __name__)
 @api.route('/signup', methods=['POST'])
 def login_signup():
     data = json.loads(request.data)
-    
+
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(data["password"].encode('utf-8'),salt)
 
@@ -22,42 +23,44 @@ def login_signup():
     user = User(name=data["name"],lastname=data["lastname"],email=data["email"], password=decoded_password)
     db.session.add(user)
     db.session.commit()
-    
+
     access_token = create_access_token(identity=user.id)
 
     return jsonify({"status":"ok", "token": access_token, "user_id":user.id}), 200
-    
+
 @api.route('/login', methods=['POST'])
 def login():
     data = json.loads(request.data)
     user = User.query.filter_by(email=data["email"]).first()
 
     if not user:
-        return jsonify({"message":"User not found"}), 404
+        return jsonify({"msg":"User not found"}), 404
 
 
     if bcrypt.checkpw(data["password"].encode('utf-8'), user.password.encode('utf-8')):
         access_token = create_access_token(identity=user.id)
-        return  jsonify({"status":"ok", "token":access_token, "user":user.email})
+        return  jsonify({"status":"ok", "token":access_token, "user":user.email}), 200
     else:
-        return jsonify({"status":"error"})
+        return jsonify({"status":"error"}), 404
 
 @api.route('/users', methods=['GET'])
 def get_users():
     users = [user.serialize() for user in User.query.all()]
     response_body = {
-        "message":"ok",
+        "msg":"ok",
         "result":users
     }
     return jsonify(response_body), 200
 
-@api.route('/users/<int:id>', methods=['GET'])
-def get_user(id):
-    user = User.query.get(id).serialize()
+@api.route('/currentuser', methods=['GET'])
+@jwt_required()
+def get_current_user():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id).serialize()
     if user is None:
         abort(404)
     response_body = {
-        "message":"ok",
+        "msg":"ok",
         "result":user
     }
     return jsonify(response_body), 200
@@ -65,19 +68,29 @@ def get_user(id):
 #restaurant endpoints
 #endpoint to create the restaurant by form button
 @api.route('/createrestautant', methods=['POST']) #necesita autenticación
+@jwt_required()
+@cross_origin()
 def create_restaurant():
+    current_user_id = get_jwt_identity()
     data = json.loads(request.data)
-    restaurant = Web(name=data["name"],phone_number=data["phone_number"], user_id=data["user_id"])
+    print("--------------------")
+    print(data)
+    print("--------------------")
+    restaurant = Web(name=data["url_name"], user_id=current_user_id)
     db.session.add(restaurant)
     db.session.commit()
-    return jsonify({"message":"ok"}), 200
+    response_body = jsonify({
+        "msg":"ok",
+        "result": restaurant.serialize_id()
+    })
+    return response_body, 200
 
 #public endpoint to get all restaurants
 @api.route('/restaurants', methods=['GET'])
 def get_restaurants():
     restaurants = [restaurant.serialize() for restaurant in Web.query.all()]
     response_body = {
-        "message":"ok",
+        "msg":"ok",
         "result": restaurants
     }
     return jsonify(response_body), 200
@@ -89,17 +102,35 @@ def get_restaurant(id):
     if restaurant is None:
         abort(404)
     response_body = {
-        "message":"ok",
+        "msg":"ok",
         "result": restaurant
     }
     return jsonify(response_body), 200
 
+#private endpoints
+@api.route('/currentrestaurants', methods=['GET'])
+@jwt_required()
+def get_current_user_restaurants():
+    current_user_id = get_jwt_identity()
+    current_user_restaurants = [restaurant.serialize() for restaurant in Web.query.filter_by(user_id=current_user_id).all()]
+    if current_user_restaurants is None:
+        abort(404)
+    response_body = {
+        "msg":"ok",
+        "from_restaurant_id": current_user_id,
+        "result": current_user_restaurants
+    }
+    return jsonify(response_body), 200
+
+
 #restaurant branding endpoints
 #First time you set the branding
-@api.route('/setbranding', methods=['POST']) #Necesita autenticación
+@api.route('/setbranding', methods=['POST'])
+@jwt_required() #Necesita autenticación
+@cross_origin()
 def set_branding():
+    current_user_id = get_jwt_identity()
     data = json.loads(request.data)
-
     branding_web=Web.query.get(data["web_id"])
 
     if branding_web is None:
@@ -108,7 +139,8 @@ def set_branding():
     branding = Branding(
     color_bg1=data["color_bg1"],
     color_bg2=data["color_bg2"],
-    color_font1=data["color_bg1"],
+    color_font1=data["color_font1"],
+    color_font2=data["color_font2"],
     color_hover1=data["color_hover1"],
     logo=data["logo"],
     logo_favicon=data["logo_favicon"],
@@ -117,7 +149,11 @@ def set_branding():
     web_id=data["web_id"])
     db.session.add(branding)
     db.session.commit()
-    return jsonify({"message":"ok"}), 200
+    response_body = jsonify({
+        "msg":"ok",
+        "result": branding.serialize()
+    })
+    return response_body, 200
 
 #public endpoint to get all restaurant branding
 @api.route('/branding/<int:web_id>', methods=['GET'])
@@ -126,7 +162,7 @@ def get_branding_from_restaurant(web_id):
     if branding_from_restaurant is None:
         abort(404)
     response_body = {
-        "message":"ok",
+        "msg":"ok",
         "from_restaurant_id": web_id,
         "result": branding_from_restaurant
     }
@@ -155,7 +191,7 @@ def set_content():
     )
     db.session.add(content)
     db.session.commit()
-    return jsonify({"message":"ok"}), 200
+    return jsonify({"msg":"ok"}), 200
 
 #public endpoint to get all restaurant branding
 @api.route('/<int:web_id>', methods=['GET'])
@@ -164,7 +200,7 @@ def get_content_from_restaurant(web_id):
     if content_from_restaurant is None:
         abort(404)
     response_body = {
-        "message":"ok",
+        "msg":"ok",
         "from_restaurant_id": web_id,
         "result": content_from_restaurant
     }
