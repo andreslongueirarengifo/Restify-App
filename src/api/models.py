@@ -53,7 +53,7 @@ class Branding(db.Model):
     logo = db.Column(db.String(200), unique=True, nullable=False)
     logo_favicon = db.Column(db.String(200), unique=True, nullable=False)
     font = db.Column(db.String(200), unique=False, nullable=False)
-    brand_name = db.Column(db.String(100), unique=True, nullable=False)
+    brand_name = db.Column(db.String(100), unique=False, nullable=False)
     web_id = db.Column(db.Integer, db.ForeignKey('web.id'))
     web = db.relationship('Web', backref='branding')
 

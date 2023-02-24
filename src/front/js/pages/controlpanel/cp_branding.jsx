@@ -1,14 +1,19 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useContext} from "react";
 import { useParams } from "react-router-dom";
+import { BrandingInputBody } from "../../components/controlpanel_components/cp_branding_components/brandingtInputBody.jsx";
 import { NavbarCP } from "../../components/controlpanel_components/navbar_cp.jsx";
+import { TopBarCP } from "../../components/controlpanel_components/topbar_cp.jsx";
+import { Context } from "../../store/appContext.js";
 
 export const BrandingCP = () => {
 
+  const { store, actions } = useContext(Context);
+
   let currentRestaurant = useParams();
 
-useEffect(() => {
-  console.log("hola")
-}, [])
+  useEffect(() => {
+    actions.setCurrentRestaurantName(currentRestaurant.webName)
+  }, [])
 
   return (
     <div className="container-fluid p-0">
@@ -17,7 +22,8 @@ useEffect(() => {
           <NavbarCP webName={currentRestaurant.webName}/>
         </div>
         <div className="col-10 p-0">
-          <h1>Branding Input bodys</h1>
+          <TopBarCP />
+          <BrandingInputBody />
         </div>
       </div>
     </div>
