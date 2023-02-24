@@ -11,6 +11,17 @@ const LoginModal = () => {
   const { store, actions } = useContext(Context);
 
   const [loginForm, setLoginForm] = useState({});
+  
+  const [ showButton, setShowButton ] = useState(false)
+
+  useEffect(()=>{
+    if(Object.keys(loginForm).length == 2){
+      if(!(loginForm.password === '' ||loginForm.email === '')){
+        setShowButton(true)
+      }else{
+        setShowButton(false)
+      }
+  }},[loginForm])
 
   const handleChange = (event) => {
     setLoginForm({ ...loginForm, [event.target.id]: event.target.value });
@@ -83,20 +94,31 @@ const LoginModal = () => {
                 </div>
               </div>
             </div>
-            <button
+            {!showButton?<button
               type="button"
               onClick={handleClick}
-              className="btn btn-primary btn-form"
+              className="btn btn-primary btn-form btn-restify-primary"
               data-bs-dismiss="modal"
+              disabled
               >
               Ingresar
             </button>
+            :
+            <button
+              type="button"
+              onClick={handleClick}
+              className="btn btn-primary btn-form btn-restify-primary"
+              data-bs-dismiss="modal"
+              >
+              Ingresar
+            </button>}
+            
           </div>
         </div>
       </div>
 
       <Toaster   
-      position="bottom-center"
+      position="bottom-left"
       reverseOrder={false}/>
     </>
   );

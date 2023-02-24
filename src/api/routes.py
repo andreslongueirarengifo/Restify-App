@@ -1,8 +1,8 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint, json
-from api.models import db, User, Web, Branding, Content
+from flask import Flask, request, jsonify, url_for, Blueprint, json, abort
+from api.models import db, User, Web, Branding, Content, Food, Food_category, Allergens
 from api.utils import generate_sitemap, APIException
 from flask_cors import cross_origin
 from flask_jwt_extended import create_access_token,jwt_required, get_jwt_identity
@@ -66,7 +66,6 @@ def get_current_user():
     return jsonify(response_body), 200
 
 #restaurant endpoints
-
 #endpoint to create the restaurant by form button
 @api.route('/createrestautant', methods=['POST']) #necesita autenticación
 @jwt_required()
@@ -209,6 +208,7 @@ def set_content():
     db.session.commit()
     return jsonify({"msg":"ok"}), 200
 
+
 #public endpoint to get all restaurant content
 @api.route('/web_content/<int:web_id>', methods=['GET'])
 def get_content_from_restaurant(web_id):
@@ -219,5 +219,72 @@ def get_content_from_restaurant(web_id):
         "msg":"ok",
         "from_restaurant_id": web_id,
         "result": content_from_restaurant
+    }
+    return jsonify(response_body), 200
+
+#endpoint for template data
+@api.route('/template_data/<string:restaurant_name>', methods=['GET'])
+def get_template_data(restaurant_name):
+    restaurant_web = Web.query.filter_by(name=restaurant_name).first()
+    web_id = restaurant_web.id
+    web_branding = Branding.query.filter_by(web_id=web_id).first()
+    web_content = Content.query.filter_by(web_id=web_id).first()
+    web_categories = Food_category.query.filter_by(web_id=web_id).all()
+    food_categories = []
+    for category in web_categories:
+        category_dict = {}
+        category_dict['name'] = category.name
+        category_foods = Food.query.filter_by(category_id=category.id).all()
+        category_dict['dishes'] = []
+        for food in category_foods:
+            food_dict = {}
+            food_dict['name'] = food.name
+            food_dict['description'] = food.description
+            food_dict['price'] = food.price
+            food_dict['photo_url'] = food.image
+            allergens = Allergens.query.filter_by(food_id=food.id).first()
+            food_dict['allergens'] = {}
+            if allergens:
+                food_dict['allergens']['egg'] = allergens.egg
+                food_dict['allergens']['fish'] = allergens.fish
+                food_dict['allergens']['peanuts'] = allergens.peanuts
+                food_dict['allergens']['soja'] = allergens.soja
+                food_dict['allergens']['dairy'] = allergens.dairy
+                food_dict['allergens']['nuts'] = allergens.nuts
+                food_dict['allergens']['celery'] = allergens.celery
+                food_dict['allergens']['mustard'] = allergens.mustard
+                food_dict['allergens']['sesame'] = allergens.sesame
+                food_dict['allergens']['sulphites'] = allergens.sulphites
+                food_dict['allergens']['mollusks'] = allergens.mollusks
+                food_dict['allergens']['lupines'] = allergens.lupines
+                food_dict['allergens']['gluten'] = allergens.gluten
+                food_dict['allergens']['crustaceans'] = allergens.crustaceans
+            category_dict['dishes'].append(food_dict)
+        food_categories.append(category_dict)
+    print (food_categories)
+    if restaurant_name is None:
+        abort(404)
+    response_body = {
+        "message": "ok",
+        "from_restaurant_name": restaurant_name,
+        "result": {
+            "color1": web_branding.color_font1,
+            "color2": web_branding.color_font2,
+            "colorback1": web_branding.color_bg1,
+            "colorback2": web_branding.color_bg2,
+            "colorextra1": web_branding.color_hover1,
+            "logo_url": web_branding.logo,
+            "logo_favicon_url": web_branding.logo_favicon,
+            "font": web_branding.font,
+            "facebook_url": web_content.facebook,
+            "instagram_url": web_content.instagram,
+            "twitter_url": web_content.twitter,
+            "phone_number": web_content.phone_number,
+            "restaurant_name": web_branding.brand_name,
+            "restaurant_city": web_content.location_city,
+            "restaurant_street": web_content.location_street,
+            "restaurant_coordinates": web_content.location_coordinates,
+            "food_categories": food_categories
+        }
     }
     return jsonify(response_body), 200
