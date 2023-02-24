@@ -9,24 +9,24 @@ export const NavbarCP = (props) => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="m-0">
-			<ul className="nav flex-column vertical-navbar p-4">
-				<li className="nav-item">
-					<img src={logoWhite} alt="Restify" width="88" height="24" onClick={() => navigate(`/`)} />
+		<div className="m-0 w-100">
+			<ul className="nav flex-column vertical-navbar p-2 px-4">
+				<li className="nav-item text-center mb-2">
+					<img src={logoWhite} alt="Restify" width="88" height="24" onClick={() => navigate(`/rest-manager`)} />
 				</li>
 				<li className="nav-item">
-					<a className="nav-link" aria-current="page" onClick={() => navigate(`/controlpanel/home/${props.webName}`)}>
-						Content
+					<a className="nav-link cpnav-item" aria-current="page" onClick={() => navigate(`/controlpanel/home/${props.webName}`)}>
+						<i className="fa-solid fa-house me-2 cpnav-icon text-center"></i> Content
 					</a>
 				</li>
 				<li className="nav-item">
-					<a className="nav-link" onClick={() => navigate(`/controlpanel/branding/${props.webName}`)}>
-						Branding
+					<a className="nav-link cpnav-item" onClick={() => navigate(`/controlpanel/branding/${props.webName}`)}>
+						<i className="fa-solid fa-brush me-2 cpnav-icon text-center"></i> Branding
 					</a>
 				</li>
 				<li className="nav-item">
-					<a className="nav-link" onClick={() => navigate(`/controlpanel/menu/${props.webName}`)}>
-						Menu
+					<a className="nav-link cpnav-item" onClick={() => navigate(`/controlpanel/menu/${props.webName}`)}>
+						<i className="fa-solid fa-utensils me-2 cpnav-icon text-center"></i> Menu
 					</a>
 				</li>
 			</ul>

@@ -2,6 +2,7 @@ import React, {useEffect, useContext} from "react";
 import { useParams } from "react-router-dom";
 import { ContentInputBody } from "../../components/controlpanel_components/cp_home_components/contentInputBody.jsx";
 import { NavbarCP } from "../../components/controlpanel_components/navbar_cp.jsx";
+import { TopBarCP } from "../../components/controlpanel_components/topbar_cp.jsx";
 import { Context } from "../../store/appContext.js";
 
 export const HomeCP = () => {
@@ -21,6 +22,7 @@ export const HomeCP = () => {
           <NavbarCP webName={currentRestaurant.webName}/>
         </div>
         <div className="col-10 p-0">
+          <TopBarCP />
           <ContentInputBody />
         </div>
       </div>

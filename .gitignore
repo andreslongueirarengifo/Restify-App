@@ -13,6 +13,7 @@ php_errorlog
 !.gitpod.yml
 !render.yml
 !.render-buildpacks.json
+!.prettierrc
 
 # track webpack configs (i.e. do NOT ignore it)
 !composer.json
