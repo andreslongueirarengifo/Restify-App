@@ -98,8 +98,20 @@ def get_restaurants():
 
 #public endpoint to get all restaurant basic info
 @api.route('/restaurants/<int:id>', methods=['GET'])
-def get_restaurant(id):
+def get_restaurant_by_id(id):
     restaurant = Web.query.get(id).serialize()
+    if restaurant is None:
+        abort(404)
+    response_body = {
+        "msg":"ok",
+        "result": restaurant
+    }
+    return jsonify(response_body), 200
+
+@api.route('/restaurants/<string:name>', methods=['GET'])
+@jwt_required()
+def get_restaurant_by_name(name):
+    restaurant = Web.query.filter_by(name=name).first().serialize()
     if restaurant is None:
         abort(404)
     response_body = {
@@ -172,6 +184,7 @@ def get_branding_from_restaurant(web_id):
 #restaurant content endpoints
 #First time you set the content
 @api.route('/setcontent', methods=['POST']) #Necesita autenticación
+@jwt_required() #Necesita autenticación
 def set_content():
     data = json.loads(request.data)
 
@@ -181,20 +194,22 @@ def set_content():
         abort(404)
 
     content = Content(
-    description=data["description"],
     instagram=data["instagram"],
     twitter=data["twitter"],
     facebook=data["facebook"],
     tiktok=data["tiktok"],
-    location=data["location"],
-    header=data["header"],
+    location_street=data["location_street"],
+    image_link=data["image_link"],
+    location_city=data["location_city"],
+    location_coordinates=data["location_coordinates"],
+    phone_number=data["phone_number"],
     web_id=data["web_id"]
     )
     db.session.add(content)
     db.session.commit()
     return jsonify({"msg":"ok"}), 200
 
-#public endpoint to get all restaurant branding
+#public endpoint to get all restaurant content
 @api.route('/web_content/<int:web_id>', methods=['GET'])
 def get_content_from_restaurant(web_id):
     content_from_restaurant = Content.query.filter_by(web_id=web_id).first().serialize()

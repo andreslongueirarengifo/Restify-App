@@ -1,45 +1,52 @@
+import { getWebInfoByName } from "../service/cp_services";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			isAuthenticated: false,
-			createRestaurantFormData:{},
-			setBrandingFormData:{},
-			setContentFormData:{},
+			createRestaurantFormData: {},
+			setBrandingFormData: {},
+			setContentFormData: {},
+			currentRestaurantContent: {},
 			currentRestaurantName: "",
+			currentRestaurantId: 0,
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
 			loginState: () => {
-				setStore({isAuthenticated:true});
+				setStore({ isAuthenticated: true });
 			},
 			logoutState: () => {
-				setStore({isAuthenticated:false});
+				setStore({ isAuthenticated: false });
 			},
 			setRestautantFormData: (input, inputValue) => {
 				const store = getStore();
-				setStore({createRestaurantFormData: {...store.createRestaurantFormData, [input]:inputValue}})
+				setStore({ createRestaurantFormData: { ...store.createRestaurantFormData, [input]: inputValue } })
 			},
 			setSetBrandingFormData: (obj) => {
 				const store = getStore();
-				setStore({setBrandingFormData: {...store.setBrandingFormData, ...obj}})
+				setStore({ setBrandingFormData: { ...store.setBrandingFormData, ...obj } })
 			},
 			setSetContentFormData: (obj) => {
 				const store = getStore();
-				setStore({setContentFormData: {...store.setContentFormData, ...obj}})
+				setStore({ setContentFormData: { ...store.setContentFormData, ...obj } })
 			},
 			setCurrentRestaurantName: (webName) => {
-				setStore({currentRestaurantName:webName});
+				setStore({ currentRestaurantName: webName });
+			},
+			setCurrentRestaurantId: (webId) => {
+				setStore({ currentRestaurantId: webId });
 			},
 
 			getMessage: async () => {
-				try{
+				try {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
 					return data;
-				}catch(error){
+				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},
@@ -56,7 +63,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			},
+			getCurrentRestaurantContent: (id) => {
+
+			},
+			getCurrentRestaurantIdbyWebName: async (name) => {
+				const data = await getWebInfoByName(name)
+				setStore({ currentRestaurantId: data.result.id })
+			},
 		}
 	};
 };

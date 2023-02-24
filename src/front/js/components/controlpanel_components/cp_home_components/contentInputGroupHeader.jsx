@@ -1,14 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../../store/appContext";
 
 export const ContentInputGroupHeader = () => {
 	const { store, actions } = useContext(Context);
-	const [registerForm, setRegisterForm] = useState({});
+	const [form, setForm] = useState({});
 
 	const handleChange = (event) => {
-		setRegisterForm({ ...registerForm, [event.target.id]: event.target.value });
-		actions.setContentFormData(registerForm);
+		setForm({ ...form, [event.target.id]: event.target.value });
 	};
+
+	useEffect(() => {
+		actions.setSetContentFormData(form);
+	}, [form]);
 
 	return (
 		<>
@@ -23,7 +26,6 @@ export const ContentInputGroupHeader = () => {
 						onChange={handleChange}
 						id="image_link"
 						className="form-control"
-						aria-label="Apellidos"
 					/>
 				</div>
 			</div>

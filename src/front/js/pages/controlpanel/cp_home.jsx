@@ -23,7 +23,7 @@ export const HomeCP = () => {
         </div>
         <div className="col-10 p-0">
           <TopBarCP />
-          <ContentInputBody />
+          <ContentInputBody webName={currentRestaurant.webName} />
         </div>
       </div>
     </div>
