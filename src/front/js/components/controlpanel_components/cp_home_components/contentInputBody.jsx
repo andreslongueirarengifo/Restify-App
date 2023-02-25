@@ -11,8 +11,7 @@ export const ContentInputBody = (props) => {
 
 	useEffect(() => {
 		actions.getCurrentRestaurantIdbyWebName(props.webName);
-		actions.setSetContentFormData({ location_coordinates: "asaadsdad" });
-
+		actions.setSetContentFormData({ location_coordinates: `${Math.round(Math.random())*200}` });
 	}, []);
 
 	useEffect(() => {
@@ -35,7 +34,6 @@ export const ContentInputBody = (props) => {
 					<button
 						type="button"
 						className="btn btn-restify btn-restify-primary btn-form col-4"
-						data-bs-dismiss="modal"
 						onClick={() => {
 							setContent(store.setContentFormData);
 						}}

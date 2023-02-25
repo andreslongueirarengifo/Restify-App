@@ -16,7 +16,6 @@ export const CardRestaurant = (props) => {
 			const data = await getRestaurant(props.id);
 			setRestaurantData(data.result);
 			setIsLoading(false);
-			console.log(data);
 		};
 		getRestaurantData();
 	}, []);

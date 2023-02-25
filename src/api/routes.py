@@ -73,9 +73,6 @@ def get_current_user():
 def create_restaurant():
     current_user_id = get_jwt_identity()
     data = json.loads(request.data)
-    print("--------------------")
-    print(data)
-    print("--------------------")
     restaurant = Web(name=data["url_name"], user_id=current_user_id)
     db.session.add(restaurant)
     db.session.commit()
@@ -182,7 +179,7 @@ def get_branding_from_restaurant(web_id):
 
 #restaurant content endpoints
 #First time you set the content
-@api.route('/setcontent', methods=['POST']) #Necesita autenticación
+@api.route('/setcontent', methods=['POST', 'PUT'])
 @jwt_required() #Necesita autenticación
 def set_content():
     data = json.loads(request.data)
@@ -192,20 +189,41 @@ def set_content():
     if content_web is None:
         abort(404)
 
-    content = Content(
-    instagram=data["instagram"],
-    twitter=data["twitter"],
-    facebook=data["facebook"],
-    tiktok=data["tiktok"],
-    location_street=data["location_street"],
-    image_link=data["image_link"],
-    location_city=data["location_city"],
-    location_coordinates=data["location_coordinates"],
-    phone_number=data["phone_number"],
-    web_id=data["web_id"]
-    )
-    db.session.add(content)
-    db.session.commit()
+    if request.method == 'POST':
+        # Create a new Content object and add it to the database
+        content = Content(
+            phone_number=data["phone_number"],
+            instagram=data["instagram"],
+            twitter=data["twitter"],
+            facebook=data["facebook"],
+            location_street=data["location_street"],
+            location_city=data["location_city"],
+            location_coordinates=data["location_coordinates"],
+            image_link=data["image_link"],
+            web_id=data["web_id"]
+        )
+        db.session.add(content)
+        db.session.commit()
+
+    elif request.method == 'PUT':
+        # Modify an existing Content object and update the database
+        content_id = data["content_id"]
+        content = Content.query.get(content_id)
+
+        if content is None:
+            abort(404)
+
+        content.phone_number = data["phone_number"]
+        content.instagram = data["instagram"]
+        content.twitter = data["twitter"]
+        content.facebook = data["facebook"]
+        content.location_street = data["location_street"]
+        content.location_city = data["location_city"]
+        content.location_coordinates = data["location_coordinates"]
+        content.image_link = data["image_link"]
+
+        db.session.commit()
+
     return jsonify({"msg":"ok"}), 200
 
 

@@ -74,14 +74,14 @@ class Branding(db.Model):
 class Content(db.Model):
     __tablename__ = 'content'
     id = db.Column(db.Integer, primary_key=True)
-    phone_number = db.Column(db.Integer, unique=True, nullable=False)
-    instagram = db.Column(db.String(100), unique=True, nullable=True)
-    twitter = db.Column(db.String(100), unique=True, nullable=True)
-    facebook = db.Column(db.String(100), unique=True, nullable=True)
-    location_street = db.Column(db.String(100), unique=True, nullable=True)
-    location_city = db.Column(db.String(100), unique=True, nullable=True)
-    location_coordinates = db.Column(db.String(25), unique=True, nullable=True)
-    image_link = db.Column(db.String(200), unique=True, nullable=False)
+    phone_number = db.Column(db.Integer, unique=False, nullable=False)
+    instagram = db.Column(db.String(100), unique=False, nullable=True)
+    twitter = db.Column(db.String(100), unique=False, nullable=True)
+    facebook = db.Column(db.String(100), unique=False, nullable=True)
+    location_street = db.Column(db.String(100), unique=False, nullable=True)
+    location_city = db.Column(db.String(100), unique=False, nullable=True)
+    location_coordinates = db.Column(db.String(25), unique=False, nullable=True)
+    image_link = db.Column(db.String(200), unique=False, nullable=False)
     web_id = db.Column(db.Integer, db.ForeignKey('web.id'))
     web = db.relationship('Web', backref='content')
 
@@ -92,7 +92,6 @@ class Content(db.Model):
             "instagram": self.instagram,
             "twitter": self.twitter,
             "facebook": self.facebook,
-            "tiktok": self.tiktok,
             "location_street": self.location_street,
             "location_city": self.location_city,
             "location_coordinates": self.location_coordinates,

@@ -23,6 +23,8 @@ export const ContentInputGroupSM = () => {
 					</label>
 					<input type="text" onChange={handleChange} id="instagram" className="form-control" />
 				</div>
+			</div>
+			<div className="row mb-3">
 				<div className="col">
 					<label htmlFor="logo_favicon" className="form-label">
 						<i className="fa-brands fa-twitter me-2"></i>Twitter
@@ -36,12 +38,6 @@ export const ContentInputGroupSM = () => {
 						<i className="fa-brands fa-facebook me-2"></i>Facebook
 					</label>
 					<input type="text" onChange={handleChange} id="facebook" className="form-control" />
-				</div>
-				<div className="col">
-					<label htmlFor="logo_favicon" className="form-label">
-						<i className="fa-brands fa-tiktok me-2"></i>Tiktok
-					</label>
-					<input type="text" onChange={handleChange} id="tiktok" className="form-control" />
 				</div>
 			</div>
 		</>
