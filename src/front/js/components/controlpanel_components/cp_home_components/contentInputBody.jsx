@@ -4,14 +4,18 @@ import { ContentInputGroupSM } from "./contentInputGroupSM.jsx";
 import { ContentInputGroupLocation } from "./contentInputGroupLocation.jsx";
 import { ContentInputGroupContact } from "./contentInputGroupContact.jsx";
 import { ContentInputGroupHeader } from "./contentInputGroupHeader.jsx";
-import { getWebInfoByName, setContent } from "../../../service/cp_services";
+import { getContent, getWebInfoByName, updateContent } from "../../../service/cp_services";
 
 export const ContentInputBody = (props) => {
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
-		actions.getCurrentRestaurantIdbyWebName(props.webName);
-		actions.setSetContentFormData({ location_coordinates: `${Math.round(Math.random())*200}` });
+		const getDataOnLoad = async () => {
+			await actions.getCurrentRestaurantIdbyWebName(props.webName);
+			await actions.getCurrentRestaurantContent(store.currentRestaurantId);
+			actions.setSetContentFormData({content_id : store.currentRestaurantContent.id})
+		};
+		getDataOnLoad();
 	}, []);
 
 	useEffect(() => {
@@ -25,7 +29,7 @@ export const ContentInputBody = (props) => {
 			</div>
 			<div className="container-fluid cpbody-container shadow-sm p-3">
 				<div className="row px-5">
-					<ContentInputGroupContact />
+					<ContentInputGroupContact phone_number={store.currentRestaurantContent.phone_number} />
 					<ContentInputGroupHeader />
 					<ContentInputGroupLocation />
 					<ContentInputGroupSM />
@@ -35,7 +39,7 @@ export const ContentInputBody = (props) => {
 						type="button"
 						className="btn btn-restify btn-restify-primary btn-form col-4"
 						onClick={() => {
-							setContent(store.setContentFormData);
+							updateContent(store.setContentFormData);
 						}}
 					>
 						Actualizar información

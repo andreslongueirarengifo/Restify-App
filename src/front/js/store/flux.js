@@ -1,4 +1,4 @@
-import { getWebInfoByName } from "../service/cp_services";
+import { getWebInfoByName, getContent } from "../service/cp_services";
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -64,8 +64,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-			getCurrentRestaurantContent: (id) => {
-
+			getCurrentRestaurantContent: async (id) => {
+				const data = await getContent(id)
+				setStore({ currentRestaurantContent: data.result })
 			},
 			getCurrentRestaurantIdbyWebName: async (name) => {
 				const data = await getWebInfoByName(name)

@@ -19,7 +19,7 @@ export const getWebInfoByName = async (web_name) => {
 export const getContent = async (web_id) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+`/branding/${web_id}`, {
+        const response = await fetch(process.env.BACKEND_URL+`/api/web_content/${web_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -34,11 +34,11 @@ export const getContent = async (web_id) => {
     }
 }
 
-export const setContent = async (formData) => {
+export const updateContent = async (formData) => {
     try{
         const token = localStorage.getItem('jwt-token');
         const response = await fetch(process.env.BACKEND_URL+"/api/setcontent", {
-            method: "POST",
+            method: "PUT",
             mode: "cors",
             body: JSON.stringify(formData),
             headers: {

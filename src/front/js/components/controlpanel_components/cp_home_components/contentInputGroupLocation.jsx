@@ -36,6 +36,7 @@ export const ContentInputGroupLocation = () => {
 						Calle
 					</label>
 					<input
+						defaultValue={store.currentRestaurantContent.location_street}
 						type="text"
 						onChange={handleChange}
 						id="location_street"
@@ -46,7 +47,7 @@ export const ContentInputGroupLocation = () => {
 					<label htmlFor="location_city" className="form-label">
 						Ciudad
 					</label>
-					<select className="form-select" aria-label="Seleccione la ciudad" onChange={handleChange} id="location_city">
+					<select defaultValue={store.currentRestaurantContent.location_city} className="form-select" onChange={handleChange} id="location_city">
 						{spainCitiesData.map((city, index) => {
 							return <option key={index} value={city}>{city}</option>
 						})}
