@@ -13,7 +13,7 @@ export const ContentInputBody = (props) => {
 		const getDataOnLoad = async () => {
 			await actions.getCurrentRestaurantIdbyWebName(props.webName);
 			await actions.getCurrentRestaurantContent(store.currentRestaurantId);
-			actions.setSetContentFormData({content_id : store.currentRestaurantContent.id})
+			actions.setSetContentFormData({ content_id: store.currentRestaurantContent.id });
 		};
 		getDataOnLoad();
 	}, []);
@@ -29,7 +29,7 @@ export const ContentInputBody = (props) => {
 			</div>
 			<div className="container-fluid cpbody-container shadow-sm p-3">
 				<div className="row px-5">
-					<ContentInputGroupContact phone_number={store.currentRestaurantContent.phone_number} />
+					<ContentInputGroupContact />
 					<ContentInputGroupHeader />
 					<ContentInputGroupLocation />
 					<ContentInputGroupSM />

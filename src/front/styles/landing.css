@@ -81,6 +81,19 @@ h2 {
 	cursor: pointer;
 }
 
+.cpnav-active {
+	font-family: "Gotham", sans-serif;
+	letter-spacing: -0.6px !important;
+	width: 100%;
+	line-height: 1.5rem;
+	height: 2rem;
+	padding: 0.3rem;
+	margin: 0.3rem;
+	align-items: center;
+	color:#8679c9;
+	font-size: 0.9rem;
+}
+
 .cpnav-icon {
 	height: 1rem;
 	width: 1rem;
@@ -307,7 +320,6 @@ select.focus {
 	width: 1.5rem;
 	height: 1.5rem;
 	border-radius: 50%;
-	background-color: #025d8b;
 }
 
 .data-user-dropdown {

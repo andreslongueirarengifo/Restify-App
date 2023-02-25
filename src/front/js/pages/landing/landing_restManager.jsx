@@ -8,37 +8,34 @@ import { CardListRest } from "../../components/landing_components/landing_restMa
 import { getCurrentUser } from "../../service/user_service";
 
 export const RestManagerLP = () => {
+	const [currentUserData, setCurrentUserData] = useState({});
+	const [isLoading, setIsLoading] = useState(true);
 
-  const [currentUserData, setCurrentUserData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+	useEffect(() => {
+		const getCurrentUserData = async () => {
+			const data = await getCurrentUser();
+			setCurrentUserData(data.result);
+			setIsLoading(false);
+		};
+		getCurrentUserData();
+	}, []);
 
-  useEffect(() => {
-    const getCurrentUserData = async () => {
-      const data = await getCurrentUser();
-      setCurrentUserData(data.result)
-      setIsLoading(false);
-    }
-    getCurrentUserData();
-  },[])
+	if (isLoading) {
+		return <h1>Loading</h1>;
+	}
 
-  if(isLoading){
-    return <h1>Loading</h1>
-  }
-
-  return (
-    <div className="container-fluid p-0">
-      <NavbarRestManager />
-      <div className="cont mt-3">
-        <h2 className="welcome">
-          <b>
-            ¡Bienvenido, <span>{currentUserData.name}</span>!
-          </b>
-        </h2>
-        <p className="subtitle h5">
-          <b>Gestión de restaurantes</b>
-        </p>
-        <CardListRest />
-      </div>
-    </div>
-  );
+	return (
+		<div className="container-fluid p-0">
+			<NavbarRestManager user={currentUserData} />
+			<div className="cont mt-3">
+				<h2 className="welcome">
+					¡Bienvenido, <span>{currentUserData.name}</span>!
+				</h2>
+				<p className="subtitle h5">
+					<b>Gestión de restaurantes</b>
+				</p>
+				<CardListRest />
+			</div>
+		</div>
+	);
 };

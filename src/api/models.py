@@ -9,6 +9,7 @@ class User(db.Model):
     name = db.Column(db.String(50), unique=False, nullable=False)
     lastname = db.Column(db.String(50), unique=False, nullable=False)
     password = db.Column(db.String(200), unique=False, nullable=False)
+    avatar = db.Column(db.String(200), unique=False, nullable=False)
 
     def __repr__(self):
         return f'{self.email}'
@@ -18,7 +19,8 @@ class User(db.Model):
             "id": self.id,
             "email": self.email,
             "name": self.name,
-            "lastname": self.lastname
+            "lastname": self.lastname,
+            "avatar": self.avatar
         }
 
 class Web(db.Model):
@@ -64,6 +66,7 @@ class Branding(db.Model):
             "color_bg1": self.color_bg1,
             "color_bg2": self.color_bg2,
             "color_font1": self.color_font1,
+            "color_font2": self.color_font2,
             "color_hover1": self.color_hover1,
             "logo": self.logo,
             "logo_favicon": self.logo_favicon,

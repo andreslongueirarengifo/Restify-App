@@ -1,4 +1,4 @@
-import { getWebInfoByName, getContent } from "../service/cp_services";
+import { getWebInfoByName, getContent, getBranding } from "../service/cp_services";
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -8,6 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setBrandingFormData: {},
 			setContentFormData: {},
 			currentRestaurantContent: {},
+			currentRestaurantBranding: {},
 			currentRestaurantName: "",
 			currentRestaurantId: 0,
 		},
@@ -67,6 +68,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getCurrentRestaurantContent: async (id) => {
 				const data = await getContent(id)
 				setStore({ currentRestaurantContent: data.result })
+			},
+			getCurrentRestaurantBranding: async (id) => {
+				const data = await getBranding(id)
+				setStore({ currentRestaurantBranding: data.result })
 			},
 			getCurrentRestaurantIdbyWebName: async (name) => {
 				const data = await getWebInfoByName(name)

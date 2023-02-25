@@ -21,7 +21,7 @@ export const CreateRestaurantLP = () => {
 
   return(
     <div className="container-fluid p-0">
-      <NavbarRestManager />
+      <NavbarRestManager user={currentUserData}/>
       <RegisterBody />
     </div>
   );
