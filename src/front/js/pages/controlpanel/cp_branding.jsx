@@ -23,7 +23,7 @@ export const BrandingCP = () => {
         </div>
         <div className="col-10 p-0">
           <TopBarCP />
-          <BrandingInputBody />
+          <BrandingInputBody webName={currentRestaurant.webName}/>
         </div>
       </div>
     </div>

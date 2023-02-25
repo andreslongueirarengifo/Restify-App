@@ -23,7 +23,7 @@ export const MenuCP = () => {
         </div>
         <div className="col-10 p-0">
           <TopBarCP />
-          <MenuInputBody />
+          <MenuInputBody webName={currentRestaurant.webName}/>
         </div>
       </div>
     </div>

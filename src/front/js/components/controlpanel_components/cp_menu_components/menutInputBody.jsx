@@ -1,8 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../../../store/appContext";
 
-export const MenuInputBody = () => {
+export const MenuInputBody = (props) => {
 	const { store, actions } = useContext(Context);
+
+	useEffect(() => {
+		actions.getCurrentRestaurantIdbyWebName(props.webName);
+	}, []);
 
 	return (
 		<div className="container p-4">
@@ -13,7 +17,7 @@ export const MenuInputBody = () => {
 				<div className="row px-5">
 				</div>
 				<div className="row d-flex justify-content-center my-3">
-					<button type="button" className="btn btn-restify btn-restify-primary btn-form col-4" data-bs-dismiss="modal">
+					<button type="button" className="btn btn-restify btn-restify-primary btn-form col-4">
 						Actualizar información
 					</button>
 				</div>

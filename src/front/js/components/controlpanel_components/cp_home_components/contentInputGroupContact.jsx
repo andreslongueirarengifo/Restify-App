@@ -6,7 +6,7 @@ export const ContentInputGroupContact = () => {
 	const [form, setForm] = useState({});
 
 	const handleChange = (event) => {
-		setForm({ ...form, [event.target.id]: event.target.value });
+		setForm({ ...form, [event.target.id]: parseInt(event.target.value) });
 	};
 
 	useEffect(() => {
@@ -21,7 +21,7 @@ export const ContentInputGroupContact = () => {
 					<label htmlFor="logo_favicon" className="form-label">
 						Número de teléfono
 					</label>
-					<input type="text" onChange={handleChange} id="phone_number" className="form-control" />
+					<input type="number" onChange={handleChange} id="phone_number" className="form-control" />
 				</div>
 			</div>
 		</>

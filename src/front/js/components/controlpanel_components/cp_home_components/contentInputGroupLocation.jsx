@@ -32,7 +32,7 @@ export const ContentInputGroupLocation = () => {
 			<h2 className="caption-text my-4">Ubicación</h2>
 			<div className="row mb-3">
 				<div className="col">
-					<label htmlFor="logo" className="form-label">
+					<label htmlFor="location_street" className="form-label">
 						Calle
 					</label>
 					<input
@@ -43,7 +43,7 @@ export const ContentInputGroupLocation = () => {
 					/>
 				</div>
 				<div className="col">
-					<label htmlFor="logo_favicon" className="form-label">
+					<label htmlFor="location_city" className="form-label">
 						Ciudad
 					</label>
 					<select className="form-select" aria-label="Seleccione la ciudad" onChange={handleChange} id="location_city">
