@@ -37,6 +37,7 @@ export const RegisterBodyInputSide = () => {
             navigate(`/rest-manager`)
 		};
 		createRestaurantFromFormData();
+		//console.log(store.setBrandingFormData)
 	};
 
 	return (

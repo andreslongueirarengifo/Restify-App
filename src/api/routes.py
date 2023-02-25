@@ -6,9 +6,21 @@ from api.models import db, User, Web, Branding, Content, Food, Food_category, Al
 from api.utils import generate_sitemap, APIException
 from flask_cors import cross_origin
 from flask_jwt_extended import create_access_token,jwt_required, get_jwt_identity
+
+import cloudinary
+from cloudinary.uploader import upload
+from cloudinary.utils import cloudinary_url
+
 import bcrypt
 
 api = Blueprint('api', __name__)
+
+cloudinary.config(
+    cloud_name = "dnmfh4xnv",
+    api_key = "641646317717588",
+    api_secret = "3SCfTB9Ln1_J0mACC4XGhp4TH0U",
+    secure = True
+)
 
 #user endpoints
 @api.route('/signup', methods=['POST'])
@@ -145,14 +157,20 @@ def set_branding():
     if branding_web is None:
         abort(404)
 
+    upload(request.files["files"], public_id=f"test_w{data['web_id']}")
+    #upload(data["files"]["logo_favicon"], public_id=f"test_w{data['web_id']}")
+
+
+    upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg", public_id=f"flag_{data['web_id']}")
+
     branding = Branding(
     color_bg1=data["color_bg1"],
     color_bg2=data["color_bg2"],
     color_font1=data["color_font1"],
     color_font2=data["color_font2"],
     color_hover1=data["color_hover1"],
-    logo=data["logo"],
-    logo_favicon=data["logo_favicon"],
+    logo="a2",
+    logo_favicon="b2",
     font=data["font"],
     brand_name=data["brand_name"],
     web_id=data["web_id"])
@@ -176,6 +194,16 @@ def get_branding_from_restaurant(web_id):
         "result": branding_from_restaurant
     }
     return jsonify(response_body), 200
+
+
+
+#@api.route('/branding/<int:web_id>/image', methods['PUT'])
+#def handle_upload(web_id):
+#    if 'profile_image' in request.files:
+#        result = cloudinary.uploader.upload(request.files['profile_image'])
+#    return jsonify({"url": result['secure_url']})
+
+
 
 #restaurant content endpoints
 #First time you set the content
