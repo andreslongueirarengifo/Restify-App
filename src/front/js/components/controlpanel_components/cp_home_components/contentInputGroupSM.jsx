@@ -21,7 +21,7 @@ export const ContentInputGroupSM = () => {
 					<label htmlFor="logo" className="form-label">
 						<i className="fa-brands fa-instagram me-2"></i> Instagram
 					</label>
-					<input type="text" onChange={handleChange} id="instagram" className="form-control" />
+					<input defaultValue={store.currentRestaurantContent.instagram} type="text" onChange={handleChange} id="instagram" className="form-control" />
 				</div>
 			</div>
 			<div className="row mb-3">
@@ -29,7 +29,7 @@ export const ContentInputGroupSM = () => {
 					<label htmlFor="logo_favicon" className="form-label">
 						<i className="fa-brands fa-twitter me-2"></i>Twitter
 					</label>
-					<input type="text" onChange={handleChange} id="twitter" className="form-control" />
+					<input defaultValue={store.currentRestaurantContent.twitter} type="text" onChange={handleChange} id="twitter" className="form-control" />
 				</div>
 			</div>
 			<div className="row mb-3">
@@ -37,7 +37,7 @@ export const ContentInputGroupSM = () => {
 					<label htmlFor="logo" className="form-label">
 						<i className="fa-brands fa-facebook me-2"></i>Facebook
 					</label>
-					<input type="text" onChange={handleChange} id="facebook" className="form-control" />
+					<input defaultValue={store.currentRestaurantContent.facebook} type="text" onChange={handleChange} id="facebook" className="form-control" />
 				</div>
 			</div>
 		</>

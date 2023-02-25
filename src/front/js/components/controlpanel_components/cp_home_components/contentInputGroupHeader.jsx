@@ -22,6 +22,7 @@ export const ContentInputGroupHeader = () => {
                     	Imagen de fondo
 					</label>
 					<input
+						defaultValue={store.currentRestaurantContent.image_link}
 						type="text"
 						onChange={handleChange}
 						id="image_link"

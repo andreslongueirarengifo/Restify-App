@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../../store/appContext";
 
-export const ContentInputGroupContact = () => {
+export const ContentInputGroupContact = (props) => {
 	const { store, actions } = useContext(Context);
 	const [form, setForm] = useState({});
 
@@ -21,7 +21,7 @@ export const ContentInputGroupContact = () => {
 					<label htmlFor="logo_favicon" className="form-label">
 						Número de teléfono
 					</label>
-					<input type="number" onChange={handleChange} id="phone_number" className="form-control" />
+					<input defaultValue={store.currentRestaurantContent.phone_number} type="number" onChange={handleChange} id="phone_number" className="form-control" />
 				</div>
 			</div>
 		</>
