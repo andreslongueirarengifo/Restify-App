@@ -157,6 +157,10 @@ def set_branding():
 
     branding_web = Web.query.get(data["web_id"])
 
+
+    
+
+
     if branding_web is None:
         abort(404)
 
@@ -169,8 +173,8 @@ def set_branding():
             color_font1=data["color_font1"],
             color_font2=data["color_font2"],
             color_hover1=data["color_hover1"],
-            logo=data["logo"],
-            logo_favicon=data["logo_favicon"],
+            logo=data["web_id"],
+            logo_favicon=data["web_id"],
             font=data["font"],
             brand_name=data["brand_name"],
             web_id=data["web_id"]
@@ -205,6 +209,29 @@ def set_branding():
     return response_body, 200
 
 # public endpoint to get all restaurant branding
+
+
+@api.route('/branding/<int:web_id>/image', methods=['PUT'])
+def handle_upload(web_id):
+
+    if 'profile_image' in request.files:
+        #result = cloudinary.uploader.upload(request.files['profile_image'])
+
+        #current_web = Branding.query.get(web_id)
+
+        current_brand = Branding.query.filter_by(web_id=web_id).first().serialize()
+
+
+
+        #current_web.logo = result['secure_url']
+
+        #db.session.add(current_web)
+        #db.session.commit()
+
+        return jsonify({"url": ":)"}),200
+    else:
+        print("Hola aqui estoy")
+        raise APIException('Missing porfile_image on the FormData')
 
 
 @api.route('/branding/<int:web_id>', methods=['GET'])
