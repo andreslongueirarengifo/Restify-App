@@ -157,11 +157,11 @@ def set_branding():
     if branding_web is None:
         abort(404)
 
-    upload(request.files["files"], public_id=f"test_w{data['web_id']}")
+    print(data)
+
+    #upload(request.files["files"], public_id=f"test_w{data['web_id']}")
     #upload(data["files"]["logo_favicon"], public_id=f"test_w{data['web_id']}")
-
-
-    upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg", public_id=f"flag_{data['web_id']}")
+    #upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg", public_id=f"flag_{data['web_id']}")
 
     branding = Branding(
     color_bg1=data["color_bg1"],
@@ -169,8 +169,8 @@ def set_branding():
     color_font1=data["color_font1"],
     color_font2=data["color_font2"],
     color_hover1=data["color_hover1"],
-    logo="a2",
-    logo_favicon="b2",
+    logo=data["brand_name"],
+    logo_favicon=data["brand_name"],
     font=data["font"],
     brand_name=data["brand_name"],
     web_id=data["web_id"])
@@ -197,11 +197,22 @@ def get_branding_from_restaurant(web_id):
 
 
 
-#@api.route('/branding/<int:web_id>/image', methods['PUT'])
-#def handle_upload(web_id):
-#    if 'profile_image' in request.files:
-#        result = cloudinary.uploader.upload(request.files['profile_image'])
-#    return jsonify({"url": result['secure_url']})
+@api.route('/branding/<int:web_id>/image', methods=['PUT'])
+def handle_upload(web_id):
+    if 'profile_image' in request.files:
+        result = cloudinary.uploader.upload(request.files['profile_image'])
+
+        #current_web = Branding.query.get(web_id)
+
+        current_web.logo = result['secure_url']
+
+        db.session.add(current_web)
+        db.session.commit()
+
+        return jsonify({"url": result['secure_url']}),200
+    else:
+        raise APIException('Missing porfile_image on the FormData')
+
 
 
 
@@ -211,6 +222,10 @@ def get_branding_from_restaurant(web_id):
 @jwt_required() #Necesita autenticación
 def set_content():
     data = json.loads(request.data)
+
+    print("======================")
+    print(data)
+    print("======================")
 
     content_web=Web.query.get(data["web_id"])
 

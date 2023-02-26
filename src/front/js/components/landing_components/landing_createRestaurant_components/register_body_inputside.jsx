@@ -14,6 +14,7 @@ import {
 	setBranding,
 	setContent,
 	defaultContentCreation,
+	uploadImage,
 } from "../../../service/create_restaurant_service.js";
 
 export const RegisterBodyInputSide = () => {
@@ -34,10 +35,11 @@ export const RegisterBodyInputSide = () => {
             actions.setSetContentFormData(restaurantData.result);
 			await setBranding(store.setBrandingFormData);
             await setContent(store.setContentFormData)
+			//await uploadImage(store.bodyUploadImage, store.currentRestaurantId)
             navigate(`/rest-manager`)
 		};
 		createRestaurantFromFormData();
-		//console.log(store.setBrandingFormData)
+		//(console.log(store.setBrandingFormData)
 	};
 
 	return (

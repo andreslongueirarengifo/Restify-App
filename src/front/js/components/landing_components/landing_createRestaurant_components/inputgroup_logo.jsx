@@ -13,8 +13,9 @@ export const InputGroupLogo = () => {
         //let body = new FormData()
         //body.append("profile_image", files)
         //console.log(body)
-        setRegisterForm({...registerForm, ['files']:files})
-        actions.setSetBrandingFormData(registerForm)
+        //setRegisterForm({...registerForm, ['files']:files})
+        //actions.setSetBrandingFormData(registerForm)
+        //actions.setBodyUploadImage(files)
         console.log(files)
     },[files])
 
@@ -25,12 +26,12 @@ export const InputGroupLogo = () => {
             <label htmlFor="logo" className="form-label">
                 Logo
             </label>
-            <input type="file" onBlur={e => setFiles({...files, [e.target.id]:e.target.files[0]})} id="logo" className="form-control" aria-label="Nombre"/>
+            <input type="file" onBlur={e => setFiles(e.target.files)} id="logo" className="form-control" aria-label="Nombre"/>
         </div>
-        <div className="col">
+        {/*<div className="col">
             <label htmlFor="logo_favicon" className="form-label">Favicon</label>
             <input type="file" onBlur={e => setFiles({...files, [e.target.id]:e.target.files[0]})} id="logo_favicon" className="form-control" aria-label="Apellidos"/>
-        </div>
+    </div>*/}
         </div>
     </div>
     );

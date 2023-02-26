@@ -70,3 +70,21 @@ export const setContent = async (formData) => {
         return e
     }
 }
+
+export const uploadImage = async (body, webId) => {
+    try {
+        const response = await fetch(`${process.env.BACKEND_URL}/api/branding/${webId}/image`, {
+            body,
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token // ⬅⬅⬅ authorization token
+            }
+        })
+        const data = await response.json();
+        return data;
+    } catch (e) {
+        return e
+    }
+}
