@@ -9,26 +9,48 @@ import logo_generico from "../../../img/logo_generico.jpeg"
 function Navbar1(props) {
   const restaurantinfo = props.restaurantinfo
   const styles = props.Styles
+  const restaurantname = props.restaurantname
+  const linkhome = `/${restaurantname}/home`
+  const linkmenu = `/${restaurantname}/menu`
+  const linkcontact = `/${restaurantname}/contact`
   {console.log(styles.styleback1)}
   return (
     <>
             <Navbar collapseOnSelect expand="lg" style={ styles.back2 }>
-              <Container>
+              <Container className="text-center">
                   <Navbar.Brand>
-                    <img src={logo_generico} width="100px" className="pe-3 ps-2"></img>
-                  <t className="fs-2" style={styles.color1}>{restaurantinfo.Restaurant_name}</t>
+                    <div className="row">
+                      <div className="col">
+                        <img src={restaurantinfo.logo_url} height="80vh" className=""/>
+                      </div>
+                      <div className="col">
+                        <p className="fs-1 px-3 pt-4" style={styles.color1}>{restaurantinfo.restaurant_name}</p>
+                      </div>
+                    </div>
                   </Navbar.Brand>
                   <Navbar.Toggle aria-controls="responsive-navbar-nav" style={styles.color1} />
                   <Navbar.Collapse id="responsive-navbar-nav" style={styles.color1}>
                       <Nav className="mx-auto" >
                           <Nav.Item className="">
-                              <Nav.Link href="/test-home"><t className="fs-3 ps-1" style={styles.color1}>Home</t></Nav.Link>
+                              <Nav.Link href={linkhome}>
+                                <p className="fs-3 ps-1 text-center fw-bold" style={styles.color1}>
+                                  Home
+                                </p>
+                              </Nav.Link>
                           </Nav.Item>
                           <Nav.Item>
-                              <Nav.Link href="/test-menu"><t className="fs-3 ps-1" style={styles.color1}>Menu</t></Nav.Link>
+                              <Nav.Link href={linkmenu}>
+                                <p className="fs-3 ps-1 text-center fw-bold" style={styles.color1}>
+                                  Menu
+                                </p>
+                              </Nav.Link>
                           </Nav.Item>
                           <Nav.Item >
-                              <Nav.Link  href="/test-contact"><t className="fs-3 ps-1" style={styles.color1}>Contacto</t></Nav.Link>
+                              <Nav.Link  href={linkcontact}>
+                                <p className="fs-3 ps-1 text-center fw-bold" style={styles.color1}>
+                                  Contacto
+                                </p>
+                              </Nav.Link>
                           </Nav.Item>
                       </Nav>
                       <Nav className="flex-column text-center">
@@ -36,9 +58,9 @@ function Navbar1(props) {
                           ¡Síguenos en redes!
                         </Nav.Item>
                         <Nav.Item>
-                          <a href={restaurantinfo.Facebook_url} style={styles.color1}><Facebook className="mx-1" size="40" /></a>
-                          <a href={restaurantinfo.Instagram_url} style={styles.color1}><Instagram className="mx-1" size="40" /></a>
-                          <a href={restaurantinfo.Twitter_url} style={styles.color1}><Twitter className="mx-1" size="40" /></a>
+                          <a href={restaurantinfo.facebook_url} style={styles.color1}><Facebook className="mx-1" size="40" /></a>
+                          <a href={restaurantinfo.instagram_url} style={styles.color1}><Instagram className="mx-1" size="40" /></a>
+                          <a href={restaurantinfo.twitter_url} style={styles.color1}><Twitter className="mx-1" size="40" /></a>
                         </Nav.Item>
                       </Nav>
                   </Navbar.Collapse>

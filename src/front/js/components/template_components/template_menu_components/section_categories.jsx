@@ -1,21 +1,24 @@
 import React from "react";
-import { useState } from "react";
 import Dish_card from "./dish_card.jsx"
 
 function Section_cagetories(props) {
   const restaurantinfo = props.restaurantinfo
   const styles = props.Styles
-  const foodcategories = restaurantinfo.Food_categories
-  {console.log(foodcategories)}
-  const [categories, setCategories] = useState(foodcategories)
-  {console.log(categories)}
+  const categories = restaurantinfo.food_categories
+  function hexToRgb(hex) {
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `${r}, ${g}, ${b}`;
+  }
   const sectionstyle = {
     first: {
-      back: {background: 'rgba(185, 155, 107, 0.55)'},
+      back: {background: `rgba(${hexToRgb(restaurantinfo.colorback1)}, 0.55)`},
       color: {color: `#${restaurantinfo.color1}` }
     },
     second: {
-      back: {background: 'rgba(105, 130, 105, 0.55)'},
+      back: {background: `rgba(${hexToRgb(restaurantinfo.colorback2)}, 0.55)`},
       color: {color: `#${restaurantinfo.color2}` }
     },
   }
@@ -28,10 +31,10 @@ function Section_cagetories(props) {
       className="text-center"
       style={sectionstyle.first.back}
       >
-            <h2 className="fs-2 pt-3" style={styles.color1}>{category.Name}</h2>
+            <h2 className="fs-2 pt-2" style={styles.color1}>{category.name}</h2>
             <div className="row">
-            {category.Dishes.map ((dish, index) => 
-                <Dish_card dish={dish} index={index} styles={styles}/>
+            {category.dishes.map ((dish, index) => 
+                <Dish_card dish={dish} index={index} styles={styles} restaurantinfo={restaurantinfo}/>
             )}
             </div>
       </div> ) : (
@@ -39,10 +42,10 @@ function Section_cagetories(props) {
         className="text-center"
         style={sectionstyle.second.back}
         >
-              <h2 className="fs-2 pt-3" style={styles.color1}>{category.Name}</h2>
+              <h2 className="fs-2 pt-2" style={styles.color1}>{category.name}</h2>
               <div className="row">
-              {category.Dishes.map ((dish, index) => 
-                <Dish_card dish={dish} index={index} styles={styles}/>
+              {category.dishes.map ((dish, index) => 
+                <Dish_card dish={dish} index={index} styles={styles} restaurantinfo={restaurantinfo}/>
                 )
               }
               </div>
