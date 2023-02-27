@@ -1,35 +1,53 @@
+import { getWebInfoByName, getContent, getBranding } from "../service/cp_services";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			isAuthenticated: false,
+			createRestaurantFormData: {},
+			setBrandingFormData: {},
+			setContentFormData: {},
+			currentRestaurantContent: {},
+			currentRestaurantBranding: {},
+			currentRestaurantName: "",
+			currentRestaurantId: 0,
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			loginState: () => {
+				setStore({ isAuthenticated: true });
+			},
+			logoutState: () => {
+				setStore({ isAuthenticated: false });
+			},
+			setRestautantFormData: (input, inputValue) => {
+				const store = getStore();
+				setStore({ createRestaurantFormData: { ...store.createRestaurantFormData, [input]: inputValue } })
+			},
+			setSetBrandingFormData: (obj) => {
+				const store = getStore();
+				setStore({ setBrandingFormData: { ...store.setBrandingFormData, ...obj } })
+			},
+			setSetContentFormData: (obj) => {
+				const store = getStore();
+				setStore({ setContentFormData: { ...store.setContentFormData, ...obj } })
+			},
+			setCurrentRestaurantName: (webName) => {
+				setStore({ currentRestaurantName: webName });
+			},
+			setCurrentRestaurantId: (webId) => {
+				setStore({ currentRestaurantId: webId });
 			},
 
 			getMessage: async () => {
-				try{
+				try {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
 					return data;
-				}catch(error){
+				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},
@@ -46,7 +64,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			},
+			getCurrentRestaurantContent: async (id) => {
+				const data = await getContent(id)
+				setStore({ currentRestaurantContent: data.result })
+			},
+			getCurrentRestaurantBranding: async (id) => {
+				const data = await getBranding(id)
+				setStore({ currentRestaurantBranding: data.result })
+			},
+			getCurrentRestaurantIdbyWebName: async (name) => {
+				const data = await getWebInfoByName(name)
+				setStore({ currentRestaurantId: data.result.id })
+			},
 		}
 	};
 };

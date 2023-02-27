@@ -4,9 +4,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 //IMPORT PAGES
 
 //control-panel
-import { BrandingCP } from "./pages/controlpanel/cp_branding";
-import { HomeCP } from "./pages/controlpanel/cp_home";
-import { MenuCP } from "./pages/controlpanel/cp_menu";
+import { BrandingCP } from "./pages/controlpanel/cp_branding.jsx";
+import { HomeCP } from "./pages/controlpanel/cp_home.jsx";
+import { MenuCP } from "./pages/controlpanel/cp_menu.jsx";
 
 //landing-page
 import { CreateRestaurantLP } from "./pages/landing/landing_createRestaurant.jsx";
@@ -26,7 +26,7 @@ const Layout = () => {
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
   //const basename = process.env.BASENAME || "";
 
-return (
+  return (
     <>
     <BrowserRouter>
             <Routes>
@@ -43,7 +43,7 @@ return (
             </Routes>
     </BrowserRouter>
     </>
-);
+  );
 
 };
 

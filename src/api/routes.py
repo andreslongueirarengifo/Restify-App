@@ -4,171 +4,288 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint, json, abort
 from api.models import db, User, Web, Branding, Content, Food, Food_category, Allergens
 from api.utils import generate_sitemap, APIException
-from flask_jwt_extended import create_access_token,jwt_required, get_jwt_identity
+from flask_cors import cross_origin
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import bcrypt
 
 api = Blueprint('api', __name__)
 
-#user endpoints
+# user endpoints
+
+
 @api.route('/signup', methods=['POST'])
 def login_signup():
     data = json.loads(request.data)
-    
+
     salt = bcrypt.gensalt()
-    hashed_password = bcrypt.hashpw(data["password"].encode('utf-8'),salt)
+    hashed_password = bcrypt.hashpw(data["password"].encode('utf-8'), salt)
 
     decoded_password = hashed_password.decode('utf-8')
 
-    user = User(name=data["name"],lastname=data["lastname"],email=data["email"], password=decoded_password)
+    user = User(name=data["name"], lastname=data["lastname"],
+                email=data["email"], avatar=data["avatar"], password=decoded_password)
     db.session.add(user)
     db.session.commit()
-    
+
     access_token = create_access_token(identity=user.id)
 
-    return jsonify({"status":"ok", "token": access_token, "user_id":user.id}), 200
-    
+    return jsonify({"status": "ok", "token": access_token, "user_id": user.id}), 200
+
+
 @api.route('/login', methods=['POST'])
 def login():
     data = json.loads(request.data)
     user = User.query.filter_by(email=data["email"]).first()
 
     if not user:
-        return jsonify({"message":"User not found"}), 404
-
+        return jsonify({"msg": "User not found"}), 404
 
     if bcrypt.checkpw(data["password"].encode('utf-8'), user.password.encode('utf-8')):
         access_token = create_access_token(identity=user.id)
-        return  jsonify({"status":"ok", "token":access_token, "user":user.email})
+        return jsonify({"status": "ok", "token": access_token, "user": user.email}), 200
     else:
-        return jsonify({"status":"error"})
+        return jsonify({"status": "error"}), 404
+
 
 @api.route('/users', methods=['GET'])
 def get_users():
     users = [user.serialize() for user in User.query.all()]
     response_body = {
-        "message":"ok",
-        "result":users
+        "msg": "ok",
+        "result": users
     }
     return jsonify(response_body), 200
 
-@api.route('/users/<int:id>', methods=['GET'])
-def get_user(id):
-    user = User.query.get(id).serialize()
+
+@api.route('/currentuser', methods=['GET'])
+@jwt_required()
+def get_current_user():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id).serialize()
     if user is None:
         abort(404)
     response_body = {
-        "message":"ok",
-        "result":user
+        "msg": "ok",
+        "result": user
     }
     return jsonify(response_body), 200
 
-#restaurant endpoints
-#endpoint to create the restaurant by form button
-@api.route('/createrestautant', methods=['POST']) #necesita autenticación
+# restaurant endpoints
+# endpoint to create the restaurant by form button
+
+
+@api.route('/createrestautant', methods=['POST'])  # necesita autenticación
+@jwt_required()
+@cross_origin()
 def create_restaurant():
+    current_user_id = get_jwt_identity()
     data = json.loads(request.data)
-    restaurant = Web(name=data["name"],phone_number=data["phone_number"], user_id=data["user_id"])
+    restaurant = Web(name=data["url_name"], user_id=current_user_id)
     db.session.add(restaurant)
     db.session.commit()
-    return jsonify({"message":"ok"}), 200
+    response_body = jsonify({
+        "msg": "ok",
+        "result": restaurant.serialize_id()
+    })
+    return response_body, 200
 
-#public endpoint to get all restaurants
+# public endpoint to get all restaurants
+
+
 @api.route('/restaurants', methods=['GET'])
 def get_restaurants():
     restaurants = [restaurant.serialize() for restaurant in Web.query.all()]
     response_body = {
-        "message":"ok",
+        "msg": "ok",
         "result": restaurants
     }
     return jsonify(response_body), 200
 
-#public endpoint to get all restaurant basic info
+# public endpoint to get all restaurant basic info
+
+
 @api.route('/restaurants/<int:id>', methods=['GET'])
-def get_restaurant(id):
+def get_restaurant_by_id(id):
     restaurant = Web.query.get(id).serialize()
     if restaurant is None:
         abort(404)
     response_body = {
-        "message":"ok",
+        "msg": "ok",
         "result": restaurant
     }
     return jsonify(response_body), 200
 
-#restaurant branding endpoints
-#First time you set the branding
-@api.route('/setbranding', methods=['POST']) #Necesita autenticación
+
+@api.route('/restaurants/<string:name>', methods=['GET'])
+@jwt_required()
+def get_restaurant_by_name(name):
+    restaurant = Web.query.filter_by(name=name).first().serialize()
+    if restaurant is None:
+        abort(404)
+    response_body = {
+        "msg": "ok",
+        "result": restaurant
+    }
+    return jsonify(response_body), 200
+
+# private endpoints
+
+
+@api.route('/currentrestaurants', methods=['GET'])
+@jwt_required()
+def get_current_user_restaurants():
+    current_user_id = get_jwt_identity()
+    current_user_restaurants = [restaurant.serialize(
+    ) for restaurant in Web.query.filter_by(user_id=current_user_id).all()]
+    if current_user_restaurants is None:
+        abort(404)
+    response_body = {
+        "msg": "ok",
+        "from_restaurant_id": current_user_id,
+        "result": current_user_restaurants
+    }
+    return jsonify(response_body), 200
+
+
+# restaurant branding endpoints
+# First time you set the branding
+@api.route('/setbranding', methods=['POST', 'PUT'])
+@jwt_required()  # Necesita autenticación
+@cross_origin()
 def set_branding():
     data = json.loads(request.data)
 
-    branding_web=Web.query.get(data["web_id"])
+    branding_web = Web.query.get(data["web_id"])
 
     if branding_web is None:
         abort(404)
 
-    branding = Branding(
-    color_bg1=data["color_bg1"],
-    color_bg2=data["color_bg2"],
-    color_font1=data["color_bg1"],
-    color_hover1=data["color_hover1"],
-    logo=data["logo"],
-    logo_favicon=data["logo_favicon"],
-    font=data["font"],
-    brand_name=data["brand_name"],
-    web_id=data["web_id"])
-    db.session.add(branding)
-    db.session.commit()
-    return jsonify({"message":"ok"}), 200
+    if request.method == 'POST':
+        # Create a new Branding object and add it to the database
 
-#public endpoint to get all restaurant branding
+        branding = Branding(
+            color_bg1=data["color_bg1"],
+            color_bg2=data["color_bg2"],
+            color_font1=data["color_font1"],
+            color_font2=data["color_font2"],
+            color_hover1=data["color_hover1"],
+            logo=data["logo"],
+            logo_favicon=data["logo_favicon"],
+            font=data["font"],
+            brand_name=data["brand_name"],
+            web_id=data["web_id"]
+        )
+        db.session.add(branding)
+        db.session.commit()
+
+    elif request.method == 'PUT':
+        # Modify an existing Branding object and update the database
+        branding_id = data["branding_id"]
+        branding = Branding.query.get(branding_id)
+
+        if branding is None:
+            abort(404)
+
+        branding.color_bg1 = request.json.get("color_bg1", branding.color_bg1)
+        branding.color_bg2 = request.json.get("color_bg2", branding.color_bg2)
+        branding.color_font1 = request.json.get("color_font1", branding.color_font1)
+        branding.color_font2 = request.json.get("color_font2", branding.color_font2)
+        branding.color_hover1 = request.json.get("color_hover1", branding.color_hover1)
+        branding.logo = request.json.get("logo", branding.logo)
+        branding.logo_favicon = request.json.get("logo_favicon", branding.logo_favicon)
+        branding.font = request.json.get("font", branding.font)
+        branding.brand_name = request.json.get("brand_name", branding.brand_name)
+
+        db.session.commit()
+
+    response_body = jsonify({
+        "msg": "ok",
+        "result": branding.serialize()
+    })
+    return response_body, 200
+
+# public endpoint to get all restaurant branding
+
+
 @api.route('/branding/<int:web_id>', methods=['GET'])
 def get_branding_from_restaurant(web_id):
-    branding_from_restaurant = Branding.query.filter_by(web_id=web_id).first().serialize()
+    branding_from_restaurant = Branding.query.filter_by(
+        web_id=web_id).first().serialize()
     if branding_from_restaurant is None:
         abort(404)
     response_body = {
-        "message":"ok",
+        "msg": "ok",
         "from_restaurant_id": web_id,
         "result": branding_from_restaurant
     }
     return jsonify(response_body), 200
 
-#restaurant content endpoints
-#First time you set the content
-@api.route('/setcontent', methods=['POST']) #Necesita autenticación
+# restaurant content endpoints
+# First time you set the content
+
+
+@api.route('/setcontent', methods=['POST', 'PUT'])
+@jwt_required()  # Necesita autenticación
 def set_content():
     data = json.loads(request.data)
 
-    content_web=Web.query.get(data["web_id"])
+    content_web = Web.query.get(data["web_id"])
 
     if content_web is None:
         abort(404)
 
-    content = Content(
-    description=data["description"],
-    instagram=data["instagram"],
-    twitter=data["twitter"],
-    facebook=data["facebook"],
-    tiktok=data["tiktok"],
-    location=data["location"],
-    header=data["header"],
-    web_id=data["web_id"]
-    )
-    db.session.add(content)
-    db.session.commit()
-    return jsonify({"message":"ok"}), 200
+    if request.method == 'POST':
+        # Create a new Content object and add it to the database
+        content = Content(
+            phone_number=data["phone_number"],
+            instagram=data["instagram"],
+            twitter=data["twitter"],
+            facebook=data["facebook"],
+            location_street=data["location_street"],
+            location_city=data["location_city"],
+            location_coordinates=data["location_coordinates"],
+            image_link=data["image_link"],
+            web_id=data["web_id"]
+        )
+        db.session.add(content)
+        db.session.commit()
 
-#public endpoint to get all restaurant branding
-@api.route('/<int:web_id>', methods=['GET'])
+    elif request.method == 'PUT':
+        # Modify an existing Content object and update the database
+        content_id = data["content_id"]
+        content = Content.query.get(content_id)
+
+        if content is None:
+            abort(404)
+
+        content.phone_number = request.json.get('phone_number', content.phone_number)
+        content.instagram = request.json.get('instagram', content.instagram)
+        content.twitter = request.json.get('twitter', content.twitter)
+        content.facebook = request.json.get('facebook', content.facebook)
+        content.location_street = request.json.get('location_street', content.location_street)
+        content.location_city = request.json.get('location_city', content.location_city)
+        content.location_coordinates = request.json.get('location_coordinates', content.location_coordinates)
+        content.image_link = request.json.get('image_link', content.image_link)
+
+        db.session.commit()
+
+    return jsonify({"msg": "ok"}), 200
+
+
+# public endpoint to get all restaurant content
+@api.route('/web_content/<int:web_id>', methods=['GET'])
 def get_content_from_restaurant(web_id):
-    content_from_restaurant = Content.query.filter_by(web_id=web_id).first().serialize()
+    content_from_restaurant = Content.query.filter_by(
+        web_id=web_id).first().serialize()
     if content_from_restaurant is None:
         abort(404)
     response_body = {
-        "message":"ok",
+        "msg": "ok",
         "from_restaurant_id": web_id,
         "result": content_from_restaurant
     }
     return jsonify(response_body), 200
+
 
 #endpoint for template data
 @api.route('/template_data/<restaurant_name>', methods=['GET'])
@@ -209,7 +326,7 @@ def get_template_data(restaurant_name):
                 food_dict['allergens']['crustaceans'] = allergens.crustaceans
             category_dict['dishes'].append(food_dict)
         food_categories.append(category_dict)
-    print (food_categories)
+    print(food_categories)
     if restaurant_name is None:
         abort(404)
     response_body = {

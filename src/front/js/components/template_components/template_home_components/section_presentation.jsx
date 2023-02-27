@@ -1,6 +1,7 @@
 import React from "react";
 import restaurant_background from "../../../../img/restaurant_background.jpg";
 import { Container } from "react-bootstrap";
+
 function Section_presentation(props) {
   const restaurantinfo = props.restaurantinfo
   const styles = props.Styles
