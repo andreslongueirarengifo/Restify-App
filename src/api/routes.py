@@ -8,11 +8,21 @@ from flask_cors import cross_origin
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import bcrypt
 
+import cloudinary
+import cloudinary.uploader
+from cloudinary.utils import cloudinary_url
+
 api = Blueprint('api', __name__)
 
+cloudinary.config(
+    cloud_name = "dnmfh4xnv",
+    api_key = "641646317717588",
+    api_secret = "3SCfTB9Ln1_J0mACC4XGhp4TH0U",
+    secure = True
+)
+
+
 # user endpoints
-
-
 @api.route('/signup', methods=['POST'])
 def login_signup():
     data = json.loads(request.data)
@@ -157,6 +167,10 @@ def set_branding():
 
     branding_web = Web.query.get(data["web_id"])
 
+
+    
+
+
     if branding_web is None:
         abort(404)
 
@@ -169,8 +183,8 @@ def set_branding():
             color_font1=data["color_font1"],
             color_font2=data["color_font2"],
             color_hover1=data["color_hover1"],
-            logo=data["logo"],
-            logo_favicon=data["logo_favicon"],
+            logo=data["web_id"],
+            logo_favicon=data["web_id"],
             font=data["font"],
             brand_name=data["brand_name"],
             web_id=data["web_id"]
@@ -206,6 +220,36 @@ def set_branding():
 
 # public endpoint to get all restaurant branding
 
+
+@api.route('/branding/<int:brand_id>/logo', methods=['PUT'])
+def handle_upload_logo(brand_id):
+    if 'logo' in request.files:
+        result = cloudinary.uploader.upload(request.files['logo'], public_id=f'logo_{brand_id}')
+
+        current_brand = Branding.query.get(brand_id)
+        current_brand.logo = result['secure_url']
+
+        db.session.add(current_brand)
+        db.session.commit()
+
+        return jsonify(current_brand.serialize()), 200
+    else:
+        raise APIException('Missing logo on the FormData')
+
+@api.route('/branding/<int:brand_id>/favicon', methods=['PUT'])
+def handle_upload_favicon(brand_id):
+    if 'favicon' in request.files:
+        result = cloudinary.uploader.upload(request.files['favicon'], public_id=f'favicon_{brand_id}')
+
+        current_brand = Branding.query.get(brand_id)
+        current_brand.logo_favicon = result['secure_url']
+
+        db.session.add(current_brand)
+        db.session.commit()
+
+        return jsonify(current_brand.serialize()), 200
+    else:
+        raise APIException('Missing logo on the FormData')
 
 @api.route('/branding/<int:web_id>', methods=['GET'])
 def get_branding_from_restaurant(web_id):

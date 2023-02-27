@@ -1,15 +1,38 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { Context } from "../../../store/appContext";
 
 export const InputGroupLogo = () => {
 
     const {store, actions} = useContext(Context)
     const [registerForm, setRegisterForm]= useState({})
+    const [files, setFiles] = useState(null)
+    const [favicon, setFavicon] = useState(null)
 
     const handleChange = (event) => {
         setRegisterForm({...registerForm, [event.target.id]:event.target.value})
         actions.setSetBrandingFormData(registerForm)
     }
+
+
+    useEffect(()=>{
+        setRegisterForm({...registerForm, ['logo']:files})
+        if (files){
+            let file = new FormData();
+            file.append("logo", files[0]);
+            actions.setBodyUploadImage(file)
+        }
+        actions.setSetBrandingFormData(registerForm)
+    },[files])
+
+    useEffect(()=>{
+        setRegisterForm({...registerForm, ['favicon']:favicon})
+        if (favicon){
+            let fileFavicon = new FormData();
+            fileFavicon.append("favicon", favicon[0]);
+            actions.setBodyUploadFavicon(fileFavicon)
+        }
+        actions.setSetBrandingFormData(registerForm)
+    },[favicon])
 
     return (
     <div className="p-0 mt-3">
@@ -18,11 +41,13 @@ export const InputGroupLogo = () => {
             <label htmlFor="logo" className="form-label">
                 Logo
             </label>
-            <input type="text" onChange={handleChange} id="logo" className="form-control" aria-label="Nombre"/>
+            <input type="file" onChange={e => setFiles(e.target.files)} id="logo" className="form-control" aria-label="Nombre"/>
         </div>
         <div className="col">
-            <label htmlFor="logo_favicon" className="form-label">Favicon</label>
-            <input type="text" onChange={handleChange} id="logo_favicon" className="form-control" aria-label="Apellidos"/>
+            <label htmlFor="logo" className="form-label">
+                Fav Icon
+            </label>
+            <input type="file" onChange={e => setFavicon(e.target.files)} id="fav-icon" className="form-control" aria-label="Nombre"/>
         </div>
         </div>
     </div>

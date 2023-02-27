@@ -14,12 +14,13 @@ import {
 	setBranding,
 	setContent,
 	defaultContentCreation,
+	uploadImage,
+	uploadFavicon,
 } from "../../../service/create_restaurant_service.js";
 
 export const RegisterBodyInputSide = () => {
 	const { store, actions } = useContext(Context);
-    const navigate = useNavigate();
-
+	const navigate = useNavigate();
 
 	//default content creation
 	useEffect(() => {
@@ -31,10 +32,12 @@ export const RegisterBodyInputSide = () => {
 		const createRestaurantFromFormData = async () => {
 			const restaurantData = await createRestaurant(store.createRestaurantFormData); //restaurantData
 			actions.setSetBrandingFormData(restaurantData.result);
-            actions.setSetContentFormData(restaurantData.result);
-			await setBranding(store.setBrandingFormData);
-            await setContent(store.setContentFormData)
-            navigate(`/rest-manager`)
+			actions.setSetContentFormData(restaurantData.result);
+			const brandData = await setBranding(store.setBrandingFormData);
+			await setContent(store.setContentFormData);
+			await uploadImage(store.bodyUploadImage, brandData.result.id);
+			await uploadFavicon(store.bodyUploadFavicon, brandData.result.id);
+			navigate(`/rest-manager`)
 		};
 		createRestaurantFromFormData();
 	};
