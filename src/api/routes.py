@@ -286,10 +286,9 @@ def get_content_from_restaurant(web_id):
     }
     return jsonify(response_body), 200
 
-# endpoint for template data
 
-
-@api.route('/template_data/<string:restaurant_name>', methods=['GET'])
+#endpoint for template data
+@api.route('/template_data/<restaurant_name>', methods=['GET'])
 def get_template_data(restaurant_name):
     restaurant_web = Web.query.filter_by(name=restaurant_name).first()
     web_id = restaurant_web.id
@@ -342,6 +341,7 @@ def get_template_data(restaurant_name):
             "logo_url": web_branding.logo,
             "logo_favicon_url": web_branding.logo_favicon,
             "font": web_branding.font,
+            "image_link": web_content.image_link,
             "facebook_url": web_content.facebook,
             "instagram_url": web_content.instagram,
             "twitter_url": web_content.twitter,
