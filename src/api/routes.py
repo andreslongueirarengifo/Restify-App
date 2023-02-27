@@ -8,11 +8,20 @@ from flask_cors import cross_origin
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import bcrypt
 
+import cloudinary
+import cloudinary.uploader
+
 api = Blueprint('api', __name__)
 
+cloudinary.config(
+    cloud_name = "dnmfh4xnv",
+    api_key = "641646317717588",
+    api_secret = "3SCfTB9Ln1_J0mACC4XGhp4TH0U",
+    secure = True
+)
+
+
 # user endpoints
-
-
 @api.route('/signup', methods=['POST'])
 def login_signup():
     data = json.loads(request.data)
@@ -211,26 +220,23 @@ def set_branding():
 # public endpoint to get all restaurant branding
 
 
-@api.route('/branding/<int:web_id>/image', methods=['PUT'])
+@api.route('/branding/<int:web_id>/image', methods=['POST'])
 def handle_upload(web_id):
 
-    if 'profile_image' in request.files:
-        #result = cloudinary.uploader.upload(request.files['profile_image'])
+    if 'logo' in request.files:
 
-        #current_web = Branding.query.get(web_id)
+        result = cloudinary.uploader.upload(request.files['logo'])
 
-        current_brand = Branding.query.filter_by(web_id=web_id).first().serialize()
+        # fetch for the user
+        current_web = Branding.query.filter_by(web_id=web_id).first().serialize()
+        # update the user with the given cloudinary image URL
+        current_web["logo"] = result['secure_url']
 
+        db.session.add(current_web)
+        db.session.commit()
 
-
-        #current_web.logo = result['secure_url']
-
-        #db.session.add(current_web)
-        #db.session.commit()
-
-        return jsonify({"url": ":)"}),200
+        return jsonify(current_web.serialize()), 200
     else:
-        print("Hola aqui estoy")
         raise APIException('Missing porfile_image on the FormData')
 
 

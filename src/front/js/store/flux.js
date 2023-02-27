@@ -11,7 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			currentRestaurantBranding: {},
 			currentRestaurantName: "",
 			currentRestaurantId: 0,
-			bodyUploadImage: new FormData(),
+			bodyUploadImage: null,
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -39,8 +39,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setCurrentRestaurantId: (webId) => {
 				setStore({ currentRestaurantId: webId });
 			},
-			setBodyUploadImage: (files) => {
-				setStore({ bodyUploadImage: { profile_image: files } });
+			setBodyUploadImage: (file) => {
+				setStore({ bodyUploadImage: file });
 			},
 
 			getMessage: async () => {
