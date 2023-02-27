@@ -32,10 +32,10 @@ export const RegisterBodyInputSide = () => {
 			const restaurantData = await createRestaurant(store.createRestaurantFormData); //restaurantData
 			actions.setSetBrandingFormData(restaurantData.result);
 			actions.setSetContentFormData(restaurantData.result);
-			await setBranding(store.setBrandingFormData);
+			const brandData = await setBranding(store.setBrandingFormData);
 			await setContent(store.setContentFormData);
-			//await uploadImage(store.bodyUploadImage, restaurantData.result.web_id)
-			//navigate(`/rest-manager`)
+			await uploadImage(store.bodyUploadImage, brandData.result.id)
+			navigate(`/rest-manager`)
 		};
 		createRestaurantFromFormData();
 	};

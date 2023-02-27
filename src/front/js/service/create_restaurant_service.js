@@ -75,7 +75,7 @@ export const uploadImage = async (file, web_id) => {
     try {
         const response = await fetch(`${process.env.BACKEND_URL}/api/branding/${web_id}/image`, {
             body: file,
-            method: "POST"
+            method: "PUT"
         })
         const data = await response.json(); 
         console.log("entro en el fetch!!! :D")

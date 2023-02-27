@@ -10,6 +10,7 @@ import bcrypt
 
 import cloudinary
 import cloudinary.uploader
+from cloudinary.utils import cloudinary_url
 
 api = Blueprint('api', __name__)
 
@@ -220,22 +221,24 @@ def set_branding():
 # public endpoint to get all restaurant branding
 
 
-@api.route('/branding/<int:web_id>/image', methods=['POST'])
-def handle_upload(web_id):
+@api.route('/branding/<int:brand_id>/image', methods=['PUT'])
+def handle_upload(brand_id):
 
     if 'logo' in request.files:
 
-        result = cloudinary.uploader.upload(request.files['logo'])
+        result = cloudinary.uploader.upload(request.files['logo'], public_id=f'logo_{brand_id}')
 
         # fetch for the user
-        current_web = Branding.query.filter_by(web_id=web_id).first().serialize()
+        #current_web = Branding.query.filter_by(web_id=web_id).first().serialize()
+        current_brand = Branding.query.get(brand_id)
         # update the user with the given cloudinary image URL
-        current_web["logo"] = result['secure_url']
+        current_brand.logo = result['secure_url']
 
-        db.session.add(current_web)
+
+        db.session.add(current_brand)
         db.session.commit()
 
-        return jsonify(current_web.serialize()), 200
+        return jsonify(current_brand.serialize()), 200
     else:
         raise APIException('Missing porfile_image on the FormData')
 
