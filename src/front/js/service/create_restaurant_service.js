@@ -73,8 +73,23 @@ export const setContent = async (formData) => {
 
 export const uploadImage = async (file, web_id) => {
     try {
-        const response = await fetch(`${process.env.BACKEND_URL}/api/branding/${web_id}/image`, {
+        const response = await fetch(`${process.env.BACKEND_URL}/api/branding/${web_id}/logo`, {
             body: file,
+            method: "PUT"
+        })
+        const data = await response.json(); 
+        console.log("entro en el fetch!!! :D")
+        return data;
+    } catch (e) {
+        console.log("no entro en el fetch¡¡¡¡ D:")
+        return e
+    }
+}
+
+export const uploadFavicon = async (favicon, web_id) => {
+    try {
+        const response = await fetch(`${process.env.BACKEND_URL}/api/branding/${web_id}/favicon`, {
+            body: favicon,
             method: "PUT"
         })
         const data = await response.json(); 

@@ -221,27 +221,35 @@ def set_branding():
 # public endpoint to get all restaurant branding
 
 
-@api.route('/branding/<int:brand_id>/image', methods=['PUT'])
-def handle_upload(brand_id):
-
+@api.route('/branding/<int:brand_id>/logo', methods=['PUT'])
+def handle_upload_logo(brand_id):
     if 'logo' in request.files:
-
         result = cloudinary.uploader.upload(request.files['logo'], public_id=f'logo_{brand_id}')
 
-        # fetch for the user
-        #current_web = Branding.query.filter_by(web_id=web_id).first().serialize()
         current_brand = Branding.query.get(brand_id)
-        # update the user with the given cloudinary image URL
         current_brand.logo = result['secure_url']
-
 
         db.session.add(current_brand)
         db.session.commit()
 
         return jsonify(current_brand.serialize()), 200
     else:
-        raise APIException('Missing porfile_image on the FormData')
+        raise APIException('Missing logo on the FormData')
 
+@api.route('/branding/<int:brand_id>/favicon', methods=['PUT'])
+def handle_upload_favicon(brand_id):
+    if 'favicon' in request.files:
+        result = cloudinary.uploader.upload(request.files['favicon'], public_id=f'favicon_{brand_id}')
+
+        current_brand = Branding.query.get(brand_id)
+        current_brand.logo_favicon = result['secure_url']
+
+        db.session.add(current_brand)
+        db.session.commit()
+
+        return jsonify(current_brand.serialize()), 200
+    else:
+        raise APIException('Missing logo on the FormData')
 
 @api.route('/branding/<int:web_id>', methods=['GET'])
 def get_branding_from_restaurant(web_id):
