@@ -319,8 +319,7 @@ def set_content():
 # public endpoint to get all restaurant content
 @api.route('/web_content/<int:web_id>', methods=['GET'])
 def get_content_from_restaurant(web_id):
-    content_from_restaurant = Content.query.filter_by(
-        web_id=web_id).first().serialize()
+    content_from_restaurant = Content.query.filter_by(web_id=web_id).first().serialize()
     if content_from_restaurant is None:
         abort(404)
     response_body = {
@@ -398,3 +397,121 @@ def get_template_data(restaurant_name):
         }
     }
     return jsonify(response_body), 200
+
+#endpoint to create category
+@api.route('/createcategory', methods=['POST', 'PUT'])
+@jwt_required()  # Necesita autenticación
+def create_category():
+    data = json.loads(request.data)
+
+    content_web = Web.query.get(data["web_id"])
+
+    if content_web is None:
+        abort(404)
+
+    if request.method == 'POST':
+        # Create a new Food_category object and add it to the database
+        food_category = Food_category(
+            name=data["name"],
+            web_id=data["web_id"],
+        )
+        db.session.add(food_category)
+        db.session.commit()
+
+    elif request.method == 'PUT':
+        # Modify an existing Content object and update the database
+        category_id = data["category_id"]
+        category = Food_category.query.get(category_id)
+
+        if category is None:
+            abort(404)
+
+        category.name = request.json.get('name', category.name)
+
+        db.session.commit()
+
+    return jsonify({"msg": "ok"}), 200
+
+# public endpoint to get restaurant categories
+@api.route('/foodcategories/<int:web_id>', methods=['GET'])
+def get_categories_from_restaurant(web_id):
+    categories_from_restaurant = Food_category.query.filter_by(web_id=web_id).first().serialize()
+    if categories_from_restaurant is None:
+        abort(404)
+    response_body = {
+        "msg": "ok",
+        "from_restaurant_id": web_id,
+        "result": categories_from_restaurant
+    }
+    return jsonify(response_body), 200
+
+# Endpoint for deleting a category
+@app.route("/deletecategory/<int:category_id>", methods=["DELETE"])
+def category_delete(category_id):
+    category = Food_category.query.get(category_id)
+    db.session.delete(category)
+    db.session.commit()
+
+    return jsonify({"msg": "ok"}), 200
+
+#endpoint to create food
+@api.route('/createfood', methods=['POST', 'PUT'])
+@jwt_required()  # Necesita autenticación
+def create_food():
+    data = json.loads(request.data)
+
+    content_web = Web.query.get(data["web_id"])
+
+    if content_web is None:
+        abort(404)
+
+    if request.method == 'POST':
+        # Create a new Food object and add it to the database
+        food = Food(
+            name=data["name"],
+            description=data["description"],
+            price=data["price"],
+            category_id=data["category_id"],
+            web_id=data["web_id"],
+        )
+        db.session.add(food)
+        db.session.commit()
+
+    elif request.method == 'PUT':
+        # Modify an existing Content object and update the database
+        food_id = data["food_id"]
+        food = Food.query.get(food_id)
+
+        if food is None:
+            abort(404)
+
+        food.name = request.json.get('name', food.name)
+        food.description = request.json.get('description', food.description)
+        food.price = request.json.get('price', food.price)
+        food.image = request.json.get('image', food.image)
+
+        db.session.commit()
+
+    return jsonify({"msg": "ok"}), 200
+
+# public endpoint to get restaurant food
+@api.route('/food/<int:web_id>', methods=['GET'])
+def get_food_from_restaurant(web_id):
+    food_from_restaurant = Food.query.filter_by(web_id=web_id).first().serialize()
+    if food_from_restaurant is None:
+        abort(404)
+    response_body = {
+        "msg": "ok",
+        "from_restaurant_id": web_id,
+        "result": food_from_restaurant
+    }
+    return jsonify(response_body), 200
+
+# Endpoint for deleting food
+@app.route("/deletefood/<int:food_id>", methods=["DELETE"])
+def food_delete(food_id):
+    food = Food.query.get(food_id)
+    db.session.delete(food)
+    db.session.commit()
+
+    return jsonify({"msg": "ok"}), 200

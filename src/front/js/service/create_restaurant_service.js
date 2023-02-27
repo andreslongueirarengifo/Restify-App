@@ -45,10 +45,10 @@ export const defaultContentCreation = {
     instagram: "https://instagram.com/",
     twitter: "https://twitter.com/",
     facebook: "https://www.facebook.com/",
-    location_street: "",
-    location_city: "",
-    location_coordinates: "",
-    image_link: "",
+    location_street: "Dirección",
+    location_city: "Barcelona",
+    location_coordinates: "41.379118,2.175238",
+    image_link: "https://m.media-amazon.com/images/I/71vonbE-r2L._AC_SY355_.jpg",
 }
 
 export const setContent = async (formData) => {

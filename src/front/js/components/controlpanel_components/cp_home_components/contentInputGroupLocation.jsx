@@ -6,10 +6,18 @@ export const ContentInputGroupLocation = () => {
 	const { store, actions } = useContext(Context);
 	const [form, setform] = useState({});
 	const [spainCitiesData, setSpainCitiesData] = useState([]);
+	const [cityForm, setCityForm] = useState("");
 
 	const handleChange = (event) => {
 		setform({ ...form, [event.target.id]: event.target.value });
+		if (event.target.id === "location_city") {
+			setCityForm(event.target.value);
+		}
 	};
+
+	useEffect(() => {
+		setCityForm(store.currentRestaurantContent.location_city)
+	}, [store.currentRestaurantContent])
 
 	useEffect(() => {
 		actions.setSetContentFormData(form);
@@ -25,6 +33,7 @@ export const ContentInputGroupLocation = () => {
 			setSpainCitiesData(citiesArray);
 		};
 		fetchedSpainCities();
+		console.log(cityForm);
 	}, []);
 
 	return (
@@ -47,9 +56,13 @@ export const ContentInputGroupLocation = () => {
 					<label htmlFor="location_city" className="form-label">
 						Ciudad
 					</label>
-					<select defaultValue={store.currentRestaurantContent.location_city} className="form-select" onChange={handleChange} id="location_city">
+					<select value={cityForm} className="form-select" onChange={handleChange} id="location_city">
 						{spainCitiesData.map((city, index) => {
-							return <option key={index} value={city}>{city}</option>
+							return (
+								<option key={index} value={city}>
+									{city}
+								</option>
+							);
 						})}
 					</select>
 				</div>
