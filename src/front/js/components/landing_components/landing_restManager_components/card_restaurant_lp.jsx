@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import logoWhite from "../../../../img/logo-white.png";
 
@@ -7,9 +7,9 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { getRestaurant } from "../../../service/rest_manager_service";
 
 export const CardRestaurant = (props) => {
-
 	const [restaurantData, setRestaurantData] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		const getRestaurantData = async () => {
@@ -36,11 +36,7 @@ export const CardRestaurant = (props) => {
 						<i className="fa-regular fa-copy"></i>
 					</div>
 					<div className="d-flex flex-column mt-3">
-						<button
-							className="btn btn-restify-secondary btn-rounded mb-2"
-						>
-							Panel de control
-						</button>
+						<button className="btn btn-restify-secondary btn-rounded mb-2">Panel de control</button>
 						<button className="btn btn-restify-primary btn-rounded">Visualizar</button>
 					</div>
 				</div>
@@ -63,8 +59,12 @@ export const CardRestaurant = (props) => {
 					</div>
 				</CopyToClipboard>
 				<div className="d-flex flex-column mt-3">
-                    <Link className="btn btn-restify-secondary btn-rounded mb-2" to={`/controlpanel/home/${props.name}`}>Panel de control</Link>
-					<button className="btn btn-restify-primary btn-rounded">Visualizar</button>
+					<Link className="btn btn-restify-secondary btn-rounded mb-2" to={`/controlpanel/home/${props.name}`}>
+						Panel de control
+					</Link>
+					<button className="btn btn-restify-primary btn-rounded" onClick={() => navigate(`/res/${props.name}`)}>
+						Visualizar
+					</button>
 				</div>
 			</div>
 		</div>
