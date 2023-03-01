@@ -21,6 +21,7 @@ flask-sqlalchemy = "1.4.46"
 flask-jwt-extended = "*"
 bcrypt = "*"
 flask-bcrypt = "*"
+importlib-metadata = "*"
 
 [requires]
 python_version = "3.10"
