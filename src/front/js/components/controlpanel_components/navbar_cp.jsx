@@ -9,8 +9,8 @@ export const NavbarCP = (props) => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="m-0 w-100">
-			<ul className="nav flex-column vertical-navbar p-2 px-4">
+		<nav className="m-0 w-100">
+			<ul className="navbar-nav flex-column vertical-navbar p-2 px-4">
 				<li className="nav-item text-center mb-2">
 					<img src={logoWhite} alt="Restify" width="88" height="24" onClick={() => navigate(`/rest-manager`)} />
 				</li>
@@ -30,6 +30,6 @@ export const NavbarCP = (props) => {
 					</a>
 				</li>
 			</ul>
-		</div>
+		</nav>
 	);
 };

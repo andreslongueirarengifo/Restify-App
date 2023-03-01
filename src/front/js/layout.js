@@ -33,9 +33,9 @@ const Layout = () => {
                 <Route element={<HomeLP />} path="/" />
                 <Route element={<RestManagerLP />} path="/rest-manager" />
                 <Route element={<CreateRestaurantLP />} path="/createrestaurant" />
-                <Route element={<ContactTEMP />} path="/:webname/contact" />
-                <Route element={<HomeTEMP />} path="/:webname/home" />
-                <Route element={<MenuTEMP />} path="/:webname/menu" />
+                <Route element={<ContactTEMP />} path="res/:webname/contact" />
+                <Route element={<HomeTEMP />} path="res/:webname/" />
+                <Route element={<MenuTEMP />} path="res/:webname/menu" />
                 <Route element={<BrandingCP />}path="/controlpanel/branding/:webName" />
                 <Route element={<HomeCP />} path="/controlpanel/home/:webName" />
                 <Route element={<MenuCP />} path="/controlpanel/menu/:webName" />

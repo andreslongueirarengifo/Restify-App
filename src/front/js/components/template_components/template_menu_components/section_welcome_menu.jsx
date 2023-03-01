@@ -1,15 +1,9 @@
 import React from "react";
+import { hexToRgb } from "../section_call_to_action.jsx";
 
 function Section_welcome_menu(props) {
   const restaurantinfo = props.restaurantinfo
   const styles = props.Styles
-  function hexToRgb(hex) {
-    const bigint = parseInt(hex, 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-    return `${r}, ${g}, ${b}`;
-  }
   
   return (
     <div className="row justify-content-md-center"
