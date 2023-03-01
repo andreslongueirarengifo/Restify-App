@@ -6,5 +6,3 @@ npm install
 npm run build
 
 pipenv install --version 3.10
-
-pipenv run upgrade
