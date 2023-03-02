@@ -5,4 +5,6 @@ set -o errexit
 npm install
 npm run build
 
-pipenv install python 3.10.7 
+pipenv install 
+
+sudo apt install python3.10.7
