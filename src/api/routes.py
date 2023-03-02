@@ -432,27 +432,48 @@ def create_category():
 
     return jsonify({"msg": "ok"}), 200
 
-# public endpoint to get restaurant categories
-@api.route('/foodcategories/<int:web_id>', methods=['GET'])
-def get_categories_from_restaurant(web_id):
-    categories_from_restaurant = Food_category.query.filter_by(web_id=web_id).first().serialize()
-    if categories_from_restaurant is None:
-        abort(404)
-    response_body = {
-        "msg": "ok",
-        "from_restaurant_id": web_id,
-        "result": categories_from_restaurant
-    }
+@api.route('/foodcategories/<name>', methods=['GET'])
+def get_categories_from_restaurant(name):
+    restaurant_web = Web.query.filter_by(name=name).first()
+    web_id = restaurant_web.id
+    categories = Food_category.query.filter_by(web_id=web_id).all()
+
+    if not categories:
+        response_body = {
+            "msg": "no categories",
+            "from_restaurant_id": web_id,
+            "result": []
+        }
+    else:
+        categories_list = [category.serialize() for category in categories]
+        response_body = {
+            "msg": "ok",
+            "from_restaurant_id": web_id,
+            "result": categories_list
+        }
     return jsonify(response_body), 200
 
+
 # Endpoint for deleting a category
-@app.route("/deletecategory/<int:category_id>", methods=["DELETE"])
+@api.route("/deletecategory/<int:category_id>", methods=["DELETE"])
 def category_delete(category_id):
     category = Food_category.query.get(category_id)
+    if not category:
+        return jsonify({"msg": "Category not found"}), 404
+
+    # Delete all the foods in the category
+    foods = Food.query.filter_by(category_id=category_id).all()
+    for food in foods:
+        allergens = Allergens.query.filter_by(food_id=food.id).first()
+        db.session.delete(allergens)
+        db.session.delete(food)
+
+    # Delete the category
     db.session.delete(category)
     db.session.commit()
 
     return jsonify({"msg": "ok"}), 200
+
 
 #endpoint to create food
 @api.route('/createfood', methods=['POST', 'PUT'])
@@ -508,7 +529,7 @@ def get_food_from_restaurant(web_id):
     return jsonify(response_body), 200
 
 # Endpoint for deleting food
-@app.route("/deletefood/<int:food_id>", methods=["DELETE"])
+@api.route("/deletefood/<int:food_id>", methods=["DELETE"])
 def food_delete(food_id):
     food = Food.query.get(food_id)
     db.session.delete(food)
