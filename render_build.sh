@@ -5,4 +5,4 @@ set -o errexit
 npm install
 npm run build
 
-pipenv install --version 3.10
+pipenv install python3.10.7 
