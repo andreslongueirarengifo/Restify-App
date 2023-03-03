@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Context } from "../../../store/appContext.js";
@@ -20,6 +20,7 @@ import {
 
 export const RegisterBodyInputSide = () => {
 	const { store, actions } = useContext(Context);
+	const [isCreating, setIsCreating] = useState(false);
 	const navigate = useNavigate();
 
 	//default content creation
@@ -30,6 +31,7 @@ export const RegisterBodyInputSide = () => {
 	const handleClick = (event) => {
 		event.preventDefault();
 		const createRestaurantFromFormData = async () => {
+			setIsCreating(true);
 			const restaurantData = await createRestaurant(store.createRestaurantFormData); //restaurantData
 			actions.setSetBrandingFormData(restaurantData.result);
 			actions.setSetContentFormData(restaurantData.result);
@@ -37,23 +39,40 @@ export const RegisterBodyInputSide = () => {
 			await setContent(store.setContentFormData);
 			await uploadImage(store.bodyUploadImage, brandData.result.id);
 			await uploadFavicon(store.bodyUploadFavicon, brandData.result.id);
-			navigate(`/rest-manager`)
+			setIsCreating(false);
+			navigate(`/rest-manager`);
 		};
 		createRestaurantFromFormData();
 	};
 
 	return (
 		<div className="container-sm white-test p-5 rounded-end scrollable">
-			<h2 className="text-center mb-4">Crea tu web de tu restaurante.</h2>
+			<h2 className="text-center mb-4">Crea la web de tu restaurante.</h2>
 			<InputGroupBasicInfo />
 			<InputGroupBrandingName />
 			<InputGroupLogo />
 			<InputGroupFont />
 			<InputGroupColors />
 
-			<button onClick={handleClick} type="button" className="btn btn-restify btn-restify-primary btn-form col-12 mt-4">
-				Crear restaurante
-			</button>
+			{isCreating ? (
+				<button
+					onClick={handleClick}
+					type="button"
+					className="btn btn-restify btn-restify-primary btn-form col-12 mt-4"
+					disabled
+				>
+					<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+					<span className="visually-hidden">Creating restaurant...</span>
+				</button>
+			) : (
+				<button
+					onClick={handleClick}
+					type="button"
+					className="btn btn-restify btn-restify-primary btn-form col-12 mt-4"
+				>
+					Crear restaurante
+				</button>
+			)}
 		</div>
 	);
 };

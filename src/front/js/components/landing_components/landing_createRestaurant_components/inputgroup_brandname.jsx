@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useEffect, useContext, useState} from "react";
 import { Context } from "../../../store/appContext";
 
 export const InputGroupBrandingName = () => {
@@ -10,6 +10,10 @@ export const InputGroupBrandingName = () => {
         setRegisterForm({...registerForm, [event.target.id]:event.target.value})
         actions.setSetBrandingFormData(registerForm)
     }
+
+    useEffect(() => {
+        actions.setSetBrandingFormData(registerForm)
+    },[registerForm])
 
     return (
     <div className="p-0">

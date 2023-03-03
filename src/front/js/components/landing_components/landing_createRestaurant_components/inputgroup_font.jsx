@@ -13,7 +13,7 @@ export const InputGroupFont = () => {
 
     useEffect(() => {
         actions.setSetBrandingFormData(registerForm)
-    },[])
+    },[registerForm])
 
     return (
     <div className="p-0 mt-3">

@@ -1,8 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import logoWhite from "../../../../img/logo-white.png";
-
 export const CardAddRestaurant = () => {
 	const navigate = useNavigate();
 

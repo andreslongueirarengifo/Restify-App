@@ -539,3 +539,25 @@ def food_delete(food_id):
     db.session.commit()
 
     return jsonify({"msg": "ok"}), 200
+
+
+@api.route("/deleterestaurant/<int:id>", methods=["DELETE"])
+@jwt_required()
+def delete_restaurant(id):
+    restaurant = Web.query.get(id)
+    branding_from_restaurant = Branding.query.filter_by(web_id=id)
+    content_from_restaurant = Content.query.filter_by(web_id=id)
+    categories_from_restaurant = Food_category.query.filter_by(web_id=id).all()
+    food_from_restaurant = Food.query.filter_by(web_id=id)
+    db.session.delete(restaurant)
+    db.session.delete(branding_from_restaurant)
+    db.session.delete(content_from_restaurant)
+    for category in categories_from_restaurant:
+        db.session.delete(category)
+    for food in food_from_restaurant:
+        db.session.delete(food)
+    
+    db.session.commit()
+
+
+    return jsonify({"msg": "ok"}), 200
