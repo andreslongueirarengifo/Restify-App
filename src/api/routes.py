@@ -400,11 +400,11 @@ def get_template_data(restaurant_name):
 
 #endpoint to create category
 @api.route('/createcategory', methods=['POST', 'PUT'])
-@jwt_required()  # Necesita autenticación
+# @jwt_required()  # Necesita autenticación
 def create_category():
     data = json.loads(request.data)
 
-    content_web = Web.query.get(data["web_id"])
+    content_web = Web.query.filter_by(name=data["web_name"]).first()
 
     if content_web is None:
         abort(404)
@@ -413,7 +413,7 @@ def create_category():
         # Create a new Food_category object and add it to the database
         food_category = Food_category(
             name=data["name"],
-            web_id=data["web_id"],
+            web=content_web,
         )
         db.session.add(food_category)
         db.session.commit()
@@ -431,6 +431,7 @@ def create_category():
         db.session.commit()
 
     return jsonify({"msg": "ok"}), 200
+
 
 @api.route('/foodcategories/<name>', methods=['GET'])
 def get_categories_from_restaurant(name):
