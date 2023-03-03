@@ -11,7 +11,6 @@ export const createRestaurant = async (formData) => { // formData = {name: "samp
             }
         })
         const data = await response.json();
-        console.log(data)
         return data;
     }
     catch (e) {
@@ -32,7 +31,6 @@ export const setBranding = async (formData) => {
             }
         })
         const data = await response.json();
-        console.log(data)
         return data;
     }
     catch (e) {
@@ -78,10 +76,8 @@ export const uploadImage = async (file, web_id) => {
             method: "PUT"
         })
         const data = await response.json(); 
-        console.log("entro en el fetch!!! :D")
         return data;
     } catch (e) {
-        console.log("no entro en el fetch¡¡¡¡ D:")
         return e
     }
 }
@@ -93,10 +89,8 @@ export const uploadFavicon = async (favicon, web_id) => {
             method: "PUT"
         })
         const data = await response.json(); 
-        console.log("entro en el fetch!!! :D")
         return data;
     } catch (e) {
-        console.log("no entro en el fetch¡¡¡¡ D:")
         return e
     }
 }

@@ -31,3 +31,21 @@ export const getRestaurant= async (web_id)=>{
         return e
     }
 }
+
+export const getBranding = async (web_id) => {
+    try{
+        const token = localStorage.getItem('jwt-token');
+        const response = await fetch(process.env.BACKEND_URL+`/api/branding/${web_id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer '+ token // ⬅⬅⬅ authorization token
+            }
+        })
+        const data = await response.json();
+        return data;
+    }
+    catch(e){
+        return e
+    }
+}

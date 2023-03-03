@@ -545,19 +545,24 @@ def food_delete(food_id):
 @jwt_required()
 def delete_restaurant(id):
     restaurant = Web.query.get(id)
-    branding_from_restaurant = Branding.query.filter_by(web_id=id)
-    content_from_restaurant = Content.query.filter_by(web_id=id)
+    if not restaurant:
+        return jsonify({"msg": "restaurant not found"}), 404
+    
+    branding_from_restaurant = Branding.query.filter_by(web_id=id).all()
+    content_from_restaurant = Content.query.filter_by(web_id=id).all()
     categories_from_restaurant = Food_category.query.filter_by(web_id=id).all()
-    food_from_restaurant = Food.query.filter_by(web_id=id)
-    db.session.delete(restaurant)
-    db.session.delete(branding_from_restaurant)
-    db.session.delete(content_from_restaurant)
+    food_from_restaurant = Food.query.filter_by(web_id=id).all()
+
+    for branding in branding_from_restaurant:
+        db.session.delete(branding)
+    for content in content_from_restaurant:
+        db.session.delete(content)
     for category in categories_from_restaurant:
         db.session.delete(category)
     for food in food_from_restaurant:
         db.session.delete(food)
-    
+
+    db.session.delete(restaurant)
     db.session.commit()
 
-
-    return jsonify({"msg": "ok"}), 200
+    return jsonify({"msg": "restaurant deleted"}), 200

@@ -1,4 +1,5 @@
 @import url("https://fonts.cdnfonts.com/css/gotham");
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
 
 .styleWrapper {
 	font-family: "Gotham", sans-serif;
@@ -195,6 +196,31 @@ h2 {
 	box-shadow: none !important;
 }
 
+/* Transparent Buttons */
+
+.btn-restify-transparent,
+.btn-light:hover {
+	color: white !important;
+}
+
+.btn-restify-transparent {
+	background: rgba(255, 255, 255, 0.15) !important;
+	backdrop-filter: blur(2px) !important;
+	border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.btn-restify-transparent:hover {
+	background-color: rgba(255, 255, 255, 0.35) !important;
+	border-color: rgba(255, 255, 255, 0.35) !important;
+	backdrop-filter: blur(2px) !important;
+	color: white !important;
+}
+
+.btn-restify-transparent:focus,
+.btn-restify-transparent.focus {
+	box-shadow: none !important;
+}
+
 /*#endregion Buttons*/
 
 /*#region Inputs  */
@@ -254,8 +280,7 @@ select.focus {
 	border-radius: 50%;
 	height: 10rem;
 	width: 10rem;
-	object-fit: contain;
-	padding: 0.5rem;
+	object-fit: cover;
 }
 
 .img-card-add {

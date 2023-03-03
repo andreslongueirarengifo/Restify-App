@@ -27,8 +27,6 @@ export const NavbarRestManager = (props) => {
 		}
 	}, [store.isAuthenticated]);
 
-	console.log(props);
-
 	return (
 		<nav
 			className="navbar navbar-expand-lg bg-body-tertiary nav-sizeº"

@@ -105,7 +105,6 @@ export const createCategory = async (formData) => {
             }
         })
         const data = await response.json();
-        console.log(data)
         return data;
     }
     catch (e) {
@@ -135,14 +134,7 @@ export const updateCategory = async (formData) => {
 
 export const getCategories = async (web_id) => {
     try{
-        const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+`/api/foodcategories/${web_id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': 'Bearer '+ token // ⬅⬅⬅ authorization token
-            }
-        })
+        const response = await fetch(process.env.BACKEND_URL+`/api/foodcategories/${web_id}`)
         const data = await response.json();
         return data;
     }
@@ -182,7 +174,6 @@ export const createFood = async (formData) => {
             }
         })
         const data = await response.json();
-        console.log(data)
         return data;
     }
     catch (e) {
@@ -212,9 +203,20 @@ export const updateFood = async (formData) => {
 
 export const getFood = async (web_id) => {
     try{
+        const response = await fetch(process.env.BACKEND_URL+`/api/food/${web_id}`)
+        const data = await response.json();
+        return data;
+    }
+    catch(e){
+        return e
+    }
+}
+
+export const deleteFood = async (food_id) => {
+    try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+`/api/food/${web_id}`, {
-            method: "GET",
+        const response = await fetch(process.env.BACKEND_URL+`/api/deletefood/${food_id}`, {
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': 'Bearer '+ token // ⬅⬅⬅ authorization token
@@ -228,10 +230,10 @@ export const getFood = async (web_id) => {
     }
 }
 
-export const deleteFood = async (food_id) => {
+export const deleteRestaurant = async (web_id) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+`/api/deletefood/${food_id}`, {
+        const response = await fetch(process.env.BACKEND_URL+`/api/deleterestaurant/${web_id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

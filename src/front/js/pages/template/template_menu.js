@@ -21,12 +21,10 @@ export const MenuTEMP = () => {
     colorextra1: {},
     font: {},
   });
-  {console.log(apirequesturl)}
   useEffect(() => {
     fetch(apirequesturl)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       setStyles({
         back1: { backgroundColor: `${data.result.colorback1}` },
         back2: { backgroundColor: `${data.result.colorback2}` },
@@ -41,7 +39,6 @@ export const MenuTEMP = () => {
     fetch(apirequesturl)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       setRestaurantinfo(data.result)
     })
   }, []);

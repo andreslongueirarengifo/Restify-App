@@ -11,7 +11,6 @@ function Navbar1(props) {
   const linkhome = `/res/${restaurantname}`
   const linkmenu = `/res/${restaurantname}/menu`
   const linkcontact = `/res/${restaurantname}/contact`
-  {console.log(styles.styleback1)}
   return (
     <>
             <Navbar collapseOnSelect expand="lg" style={ styles.back2 }>

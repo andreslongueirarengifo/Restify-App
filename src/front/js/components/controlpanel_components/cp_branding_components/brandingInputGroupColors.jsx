@@ -10,6 +10,10 @@ export const BrandingInputGroupColors = () => {
 	};
 
 	useEffect(() => {
+		setform(store.currentRestaurantBranding)
+	}, [store.currentRestaurantBranding]);
+
+	useEffect(() => {
 		actions.setSetBrandingFormData(form);
 	}, [form]);
 
@@ -23,7 +27,7 @@ export const BrandingInputGroupColors = () => {
 					</label>
 					<input
 						type="color"
-						value={store.currentRestaurantBranding.color_bg1}
+						value={form.color_bg1}
 						onChange={handleChange}
 						className="form-control color-input"
 						id="color_bg1"
@@ -36,7 +40,7 @@ export const BrandingInputGroupColors = () => {
 					</label>
 					<input
 						type="color"
-						value={store.currentRestaurantBranding.color_bg2}
+						value={form.color_bg2}
 						onChange={handleChange}
 						className="form-control color-input"
 						id="color_bg2"
@@ -49,7 +53,7 @@ export const BrandingInputGroupColors = () => {
 					</label>
 					<input
 						type="color"
-						value={store.currentRestaurantBranding.color_font1}
+						value={form.color_font1}
 						onChange={handleChange}
 						className="form-control color-input"
 						id="color_font1"
@@ -62,7 +66,7 @@ export const BrandingInputGroupColors = () => {
 					</label>
 					<input
 						type="color"
-						value={store.currentRestaurantBranding.color_font2}
+						value={form.color_font2}
 						onChange={handleChange}
 						className="form-control color-input"
 						id="color_font2"
@@ -75,7 +79,7 @@ export const BrandingInputGroupColors = () => {
 					</label>
 					<input
 						type="color"
-						value={store.currentRestaurantBranding.color_hover1}
+						value={form.color_hover1}
 						onChange={handleChange}
 						className="form-control color-input"
 						id="color_hover1"
