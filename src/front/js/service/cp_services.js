@@ -1,3 +1,4 @@
+//
 export const getWebInfoByName = async (web_name) => {
     try{
         const token = localStorage.getItem('jwt-token');
