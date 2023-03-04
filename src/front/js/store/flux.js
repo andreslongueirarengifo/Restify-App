@@ -12,7 +12,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			currentRestaurantName: "",
 			currentRestaurantId: 0,
 			bodyUploadImage: null,
-			bodyUploadFavicon: null
+			bodyUploadFavicon: null,
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -44,13 +44,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ bodyUploadImage: file });
 			},
 			setBodyUploadFavicon: (favicon) => {
-				setStore({bodyUploadFavicon: favicon });
+				setStore({ bodyUploadFavicon: favicon });
 			},
 
 			getMessage: async () => {
 				try {
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello");
+					const resp = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io" + "/api/hello");
 					const data = await resp.json();
 					setStore({ message: data.message });
 					// don't forget to return something, that is how the async resolves

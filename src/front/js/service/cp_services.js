@@ -1,7 +1,7 @@
 export const getWebInfoByName = async (web_name) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+`/api/restaurants/`+web_name, {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io"+`/api/restaurants/`+web_name, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const getWebInfoByName = async (web_name) => {
 export const getContent = async (web_id) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+`/api/web_content/${web_id}`, {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io"+`/api/web_content/${web_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export const getContent = async (web_id) => {
 export const getBranding = async (web_id) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+`/api/branding/${web_id}`, {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io"+`/api/branding/${web_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export const getBranding = async (web_id) => {
 export const updateContent = async (formData) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+"/api/setcontent", {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io"+"/api/setcontent", {
             method: "PUT",
             mode: "cors",
             body: JSON.stringify(formData),
@@ -75,7 +75,7 @@ export const updateContent = async (formData) => {
 export const updateBranding = async (formData) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+"/api/setbranding", {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io"+"/api/setbranding", {
             method: "PUT",
             mode: "cors",
             body: JSON.stringify(formData),
@@ -95,7 +95,7 @@ export const updateBranding = async (formData) => {
 export const createCategory = async (formData) => {
     try {
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL + "/api/createcategory", {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io" + "/api/createcategory", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(formData),
@@ -116,7 +116,7 @@ export const createCategory = async (formData) => {
 export const updateCategory = async (formData) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+"/api/createcategory", {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io"+"/api/createcategory", {
             method: "PUT",
             mode: "cors",
             body: JSON.stringify(formData),
@@ -136,7 +136,7 @@ export const updateCategory = async (formData) => {
 export const getCategories = async (web_id) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+`/api/foodcategories/${web_id}`, {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io"+`/api/foodcategories/${web_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -154,7 +154,7 @@ export const getCategories = async (web_id) => {
 export const deleteCategories = async (category_id) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+`/api/deletecategory/${category_id}`, {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io"+`/api/deletecategory/${category_id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -172,7 +172,7 @@ export const deleteCategories = async (category_id) => {
 export const createFood = async (formData) => {
     try {
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL + "/api/createfood", {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io" + "/api/createfood", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(formData),
@@ -193,7 +193,7 @@ export const createFood = async (formData) => {
 export const updateFood = async (formData) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+"/api/createfood", {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io"+"/api/createfood", {
             method: "PUT",
             mode: "cors",
             body: JSON.stringify(formData),
@@ -213,7 +213,7 @@ export const updateFood = async (formData) => {
 export const getFood = async (web_id) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+`/api/food/${web_id}`, {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io"+`/api/food/${web_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -231,7 +231,7 @@ export const getFood = async (web_id) => {
 export const deleteFood = async (food_id) => {
     try{
         const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+`/api/deletefood/${food_id}`, {
+        const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io"+`/api/deletefood/${food_id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
