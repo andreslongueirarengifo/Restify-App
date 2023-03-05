@@ -261,10 +261,10 @@ def handle_upload_favicon(brand_id):
         raise APIException('Missing logo on the FormData')
 
 @api.route('/webcontent/<int:content_id>/img', methods=['PUT'])
-def handle_upload_favicon(content_id):
+def handle_upload_header(content_id):
     if 'img' in request.files:
 
-        current_content = Branding.query.get(brand_id)
+        current_content = Content.query.get(content_id)
 
         result = cloudinary.uploader.upload(request.files['img'], public_id=f'img_{current_content.web.id}_{content_id}')
 

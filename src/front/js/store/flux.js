@@ -14,6 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			bodyuploadLogo: null,
 			bodyUploadFavicon: null,
 			webExist: false,
+			bodyUploadImg: null,
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -44,11 +45,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setBodyuploadLogo: (file) => {
 				setStore({ bodyuploadLogo: file });
 			},
-			setBodyUploadFavicon: (favicon) => {
-				setStore({ bodyUploadFavicon: favicon });
+			setBodyUploadFavicon: (file) => {
+				setStore({ bodyUploadFavicon: file });
 			},
 			setWebExist: (bool) => {
 				setStore({ webExist: bool });
+			},
+			setBodyUploadImg: (file) => {
+				setStore({ bodyUploadImg: file });
 			},
 
 			getMessage: async () => {
