@@ -79,7 +79,7 @@ export const setContent = async (formData) => {
 	}
 };
 
-export const uploadImage = async (file, web_id) => {
+export const uploadLogo = async (file, web_id) => {
 	try {
 		const response = await fetch(`${process.env.BACKEND_URL}/api/branding/${web_id}/logo`, {
 			body: file,
@@ -92,10 +92,10 @@ export const uploadImage = async (file, web_id) => {
 	}
 };
 
-export const uploadFavicon = async (favicon, web_id) => {
+export const uploadFavicon = async (file, web_id) => {
 	try {
 		const response = await fetch(`${process.env.BACKEND_URL}/api/branding/${web_id}/favicon`, {
-			body: favicon,
+			body: file,
 			method: "PUT",
 		});
 		const data = await response.json();

@@ -12,7 +12,7 @@ export const InputGroupLogo = () => {
 		if (files) {
 			let file = new FormData();
 			file.append("logo", files[0]);
-			actions.setBodyUploadImage(file);
+			actions.setBodyuploadLogo(file);
 		}
 	}, [files]);
 
