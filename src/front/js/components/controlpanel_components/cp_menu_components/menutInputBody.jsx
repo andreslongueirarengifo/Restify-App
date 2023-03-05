@@ -1,14 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { Category_food_table } from "./menu_categories_table.jsx";
-import { Context } from "../../../store/appContext";
+import { Menu_categories_table } from "./menu_categories_table.jsx";
 
+import { Category_tables } from "./category_tables.jsx";
 export const MenuInputBody = (props) => {
-	const { store, actions } = useContext(Context);
-
-	useEffect(() => {
-		actions.getCurrentRestaurantIdbyWebName(props.webName);
-	}, []);
-
+	const webName = props.webName
 
 	return (
 		<div className="container p-4">
@@ -17,7 +12,8 @@ export const MenuInputBody = (props) => {
 			</div>
 			<div className="container-fluid cpbody-container shadow-sm p-3">
 				<div className="row px-5">
-					<Category_food_table/>
+					<Menu_categories_table/>
+					<Category_tables webName={webName}/>
 				</div>
 			</div>
 		</div>

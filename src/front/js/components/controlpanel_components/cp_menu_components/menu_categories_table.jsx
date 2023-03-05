@@ -64,7 +64,7 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
 
 
 
-export const Category_food_table = (props) => {
+export const Menu_categories_table = (props) => {
   const domain = process.env.BACKEND_URL;
   const params = useParams();
   const [categories, setCategories] = useState([]);
@@ -109,24 +109,14 @@ export const Category_food_table = (props) => {
       })
       .then((data) => {
         console.log(data);
-        // Fetch the updated list of categories from the server
-        fetch(`${domain}/api/foodcategories/${params.webName}`)
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data);
-            setCategories([...data.result]);
-            setShowModal(false);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        // Reload the page after adding a new category
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);
       });
   };
+  
 
   return (
     <>
