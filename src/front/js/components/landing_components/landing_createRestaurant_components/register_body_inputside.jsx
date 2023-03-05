@@ -53,7 +53,7 @@ export const RegisterBodyInputSide = () => {
 			const brandData = await setBranding(store.setBrandingFormData);
 			await setContent(store.setContentFormData);
 			await uploadLogo(store.bodyuploadLogo, brandData.result.id);
-			await uploadFavicon(store.bodyUploadFavicon, brandData.result.id);
+			//await uploadFavicon(store.bodyUploadFavicon, brandData.result.id);
 			setIsCreating(false);
 			navigate(`/rest-manager`);
 		};

@@ -5,6 +5,7 @@ import { BrandingInputGroupLogo } from "./brandingInputGroupLogo.jsx";
 import { BrandingInputGroupFont } from "./brandingtInputGroupFont.jsx";
 import { BrandingInputGroupName } from "./brandingtInputGroupName.jsx";
 import { updateBranding } from "../../../service/cp_services";
+import { uploadLogo } from "../../../service/create_restaurant_service";
 
 export const BrandingInputBody = (props) => {
 	const { store, actions } = useContext(Context);
@@ -39,7 +40,8 @@ export const BrandingInputBody = (props) => {
 						type="button"
 						className="btn btn-restify btn-restify-primary btn-form col-4"
 						onClick={() => {
-							updateBranding(store.setBrandingFormData);
+							//updateBranding(store.setBrandingFormData);
+							uploadLogo(store.bodyuploadlogo, store.setBrandingFormData.id);
 						}}
 					>
 						Actualizar información
