@@ -481,10 +481,8 @@ def category_delete(category_id):
 #@jwt_required()  # Necesita autenticación
 @cross_origin()
 def create_or_update_food():
-    data = request.form.get('data')
-    if data:
-        data = json.loads(data)
-    else:
+    data = request.get_json()
+    if data is None:
         abort(400, 'Missing JSON data')
 
     content_web = Web.query.filter_by(name=data["web_name"]).first()
@@ -512,36 +510,40 @@ def create_or_update_food():
             db.session.commit()
 
     elif request.method == 'PUT':
-    # Modify an existing Food object and update the database
-    food_id = data["food_id"]
-    food = Food.query.get(food_id)
+        # Modify an existing Food object and update the database
+        food_id = data["food_id"]
+        food = Food.query.get(food_id)
 
-    if food is None:
-        abort(404)
+        if food is None:
+            abort(404)
 
-    food.name = data.get('name', food.name)
-    food.description = data.get('description', food.description)
-    food.price = data.get('price', food.price)
-    
-    # Update photo for the food item
-    if 'image' in request.files:
-        result = cloudinary.uploader.upload(
-            request.files['image'], public_id=f'food_photo_{food_id}')
-        food.photo = result['secure_url']
+        food.name = data.get('name', food.name)
+        food.description = data.get('description', food.description)
+        food.price = data.get('price', food.price)
+        
+        # Update photo for the food item
+        if 'image' in request.files:
+            result = cloudinary.uploader.upload(
+                request.files['image'], public_id=f'food_photo_{food_id}')
+            food.photo = result['secure_url']
 
-    # Update allergens for the food item
-    allergens = data.get("allergens")
-    if allergens:
-        allergens_table = Allergens.query.filter_by(food_id=food.id).first()
-        if allergens_table:
-            for allergen, value in allergens.items():
-                setattr(allergens_table, allergen, value)
-            db.session.commit()
+        # Update allergens for the food item
+        allergens = data.get("allergens")
+        if allergens:
+            allergens_table = Allergens.query.filter_by(food_id=food.id).first()
+            if allergens_table:
+                for allergen, value in allergens.items():
+                    setattr(allergens_table, allergen, value)
+            else:
+                allergens_table = Allergens(food_id=food.id, **allergens)
+                db.session.add(allergens_table)
+                db.session.commit()
 
-    db.session.commit()
-
+        db.session.commit()
 
     return jsonify({"msg": "ok"}), 200
+
+
 
 
 

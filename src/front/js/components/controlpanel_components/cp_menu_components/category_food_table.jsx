@@ -157,18 +157,21 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
     const handleAddNewDish = async (name, price, description) => {
       try {
         const web_name = params.webName;
+        const categoryid = props.category
+        const requestBody = {
+          name,
+          price,
+          description,
+          category_id: categoryid,
+          web_name: web_name,
+      };
+        console.log('Request body:', requestBody); // Log the request body
         const response = await fetch(`${domain}/api/food`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            price,
-            description,
-            category_id: categoryid,
-            web_name: web_name,
-          }),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
         });
         if (response.ok) {
           const newDishData = await response.json();
@@ -217,11 +220,11 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
           price: selectedFood.price,
           web_name: web_name,
         };
-    
+        console.log(requestBody)
         const formData = new FormData();
         formData.append('image', selectedFood.image);
         formData.append('data', JSON.stringify(requestBody));
-    
+        console.log(formData)
         const response = await fetch(`${domain}/api/food`, {
           method: 'PUT',
           body: formData,
