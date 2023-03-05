@@ -22,7 +22,7 @@ export const InputGroupBasicInfo = () => {
         <div className="row">
         <div className="col">
             <label htmlFor="name" className="form-label">
-                Nombre de URL
+                Nombre de URL *
             </label>
             <input type="text" onChange={handleChange} id="url_name" className="form-control" aria-label="Nombre"/>
         </div>

@@ -46,8 +46,6 @@ export const InputGroupColors = () => {
                 <input type="color" value={registerForm.color_hover1} onChange={handleChange} className="form-control color-input" id="color_hover1" aria-label="Color de fuente 2"/>
             </div>
         </div>
-
-        <button type="button" className="btn btn-restify btn-restify-secondary btn-rounded mt-3">Generar paleta aleatoria</button>
     </div>
     );
 }

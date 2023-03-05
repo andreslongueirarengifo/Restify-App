@@ -21,12 +21,21 @@ import {
 export const RegisterBodyInputSide = () => {
 	const { store, actions } = useContext(Context);
 	const [isCreating, setIsCreating] = useState(false);
+	const [ showButton, setShowButton ] = useState(false);
 	const navigate = useNavigate();
 
 	//default content creation
 	useEffect(() => {
 		actions.setSetContentFormData(defaultContentCreation);
 	}, []);
+
+	useEffect(()=>{
+
+		if(Object.keys(store.setBrandingFormData).length==8 && store.setBrandingFormData.logo != null){
+			setShowButton(true)
+		}
+
+	},[store.setBrandingFormData])
 
 	const handleClick = (event) => {
 		event.preventDefault();
@@ -53,8 +62,21 @@ export const RegisterBodyInputSide = () => {
 			<InputGroupLogo />
 			<InputGroupFont />
 			<InputGroupColors />
+			<label className="mt-4" style={{ color: "#9f9f9f" }}>Los campos con * son obligatorios</label>
 
-			{isCreating ? (
+			{!showButton ? 
+			(
+				<button
+					onClick={handleClick}
+					type="button"
+					className="btn btn-restify btn-restify-primary btn-form col-12 mt-4"
+					disabled
+				>
+					Crear restaurante
+				</button>
+			) 
+			: isCreating?
+			(
 				<button
 					onClick={handleClick}
 					type="button"
@@ -64,7 +86,8 @@ export const RegisterBodyInputSide = () => {
 					<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 					<span className="visually-hidden">Creating restaurant...</span>
 				</button>
-			) : (
+			)
+			:(
 				<button
 					onClick={handleClick}
 					type="button"
