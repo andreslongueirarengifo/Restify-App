@@ -31,11 +31,18 @@ export const RegisterBodyInputSide = () => {
 
 	useEffect(()=>{
 
-		if(Object.keys(store.setBrandingFormData).length==8 && store.setBrandingFormData.logo != null){
+		if(Object.keys(store.setBrandingFormData).length==8 && 
+		store.setBrandingFormData.logo != null &&
+		store.setBrandingFormData.brand_name != '' &&
+		store.createRestaurantFormData.url_name != '' &&
+		!store.webExist
+		){
 			setShowButton(true)
+		}else{
+			setShowButton(false)
 		}
 
-	},[store.setBrandingFormData])
+	},[store.setBrandingFormData, store.createRestaurantFormData])
 
 	const handleClick = (event) => {
 		event.preventDefault();

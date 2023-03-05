@@ -12,7 +12,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			currentRestaurantName: "",
 			currentRestaurantId: 0,
 			bodyUploadImage: null,
-			bodyUploadFavicon: null
+			bodyUploadFavicon: null,
+			webExist:false,
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -45,6 +46,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			setBodyUploadFavicon: (favicon) => {
 				setStore({bodyUploadFavicon: favicon });
+			},
+			setWebExist: (bool)=>{
+				setStore({webExist: bool})
 			},
 
 			getMessage: async () => {
