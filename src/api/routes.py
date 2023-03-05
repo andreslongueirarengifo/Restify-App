@@ -225,10 +225,13 @@ def set_branding():
 @api.route('/branding/<int:brand_id>/logo', methods=['PUT'])
 def handle_upload_logo(brand_id):
     if 'logo' in request.files:
-        result = cloudinary.uploader.upload(
-            request.files['logo'], public_id=f'logo_{brand_id}')
 
         current_brand = Branding.query.get(brand_id)
+        
+        result = cloudinary.uploader.upload(
+            request.files['logo'], public_id=f'logo_{current_brand.web.id}_{brand_id}')
+
+
         current_brand.logo = result['secure_url']
 
         db.session.add(current_brand)
@@ -242,16 +245,35 @@ def handle_upload_logo(brand_id):
 @api.route('/branding/<int:brand_id>/favicon', methods=['PUT'])
 def handle_upload_favicon(brand_id):
     if 'favicon' in request.files:
-        result = cloudinary.uploader.upload(
-            request.files['favicon'], public_id=f'favicon_{brand_id}')
 
         current_brand = Branding.query.get(brand_id)
+
+        result = cloudinary.uploader.upload(
+            request.files['favicon'], public_id=f'favicon_{current_brand.web.id}_{brand_id}')
+    
         current_brand.logo_favicon = result['secure_url']
 
         db.session.add(current_brand)
         db.session.commit()
 
         return jsonify(current_brand.serialize()), 200
+    else:
+        raise APIException('Missing logo on the FormData')
+
+@api.route('/webcontent/<int:content_id>/img', methods=['PUT'])
+def handle_upload_favicon(content_id):
+    if 'img' in request.files:
+
+        current_content = Branding.query.get(brand_id)
+
+        result = cloudinary.uploader.upload(request.files['img'], public_id=f'img_{current_content.web.id}_{content_id}')
+
+        current_content.image_link = result['secure_url']
+
+        db.session.add(current_content)
+        db.session.commit()
+
+        return jsonify(current_content.serialize()), 200
     else:
         raise APIException('Missing logo on the FormData')
 
