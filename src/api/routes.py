@@ -6,6 +6,7 @@ from api.models import db, User, Web, Branding, Content, Food, Food_category, Al
 from api.utils import generate_sitemap, APIException
 from flask_cors import cross_origin
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+import requests
 import bcrypt
 
 import cloudinary
@@ -302,13 +303,33 @@ def set_content():
         if content is None:
             abort(404)
 
+        # Generate the coordinates based on the street and city parameters
+        query = f"{request.json.get('location_street', content.location_street)}, {request.json.get('location_city', content.location_city)}, Spain"
+        params = {
+            'access_key': '2cf36a4863b2e5d59892ba8631a3d81f',
+            'query': query,
+            'country': 'ES',
+            'limit': 1
+        }
+        response = requests.get('http://api.positionstack.com/v1/forward', params=params)
+        if response.status_code == 200:
+            result = response.json()
+            if result['data']:
+                coordinates = f"{result['data'][0]['latitude']},{result['data'][0]['longitude']}"
+            else:
+                # habrá que ver como controlamos los errores
+                abort(400, 'Location not found')
+        else:
+            # Handle error case
+            abort(500)
+
         content.phone_number = request.json.get('phone_number', content.phone_number)
         content.instagram = request.json.get('instagram', content.instagram)
         content.twitter = request.json.get('twitter', content.twitter)
         content.facebook = request.json.get('facebook', content.facebook)
         content.location_street = request.json.get('location_street', content.location_street)
         content.location_city = request.json.get('location_city', content.location_city)
-        content.location_coordinates = request.json.get('location_coordinates', content.location_coordinates)
+        content.location_coordinates = coordinates
         content.image_link = request.json.get('image_link', content.image_link)
 
         db.session.commit()
