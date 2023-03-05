@@ -2,18 +2,15 @@ export const createRestaurant = async (formData) => {
 	// formData = {name: "sample@email.com", user_id: from token}
 	try {
 		const token = localStorage.getItem("jwt-token");
-		const response = await fetch(
-			"https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io" + "/api/createrestautant",
-			{
-				method: "POST",
-				mode: "cors",
-				body: JSON.stringify(formData),
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: "Bearer " + token, // ⬅⬅⬅ authorization token
-				},
+		const response = await fetch("https://sample-service-name-v7xh.onrender.com" + "/api/createrestautant", {
+			method: "POST",
+			mode: "cors",
+			body: JSON.stringify(formData),
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token, // ⬅⬅⬅ authorization token
 			},
-		);
+		});
 		const data = await response.json();
 		console.log(data);
 		return data;
@@ -25,18 +22,15 @@ export const createRestaurant = async (formData) => {
 export const setBranding = async (formData) => {
 	try {
 		const token = localStorage.getItem("jwt-token");
-		const response = await fetch(
-			"https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io" + "/api/setbranding",
-			{
-				method: "POST",
-				mode: "cors",
-				body: JSON.stringify(formData),
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: "Bearer " + token, // ⬅⬅⬅ authorization token
-				},
+		const response = await fetch("https://sample-service-name-v7xh.onrender.com" + "/api/setbranding", {
+			method: "POST",
+			mode: "cors",
+			body: JSON.stringify(formData),
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token, // ⬅⬅⬅ authorization token
 			},
-		);
+		});
 		const data = await response.json();
 		console.log(data);
 		return data;
@@ -59,18 +53,15 @@ export const defaultContentCreation = {
 export const setContent = async (formData) => {
 	try {
 		const token = localStorage.getItem("jwt-token");
-		const response = await fetch(
-			"https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io" + "/api/setcontent",
-			{
-				method: "POST",
-				mode: "cors",
-				body: JSON.stringify(formData),
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: "Bearer " + token, // ⬅⬅⬅ authorization token
-				},
+		const response = await fetch("https://sample-service-name-v7xh.onrender.com" + "/api/setcontent", {
+			method: "POST",
+			mode: "cors",
+			body: JSON.stringify(formData),
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token, // ⬅⬅⬅ authorization token
 			},
-		);
+		});
 		const data = await response.json();
 		return data;
 	} catch (e) {
@@ -80,13 +71,10 @@ export const setContent = async (formData) => {
 
 export const uploadImage = async (file, web_id) => {
 	try {
-		const response = await fetch(
-			`https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io/api/branding/${web_id}/logo`,
-			{
-				body: file,
-				method: "PUT",
-			},
-		);
+		const response = await fetch(`https://sample-service-name-v7xh.onrender.com/api/branding/${web_id}/logo`, {
+			body: file,
+			method: "PUT",
+		});
 		const data = await response.json();
 		console.log("entro en el fetch!!! :D");
 		return data;
@@ -98,13 +86,10 @@ export const uploadImage = async (file, web_id) => {
 
 export const uploadFavicon = async (favicon, web_id) => {
 	try {
-		const response = await fetch(
-			`https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io/api/branding/${web_id}/favicon`,
-			{
-				body: favicon,
-				method: "PUT",
-			},
-		);
+		const response = await fetch(`https://sample-service-name-v7xh.onrender.com/api/branding/${web_id}/favicon`, {
+			body: favicon,
+			method: "PUT",
+		});
 		const data = await response.json();
 		console.log("entro en el fetch!!! :D");
 		return data;

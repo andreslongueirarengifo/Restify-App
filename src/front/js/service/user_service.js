@@ -1,6 +1,6 @@
 export const createUser = async (formData) => {
 	try {
-		const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io" + "/api/signup", {
+		const response = await fetch("https://sample-service-name-v7xh.onrender.com" + "/api/signup", {
 			method: "POST",
 			body: JSON.stringify(formData),
 			headers: {
@@ -19,7 +19,7 @@ export const createUser = async (formData) => {
 export const loginUser = async (formData) => {
 	// formData = {email: "sample@email.com", password: "123456"}
 	try {
-		const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io" + "/api/login", {
+		const response = await fetch("https://sample-service-name-v7xh.onrender.com" + "/api/login", {
 			method: "POST",
 			body: JSON.stringify(formData),
 			headers: {
@@ -38,16 +38,13 @@ export const loginUser = async (formData) => {
 export const getCurrentUser = async () => {
 	try {
 		const token = localStorage.getItem("jwt-token");
-		const response = await fetch(
-			"https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io" + "/api/currentuser",
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: "Bearer " + token, // ⬅⬅⬅ authorization token
-				},
+		const response = await fetch("https://sample-service-name-v7xh.onrender.com" + "/api/currentuser", {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token, // ⬅⬅⬅ authorization token
 			},
-		);
+		});
 		const data = await response.json();
 		return data;
 	} catch (e) {
@@ -57,7 +54,7 @@ export const getCurrentUser = async () => {
 
 export const getUsers = async () => {
 	try {
-		const response = await fetch("https://3001-andreslongue-restifyapp-esbx6jl2rqv.ws-eu89.gitpod.io" + "/api/users", {
+		const response = await fetch("https://sample-service-name-v7xh.onrender.com" + "/api/users", {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
