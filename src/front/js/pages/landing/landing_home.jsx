@@ -20,7 +20,7 @@ export const HomeLP = () => {
   return (
     <div className="container-fluid p-0">
       <NavbarHome />
-      <div className="cont">
+      <div className="container-sm p-5">
         <JumbotronLP />
         <ServicesLP /> 
         <AboutUsLP/>     

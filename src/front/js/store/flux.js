@@ -11,8 +11,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			currentRestaurantBranding: {},
 			currentRestaurantName: "",
 			currentRestaurantId: 0,
-			bodyUploadImage: null,
-			bodyUploadFavicon: null
+			bodyuploadLogo: null,
+			bodyUploadFavicon: null,
+			webExist: false,
+			bodyUploadImg: null,
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -40,17 +43,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setCurrentRestaurantId: (webId) => {
 				setStore({ currentRestaurantId: webId });
 			},
-			setBodyUploadImage: (file) => {
-				setStore({ bodyUploadImage: file });
+			setBodyuploadLogo: (file) => {
+				setStore({ bodyuploadLogo: file });
 			},
-			setBodyUploadFavicon: (favicon) => {
-				setStore({bodyUploadFavicon: favicon });
+			setBodyUploadFavicon: (file) => {
+				setStore({ bodyUploadFavicon: file });
+			},
+			setWebExist: (bool) => {
+				setStore({ webExist: bool });
+			},
+			setBodyUploadImg: (file) => {
+				setStore({ bodyUploadImg: file });
 			},
 
 			getMessage: async () => {
 				try {
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello");
+					const resp = await fetch("https://sample-service-name-v7xh.onrender.com" + "/api/hello");
 					const data = await resp.json();
 					setStore({ message: data.message });
 					// don't forget to return something, that is how the async resolves

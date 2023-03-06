@@ -1,19 +1,16 @@
 import React from "react";
 import { Facebook, Twitter, Instagram } from "react-bootstrap-icons";
-import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import logo_generico from "../../../img/logo_generico.jpeg"
 
 function Navbar1(props) {
   const restaurantinfo = props.restaurantinfo
   const styles = props.Styles
   const restaurantname = props.restaurantname
-  const linkhome = `/${restaurantname}/home`
-  const linkmenu = `/${restaurantname}/menu`
-  const linkcontact = `/${restaurantname}/contact`
-  {console.log(styles.styleback1)}
+  const linkhome = `/res/${restaurantname}`
+  const linkmenu = `/res/${restaurantname}/menu`
+  const linkcontact = `/res/${restaurantname}/contact`
   return (
     <>
             <Navbar collapseOnSelect expand="lg" style={ styles.back2 }>

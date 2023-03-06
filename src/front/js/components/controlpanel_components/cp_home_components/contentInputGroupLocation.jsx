@@ -33,7 +33,6 @@ export const ContentInputGroupLocation = () => {
 			setSpainCitiesData(citiesArray);
 		};
 		fetchedSpainCities();
-		console.log(cityForm);
 	}, []);
 
 	return (

@@ -10,6 +10,10 @@ export const BrandingInputGroupColors = () => {
 	};
 
 	useEffect(() => {
+		setform(store.currentRestaurantBranding)
+	}, [store.currentRestaurantBranding]);
+
+	useEffect(() => {
 		actions.setSetBrandingFormData(form);
 	}, [form]);
 
@@ -23,9 +27,9 @@ export const BrandingInputGroupColors = () => {
 					</label>
 					<input
 						type="color"
-						value={store.currentRestaurantBranding.color_bg1}
+						value={form.color_bg1}
 						onChange={handleChange}
-						className="form-control"
+						className="form-control color-input"
 						id="color_bg1"
 						aria-label="Color de fondo 1"
 					/>
@@ -36,9 +40,9 @@ export const BrandingInputGroupColors = () => {
 					</label>
 					<input
 						type="color"
-						value={store.currentRestaurantBranding.color_bg2}
+						value={form.color_bg2}
 						onChange={handleChange}
-						className="form-control"
+						className="form-control color-input"
 						id="color_bg2"
 						aria-label="Color de fondo 2"
 					/>
@@ -49,9 +53,9 @@ export const BrandingInputGroupColors = () => {
 					</label>
 					<input
 						type="color"
-						value={store.currentRestaurantBranding.color_font1}
+						value={form.color_font1}
 						onChange={handleChange}
-						className="form-control"
+						className="form-control color-input"
 						id="color_font1"
 						aria-label="Color de fuente 1"
 					/>
@@ -62,9 +66,9 @@ export const BrandingInputGroupColors = () => {
 					</label>
 					<input
 						type="color"
-						value={store.currentRestaurantBranding.color_font2}
+						value={form.color_font2}
 						onChange={handleChange}
-						className="form-control"
+						className="form-control color-input"
 						id="color_font2"
 						aria-label="Color de fuente 2"
 					/>
@@ -75,9 +79,9 @@ export const BrandingInputGroupColors = () => {
 					</label>
 					<input
 						type="color"
-						value={store.currentRestaurantBranding.color_hover1}
+						value={form.color_hover1}
 						onChange={handleChange}
-						className="form-control"
+						className="form-control color-input"
 						id="color_hover1"
 						aria-label="Color de fuente 2"
 					/>

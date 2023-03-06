@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import "../../../styles/landing.css";
 
+//components
+import { LoadingSpinner } from "../../components/loadingSpinner.jsx";
+
 //import components
 import { NavbarRestManager } from "../../components/landing_components/landing_restManager_components/navbar_restManager_lp.jsx";
 import { CardListRest } from "../../components/landing_components/landing_restManager_components/card_list_restaurant_lp.jsx";
@@ -21,13 +24,13 @@ export const RestManagerLP = () => {
 	}, []);
 
 	if (isLoading) {
-		return <h1>Loading</h1>;
+		return <LoadingSpinner />;
 	}
 
 	return (
 		<div className="container-fluid p-0">
 			<NavbarRestManager user={currentUserData} />
-			<div className="cont mt-3">
+			<div className="container-sm p-5">
 				<h2 className="welcome">
 					¡Bienvenido, <span>{currentUserData.name}</span>!
 				</h2>

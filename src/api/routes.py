@@ -16,10 +16,10 @@ from cloudinary.utils import cloudinary_url
 api = Blueprint('api', __name__)
 
 cloudinary.config(
-    cloud_name = "dnmfh4xnv",
-    api_key = "641646317717588",
-    api_secret = "3SCfTB9Ln1_J0mACC4XGhp4TH0U",
-    secure = True
+    cloud_name="dnmfh4xnv",
+    api_key="641646317717588",
+    api_secret="3SCfTB9Ln1_J0mACC4XGhp4TH0U",
+    secure=True
 )
 
 
@@ -168,10 +168,6 @@ def set_branding():
 
     branding_web = Web.query.get(data["web_id"])
 
-
-    
-
-
     if branding_web is None:
         abort(404)
 
@@ -203,13 +199,18 @@ def set_branding():
 
         branding.color_bg1 = request.json.get("color_bg1", branding.color_bg1)
         branding.color_bg2 = request.json.get("color_bg2", branding.color_bg2)
-        branding.color_font1 = request.json.get("color_font1", branding.color_font1)
-        branding.color_font2 = request.json.get("color_font2", branding.color_font2)
-        branding.color_hover1 = request.json.get("color_hover1", branding.color_hover1)
+        branding.color_font1 = request.json.get(
+            "color_font1", branding.color_font1)
+        branding.color_font2 = request.json.get(
+            "color_font2", branding.color_font2)
+        branding.color_hover1 = request.json.get(
+            "color_hover1", branding.color_hover1)
         branding.logo = request.json.get("logo", branding.logo)
-        branding.logo_favicon = request.json.get("logo_favicon", branding.logo_favicon)
+        branding.logo_favicon = request.json.get(
+            "logo_favicon", branding.logo_favicon)
         branding.font = request.json.get("font", branding.font)
-        branding.brand_name = request.json.get("brand_name", branding.brand_name)
+        branding.brand_name = request.json.get(
+            "brand_name", branding.brand_name)
 
         db.session.commit()
 
@@ -224,10 +225,15 @@ def set_branding():
 
 @api.route('/branding/<int:brand_id>/logo', methods=['PUT'])
 def handle_upload_logo(brand_id):
+    print(request.files)
     if 'logo' in request.files:
-        result = cloudinary.uploader.upload(request.files['logo'], public_id=f'logo_{brand_id}')
 
         current_brand = Branding.query.get(brand_id)
+        
+        result = cloudinary.uploader.upload(
+            request.files['logo'], public_id=f'logo_{current_brand.web.id}_{brand_id}')
+
+
         current_brand.logo = result['secure_url']
 
         db.session.add(current_brand)
@@ -237,12 +243,16 @@ def handle_upload_logo(brand_id):
     else:
         raise APIException('Missing logo on the FormData')
 
+
 @api.route('/branding/<int:brand_id>/favicon', methods=['PUT'])
 def handle_upload_favicon(brand_id):
     if 'favicon' in request.files:
-        result = cloudinary.uploader.upload(request.files['favicon'], public_id=f'favicon_{brand_id}')
 
         current_brand = Branding.query.get(brand_id)
+
+        result = cloudinary.uploader.upload(
+            request.files['favicon'], public_id=f'favicon_{current_brand.web.id}_{brand_id}')
+    
         current_brand.logo_favicon = result['secure_url']
 
         db.session.add(current_brand)
@@ -251,6 +261,24 @@ def handle_upload_favicon(brand_id):
         return jsonify(current_brand.serialize()), 200
     else:
         raise APIException('Missing logo on the FormData')
+
+@api.route('/webcontent/<int:content_id>/img', methods=['PUT'])
+def handle_upload_header(content_id):
+    if 'img' in request.files:
+
+        current_content = Content.query.get(content_id)
+
+        result = cloudinary.uploader.upload(request.files['img'], public_id=f'img_{current_content.web.id}_{content_id}')
+
+        current_content.image_link = result['secure_url']
+
+        db.session.add(current_content)
+        db.session.commit()
+
+        return jsonify(current_content.serialize()), 200
+    else:
+        raise APIException('Missing logo on the FormData')
+
 
 @api.route('/branding/<int:web_id>', methods=['GET'])
 def get_branding_from_restaurant(web_id):
@@ -340,7 +368,8 @@ def set_content():
 # public endpoint to get all restaurant content
 @api.route('/web_content/<int:web_id>', methods=['GET'])
 def get_content_from_restaurant(web_id):
-    content_from_restaurant = Content.query.filter_by(web_id=web_id).first().serialize()
+    content_from_restaurant = Content.query.filter_by(
+        web_id=web_id).first().serialize()
     if content_from_restaurant is None:
         abort(404)
     response_body = {
@@ -351,7 +380,7 @@ def get_content_from_restaurant(web_id):
     return jsonify(response_body), 200
 
 
-#endpoint for template data
+# endpoint for template data
 @api.route('/template_data/<restaurant_name>', methods=['GET'])
 def get_template_data(restaurant_name):
     restaurant_web = Web.query.filter_by(name=restaurant_name).first()
@@ -419,7 +448,9 @@ def get_template_data(restaurant_name):
     }
     return jsonify(response_body), 200
 
-#endpoint to create category
+# endpoint to create category
+
+
 @api.route('/createcategory', methods=['POST', 'PUT'])
 # @jwt_required()  # Necesita autenticación
 def create_category():
@@ -452,6 +483,7 @@ def create_category():
         db.session.commit()
 
     return jsonify({"msg": "ok"}), 200
+
 
 #list all the categories of a restaurant
 @api.route('/foodcategories/<name>', methods=['GET'])
@@ -495,7 +527,6 @@ def category_delete(category_id):
     db.session.commit()
 
     return jsonify({"msg": "ok"}), 200
-
 
 #endpoint to create or update food
 @api.route('/food', methods=['POST', 'PUT'])
@@ -566,12 +597,6 @@ def create_or_update_food():
 
     return jsonify({"msg": "ok"}), 200
 
-
-
-
-
-
-
 #list of all the food in a category of a restaurant
 @api.route('/foodinacategory/<restaurant_name>/<categoryname>', methods=['GET'])
 def get_food_from_category(restaurant_name, categoryname):
@@ -612,7 +637,6 @@ def get_food_from_category(restaurant_name, categoryname):
             "category": food.category.name,
             "allergens": serialized_allergens
         })
-
     response_body = {
         "msg": "ok",
         "from_restaurant": restaurant_name,
@@ -683,7 +707,6 @@ def delete_food(food_id):
 
     return jsonify({"msg": "ok"}), 200
 
-
 @api.route('/image/<int:food_id>', methods=['PUT'])
 def handle_upload_food(food_id):
     if 'image' in request.files:
@@ -698,3 +721,4 @@ def handle_upload_food(food_id):
         return jsonify(ok), 200
     else:
         raise APIException('Missing image on the FormData')
+
