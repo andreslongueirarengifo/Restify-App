@@ -502,7 +502,8 @@ def category_delete(category_id):
 #@jwt_required()  # Necesita autenticación
 @cross_origin()
 def create_or_update_food():
-    data = request.get_json()
+    data = json.loads(request.data)
+    print(data)
     if data is None:
         abort(400, 'Missing JSON data')
 
@@ -543,10 +544,11 @@ def create_or_update_food():
         food.price = data.get('price', food.price)
         
         # Update photo for the food item
-        if 'image' in request.files:
-            result = cloudinary.uploader.upload(
-                request.files['image'], public_id=f'food_photo_{food_id}')
-            food.photo = result['secure_url']
+        print(request.files)
+        # if 'image' in request.files:
+        #     result = cloudinary.uploader.upload(
+        #         request.files['image'], public_id=f'food_photo_{food_id}')
+        #     food.photo = result['secure_url']
 
         # Update allergens for the food item
         allergens = data.get("allergens")
@@ -681,3 +683,18 @@ def delete_food(food_id):
 
     return jsonify({"msg": "ok"}), 200
 
+
+@api.route('/image/<int:food_id>', methods=['PUT'])
+def handle_upload_food(food_id):
+    if 'image' in request.files:
+        result = cloudinary.uploader.upload(request.files['image'], public_id=f'dish_{food_id}')
+
+        current_dish = Food.query.get(food_id)
+        current_dish.image = result['secure_url']
+
+        db.session.add(current_dish)
+        db.session.commit()
+
+        return jsonify(ok), 200
+    else:
+        raise APIException('Missing image on the FormData')

@@ -211,8 +211,10 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
     const [selectedFood, setSelectedFood] = useState(null);
     
     const handleSaveChanges = async () => {
+
       try {
         const web_name = params.webName;
+        
         const requestBody = {
           name: selectedFood.name,
           description: selectedFood.description,
@@ -223,12 +225,15 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
         console.log(requestBody)
         const formData = new FormData();
         formData.append('image', selectedFood.image);
-        formData.append('data', JSON.stringify(requestBody));
-        console.log(formData)
+        //formData.append('data', JSON.stringify(requestBody));
+        const responseImage = fetch(`${domain}/api/image/${selectedFood.id}`, 
+        {method: 'PUT', 
+        body: formData})
         const response = await fetch(`${domain}/api/food`, {
           method: 'PUT',
-          body: formData,
+          body: JSON.stringify(requestBody),
         });
+        
     
         if (response.ok) {
           alert('Plato actualizado!'); 
