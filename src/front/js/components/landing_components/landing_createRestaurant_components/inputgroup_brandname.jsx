@@ -21,7 +21,7 @@ export const InputGroupBrandingName = () => {
         <div className="row">
         <div className="col">
             <label htmlFor="brand_name" className="form-label">
-                Nombre de la marca
+                Nombre de la marca *
             </label>
             <input type="text" onChange={handleChange} id="brand_name" className="form-control" aria-label="Nombre de marca"/>
         </div>

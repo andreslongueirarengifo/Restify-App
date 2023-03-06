@@ -22,6 +22,9 @@ export const InputGroupFont = () => {
             <label htmlFor="brand_name" className="form-label">
                 Fuente
             </label>
+            <h2 className="text-center" style={{ fontFamily: `${registerForm.font}`, color: "gray" }}>
+					Texto de prueba 123
+				</h2>
             <select id="font" onChange={handleChange} className="form-select" aria-label="Default select example">
                 <option value="Helvetica">Helvetica</option>
                 <option value="Roboto">Roboto</option>

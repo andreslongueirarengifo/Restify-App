@@ -21,7 +21,13 @@ export const ContentInputGroupContact = () => {
 					<label htmlFor="logo_favicon" className="form-label">
 						Número de teléfono
 					</label>
-					<input defaultValue={store.currentRestaurantContent.phone_number} type="number" onChange={handleChange} id="phone_number" className="form-control" />
+					<input
+						defaultValue={store.currentRestaurantContent.phone_number}
+						type="text"
+						onChange={handleChange}
+						id="phone_number"
+						className="form-control"
+					/>
 				</div>
 			</div>
 		</>

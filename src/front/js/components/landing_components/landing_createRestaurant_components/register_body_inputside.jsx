@@ -14,19 +14,34 @@ import {
 	setBranding,
 	setContent,
 	defaultContentCreation,
-	uploadImage,
+	uploadLogo,
 	uploadFavicon,
 } from "../../../service/create_restaurant_service.js";
 
 export const RegisterBodyInputSide = () => {
 	const { store, actions } = useContext(Context);
 	const [isCreating, setIsCreating] = useState(false);
+	const [showButton, setShowButton] = useState(false);
 	const navigate = useNavigate();
 
 	//default content creation
 	useEffect(() => {
 		actions.setSetContentFormData(defaultContentCreation);
 	}, []);
+
+	useEffect(() => {
+		if (
+			Object.keys(store.setBrandingFormData).length == 8 &&
+			store.setBrandingFormData.logo != null &&
+			store.setBrandingFormData.brand_name != "" &&
+			store.createRestaurantFormData.url_name != "" &&
+			!store.webExist
+		) {
+			setShowButton(true);
+		} else {
+			setShowButton(false);
+		}
+	}, [store.setBrandingFormData, store.createRestaurantFormData]);
 
 	const handleClick = (event) => {
 		event.preventDefault();
@@ -37,8 +52,8 @@ export const RegisterBodyInputSide = () => {
 			actions.setSetContentFormData(restaurantData.result);
 			const brandData = await setBranding(store.setBrandingFormData);
 			await setContent(store.setContentFormData);
-			await uploadImage(store.bodyUploadImage, brandData.result.id);
-			await uploadFavicon(store.bodyUploadFavicon, brandData.result.id);
+			await uploadLogo(store.bodyuploadLogo, brandData.result.id);
+			//await uploadFavicon(store.bodyUploadFavicon, brandData.result.id);
 			setIsCreating(false);
 			navigate(`/rest-manager`);
 		};
@@ -53,8 +68,20 @@ export const RegisterBodyInputSide = () => {
 			<InputGroupLogo />
 			<InputGroupFont />
 			<InputGroupColors />
+			<label className="mt-4" style={{ color: "#9f9f9f" }}>
+				Los campos con * son obligatorios
+			</label>
 
-			{isCreating ? (
+			{!showButton ? (
+				<button
+					onClick={handleClick}
+					type="button"
+					className="btn btn-restify btn-restify-primary btn-form col-12 mt-4"
+					disabled
+				>
+					Crear restaurante
+				</button>
+			) : isCreating ? (
 				<button
 					onClick={handleClick}
 					type="button"
