@@ -6,10 +6,6 @@ export const BrandingInputGroupLogo = () => {
 	const [form, setform] = useState({});
 	const [files, setFiles] = useState(null);
 
-	const handleChange = (event) => {
-		setform({ ...form, [event.target.id]: event.target.value });
-	};
-
 	useEffect(() => {
 		setform({ ...form, ["logo"]: files });
 		if (files) {
@@ -18,10 +14,6 @@ export const BrandingInputGroupLogo = () => {
 			actions.setBodyuploadLogo(file);
 		}
 	}, [files]);
-
-	useEffect(() => {
-		actions.setSetBrandingFormData(form);
-	}, [form]);
 
 	return (
 		<>
@@ -32,7 +24,6 @@ export const BrandingInputGroupLogo = () => {
 						Logo
 					</label>
 					<input
-						defaultValue={store.currentRestaurantBranding.logo}
 						type="file"
 						onChange={(e) => {
 							setFiles(e.target.files);

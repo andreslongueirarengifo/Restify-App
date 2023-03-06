@@ -224,6 +224,7 @@ def set_branding():
 
 @api.route('/branding/<int:brand_id>/logo', methods=['PUT'])
 def handle_upload_logo(brand_id):
+    print(request.files)
     if 'logo' in request.files:
 
         current_brand = Branding.query.get(brand_id)

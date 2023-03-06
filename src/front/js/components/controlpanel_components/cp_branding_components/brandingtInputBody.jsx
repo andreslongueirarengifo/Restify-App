@@ -19,6 +19,11 @@ export const BrandingInputBody = (props) => {
 		getDataOnLoad();
 	}, []);
 
+	const handleClick = async ()=>{
+		await updateBranding(store.setBrandingFormData);
+		await uploadLogo(store.bodyuploadLogo, store.setBrandingFormData.web_id);
+	}
+
 	useEffect(() => {
 		actions.setSetBrandingFormData({ web_id: store.currentRestaurantId });
 	}, [store.currentRestaurantId]);
@@ -39,10 +44,7 @@ export const BrandingInputBody = (props) => {
 					<button
 						type="button"
 						className="btn btn-restify btn-restify-primary btn-form col-4"
-						onClick={() => {
-							//updateBranding(store.setBrandingFormData);
-							uploadLogo(store.bodyuploadlogo, store.setBrandingFormData.id);
-						}}
+						onClick={handleClick}
 					>
 						Actualizar información
 					</button>
