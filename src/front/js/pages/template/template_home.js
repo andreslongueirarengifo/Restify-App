@@ -9,7 +9,7 @@ import Section_call_to_action from "../../components/template_components/section
 
 export const HomeTEMP = () => {
   const params = useParams()
-  let domain = process.env.BACKEND_URL;
+  let domain = "https://sample-service-name-tv81.onrender.com";
   let apirequesturl = `${domain}/api/template_data/${params.webname}`
   const [Restaurantinfo, setRestaurantinfo] = useState({})
   const [Styles, setStyles] = useState({
@@ -63,3 +63,4 @@ export const HomeTEMP = () => {
     </>
   )
 };
+

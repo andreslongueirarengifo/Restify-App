@@ -2,15 +2,14 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Footer1 from "../../components/template_components/footer1.jsx";
 import Navbar1 from "../../components/template_components/navbar1.jsx";
-import Section_cagetories from "../../components/template_components/template_menu_components/section_categories.jsx"
-import Section_welcome_menu from "../../components/template_components/template_menu_components/section_welcome_menu.jsx"
-import restaurant_background from "../../../img/restaurant_background.jpg"
+import Section_cagetories from "../../components/template_components/template_menu_components/section_categories.jsx";
+import Section_welcome_menu from "../../components/template_components/template_menu_components/section_welcome_menu.jsx";
+import restaurant_background from "../../../img/restaurant_background.jpg";
 import { useParams } from "react-router-dom";
-
 
 export const MenuTEMP = () => {
   const params = useParams()
-  let domain = process.env.BACKEND_URL;
+  let domain = "https://sample-service-name-tv81.onrender.com";
   let apirequesturl=`${domain}/api/template_data/${params.webname}`
   const [Restaurantinfo, setRestaurantinfo] = useState ({})
   const [Styles, setStyles] = useState({
@@ -58,15 +57,14 @@ return (
         max-width: 100%;
         overflow-x: hidden;
       }`}
-    </style>
-    
-        <Navbar1 restaurantinfo={Restaurantinfo} Styles={Styles} restaurantname={params.webname}/>
-        <Section_welcome_menu restaurantinfo={Restaurantinfo} Styles={Styles}/>
-        <Section_cagetories restaurantinfo={Restaurantinfo} Styles={Styles}/>
-        <Footer1 restaurantinfo={Restaurantinfo} Styles={Styles} restaurantname={params.webname}/>
-  </div>
-  )}
-  </>
-);
+					</style>
 
-}; 
+					<Navbar1 restaurantinfo={Restaurantinfo} Styles={Styles} restaurantname={params.webname} />
+					<Section_welcome_menu restaurantinfo={Restaurantinfo} Styles={Styles} />
+					<Section_cagetories restaurantinfo={Restaurantinfo} Styles={Styles} />
+					<Footer1 restaurantinfo={Restaurantinfo} Styles={Styles} restaurantname={params.webname} />
+				</div>
+			)}
+		</>
+	);
+};
