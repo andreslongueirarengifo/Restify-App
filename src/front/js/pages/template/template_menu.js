@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 
 export const MenuTEMP = () => {
 	const params = useParams();
-	let domain = "https://sample-service-name-v7xh.onrender.com";
+	let domain = "https://sample-service-name-tv81.onrender.com";
 	let apirequesturl = `${domain}/api/template_data/${params.webname}`;
 	const [Restaurantinfo, setRestaurantinfo] = useState({});
 	const [Styles, setStyles] = useState({

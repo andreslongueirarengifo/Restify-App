@@ -50,7 +50,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getMessage: async () => {
 				try {
 					// fetching data from the backend
-					const resp = await fetch("https://sample-service-name-v7xh.onrender.com" + "/api/hello");
+					const resp = await fetch("https://sample-service-name-tv81.onrender.com" + "/api/hello");
 					const data = await resp.json();
 					setStore({ message: data.message });
 					// don't forget to return something, that is how the async resolves

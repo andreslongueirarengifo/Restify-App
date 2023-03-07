@@ -1,7 +1,7 @@
 export const getCurrentUserRestaurants = async () => {
 	try {
 		const token = localStorage.getItem("jwt-token");
-		const response = await fetch("https://sample-service-name-v7xh.onrender.com" + "/api/currentrestaurants", {
+		const response = await fetch("https://sample-service-name-tv81.onrender.com" + "/api/currentrestaurants", {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
@@ -17,7 +17,7 @@ export const getCurrentUserRestaurants = async () => {
 
 export const getRestaurant = async (web_id) => {
 	try {
-		const response = await fetch("https://sample-service-name-v7xh.onrender.com" + "/api/restaurants/" + web_id, {
+		const response = await fetch("https://sample-service-name-tv81.onrender.com" + "/api/restaurants/" + web_id, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
