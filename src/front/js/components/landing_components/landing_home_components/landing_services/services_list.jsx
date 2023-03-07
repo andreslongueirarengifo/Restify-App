@@ -15,7 +15,7 @@ export const ListServicesLP = () =>{
         service: "Branding",
         icon: <i className="fa-solid fa-palette"></i>,
         color: {backgroundColor: "#F6E9E0", color:"#BE6C31"},
-        content: "¡Podrás añadir a la web estilos a tu gusto!"
+        content: "¡Podrás añadir a la web estilos y colores a tu gusto fácil y rápido!"
     },{
         service: "Menu",
         icon: <i className="fa-regular fa-file-lines"></i>,

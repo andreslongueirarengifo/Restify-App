@@ -5,7 +5,7 @@ function Section_menu(props) {
   const restaurantinfo = props.restaurantinfo
   const styles = props.Styles
   const restaurantname = props.restaurantname
-  const linkmenu = `/${restaurantname}/menu`
+  const linkmenu = `/res/${restaurantname}/menu`
   return (
     <div style={styles.back2} className="pt-4">
       <div className="row py-3">

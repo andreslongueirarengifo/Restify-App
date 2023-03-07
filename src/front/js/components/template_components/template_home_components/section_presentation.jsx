@@ -1,18 +1,11 @@
 import React from "react";
 import restaurant_background from "../../../../img/restaurant_background.jpg";
 import { Container } from "react-bootstrap";
+import { hexToRgb } from "../section_call_to_action.jsx";
 
 function Section_presentation(props) {
   const restaurantinfo = props.restaurantinfo
   const styles = props.Styles
-  function hexToRgb(hex) {
-    const bigint = parseInt(hex, 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-    return `${r}, ${g}, ${b}`;
-  }
-  {console.log(hexToRgb(restaurantinfo.color1))}
   return (  
     <div className="row position-relative gx-0" 
     style={{

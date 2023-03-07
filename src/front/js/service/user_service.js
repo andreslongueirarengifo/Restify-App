@@ -8,7 +8,6 @@ export const createUser = async (formData) => {
             }
         })
         const data = await response.json();
-        console.log(data)
         localStorage.setItem("jwt-token", data.token);
         return data;
     }
@@ -27,7 +26,6 @@ export const loginUser = async (formData) => { // formData = {email: "sample@ema
             }
         })
         const data = await response.json();
-        console.log(data)
         localStorage.setItem("jwt-token", data.token);
         return data;
     }

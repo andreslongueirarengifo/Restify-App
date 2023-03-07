@@ -20,18 +20,16 @@ export const ContactTEMP = () => {
     colorextra1: {},
     font: {},
   });
-  {console.log(apirequesturl)}
   useEffect(() => {
     fetch(apirequesturl)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       setStyles({
-        back1: { backgroundColor: `#${data.result.colorback1}` },
-        back2: { backgroundColor: `#${data.result.colorback2}` },
-        color1: { color: `#${data.result.color1}` },
-        color2: { color: `#${data.result.color2}` },
-        colorextra1: { color: `#${data.result.colorextra1}` },
+        back1: { backgroundColor: `${data.result.colorback1}` },
+        back2: { backgroundColor: `${data.result.colorback2}` },
+        color1: { color: `${data.result.color1}` },
+        color2: { color: `${data.result.color2}` },
+        colorextra1: { color: `${data.result.colorextra1}` },
         font: { fontFamily: `${data.result.font}` },
       })
     })
@@ -40,7 +38,6 @@ export const ContactTEMP = () => {
     fetch(apirequesturl)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       setRestaurantinfo(data.result)
     })
   }, []);
