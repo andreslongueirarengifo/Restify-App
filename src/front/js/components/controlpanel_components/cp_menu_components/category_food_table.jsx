@@ -221,6 +221,7 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
           food_id: selectedFood.id,
           price: selectedFood.price,
           web_name: web_name,
+          allergens:selectedFood.allergens
         };
         console.log(requestBody)
         const formData = new FormData();

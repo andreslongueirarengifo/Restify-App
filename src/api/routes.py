@@ -555,11 +555,10 @@ def create_or_update_food():
         db.session.commit()
 
         # Create allergens for the new food item
-        allergens = data.get("allergens")
-        if allergens:
-            allergens_table = Allergens(food_id=food.id, **allergens)
-            db.session.add(allergens_table)
-            db.session.commit()
+        allergens = data.get("allergens", {})
+        allergens_table = Allergens(food_id=food.id, **allergens)
+        db.session.add(allergens_table)
+        db.session.commit()
 
     elif request.method == 'PUT':
         # Modify an existing Food object and update the database
@@ -572,15 +571,6 @@ def create_or_update_food():
         food.name = data.get('name', food.name)
         food.description = data.get('description', food.description)
         food.price = data.get('price', food.price)
-        
-        # Update photo for the food item
-        print(request.files)
-        # if 'image' in request.files:
-        #     result = cloudinary.uploader.upload(
-        #         request.files['image'], public_id=f'food_photo_{food_id}')
-        #     food.photo = result['secure_url']
-
-        # Update allergens for the food item
         allergens = data.get("allergens")
         if allergens:
             allergens_table = Allergens.query.filter_by(food_id=food.id).first()

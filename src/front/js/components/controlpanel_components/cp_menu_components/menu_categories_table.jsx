@@ -15,6 +15,7 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
       method: 'DELETE'
     }).then(() => {
       dispatch(deleteRow(rowKeyValue));
+      location.reload()
     });
   };
 
