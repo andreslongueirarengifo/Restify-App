@@ -12,8 +12,16 @@ export const MenuInputBody = (props) => {
 			</div>
 			<div className="container-fluid cpbody-container shadow-sm p-3">
 				<div className="row px-5">
+					<h2 className="caption-text mb-2">Categorías</h2>
+					<p className="mb-4">
+						¡Agrega cuantas categorías quieras! 🤩
+					</p>
 					<Menu_categories_table/>
-					<Category_tables webName={webName}/>
+					<h2 className="caption-text mb-2 mt-5">Platos</h2>
+					<p className="mb-4">
+						Dentro de las categorías podrás añadir tus platos 😋
+					</p>
+					<Category_tables webName={webName} className="dishes-table"/>
 				</div>
 			</div>
 		</div>

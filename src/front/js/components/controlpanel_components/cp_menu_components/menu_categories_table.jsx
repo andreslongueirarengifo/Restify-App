@@ -126,6 +126,7 @@ export const Menu_categories_table = (props) => {
             key: 'name',
             field: 'name',
             title: 'Categorias',
+            style: { color: '#707070' },
             dataType: DataType.String,
           },
           {

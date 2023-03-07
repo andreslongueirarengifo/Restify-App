@@ -1,8 +1,7 @@
-# Back-End Variables
-DATABASE_URL=postgres://gitpod@localhost:5432/example
-FLASK_APP_KEY="any key works"
-FLASK_APP=src/app.py
-FLASK_ENV=development
-
-# Front-End Variables
-BASENAME=/
+rm -R -f ./migrations &&
+pipenv run init &&
+psql -U gitpod -c 'DROP DATABASE example;' || true &&
+psql -U gitpod -c 'CREATE DATABASE example;' &&
+psql -U gitpod -c 'CREATE EXTENSION unaccent;' -d example &&
+pipenv run migrate &&
+pipenv run upgrade

@@ -72,9 +72,9 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
     const params = useParams();
     const [tableProps, changeTableProps] = useState({
       columns: [
-        { key: 'name', field: 'name', title: 'Platos', dataType: DataType.String},
-        { key: 'precio', field:'price', title:'price', dataType: DataType.Number},
-        { key: 'description', field:'description', title:'Descripción', dataType: DataType.String},
+        { key: 'name', field: 'name', title: 'Platos', style: { color: '#707070' }, dataType: DataType.String},
+        { key: 'precio', field:'price', title:'precio', style: { color: '#707070' }, dataType: DataType.Number},
+        { key: 'description', field:'description', title:'Descripción', style: { color: '#707070' }, dataType: DataType.String},
         { key: ':delete', width: 70, style: { textAlign: 'center' } },
         { key: ':edit', width: 70, style: { textAlign: 'center' } },
         { key: 'addColumn', width: 70, style: { textAlign: 'center' } }
