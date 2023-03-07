@@ -72,9 +72,9 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
     const params = useParams();
     const [tableProps, changeTableProps] = useState({
       columns: [
-        { key: 'name', field: 'name', title: 'Platos', style: { color: '#707070' }, dataType: DataType.String},
-        { key: 'precio', field:'price', title:'precio', style: { color: '#707070' }, dataType: DataType.Number},
-        { key: 'description', field:'description', title:'Descripción', style: { color: '#707070' }, dataType: DataType.String},
+        { key: 'name', field: 'name', title: 'Platos', width: 100, style: { color: '#707070' }, dataType: DataType.String},
+        { key: 'precio', field:'price', title:'precio', width: 100, style: { color: '#707070' }, dataType: DataType.Number},
+        { key: 'description', field:'description', width: 200,title:'Descripción', style: { color: '#707070' }, dataType: DataType.String},
         { key: ':delete', width: 70, style: { textAlign: 'center' } },
         { key: ':edit', width: 70, style: { textAlign: 'center' } },
         { key: 'addColumn', width: 70, style: { textAlign: 'center' } }
@@ -252,43 +252,47 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
 
     return (
       <>
-        <h3>{categoryname}</h3>
-        <Table
-          {...tableProps}
-          childComponents={{
-            headCell: {
-              content: props => {
-                switch (props.column.key) {
-                  case ':delete':
-                    return null;
-                  case ':edit':
-                    return null;
-                  case 'addColumn':
-                    return <AddButton addNewDish={handleAddNewDish} />
-                    ;
-                  default:
-                    return props.column.title;
+        <h3 className='caption-text fw-bold'>{categoryname}</h3>
+        <div className='row'>
+          <div className='text-center'>
+            <Table
+            {...tableProps}
+            childComponents={{
+              headCell: {
+                content: props => {
+                  switch (props.column.key) {
+                    case ':delete':
+                      return null;
+                    case ':edit':
+                      return null;
+                    case 'addColumn':
+                      return <AddButton addNewDish={handleAddNewDish} />
+                      ;
+                    default:
+                      return props.column.title;
+                  }
                 }
-              }
-            },
-            cellText: {
-              content: props => {
-                switch (props.column.key) {
-                  case ':delete':
-                    return <DeleteRow {...props} />;
-                  case ':edit':
-                    return <EditButton food={props.rowData} onSelect={handleSelectFood} />;
-                  case 'addColumn': 
-                    return null;
-                  default:
-                    return props.cellData;
+              },
+              cellText: {
+                content: props => {
+                  switch (props.column.key) {
+                    case ':delete':
+                      return <DeleteRow {...props} />;
+                    case ':edit':
+                      return <EditButton food={props.rowData} onSelect={handleSelectFood} />;
+                    case 'addColumn': 
+                      return null;
+                    default:
+                      return props.cellData;
+                  }
                 }
-              }
-            },
-            
-          }}
-          
-        />
+              },
+              
+            }}
+            />
+          </div>
+        </div>
+        
         {selectedFood && (
   <Modal show={true} onHide={() => setSelectedFood(null)}>
     <Modal.Header closeButton>
