@@ -47,7 +47,7 @@ return (
   {Object.keys(Restaurantinfo).length > 0 && (
   <div className="row position-relative gx-0" 
     style={{
-      backgroundImage: `url(${restaurant_background})`,
+      backgroundImage: `url(${Restaurantinfo.image_link})`,
       minWidth: '100%',
       backgroundSize: 'cover',
       objectPosition: 'bottom',
