@@ -6,6 +6,7 @@ from api.models import db, User, Web, Branding, Content, Food, Food_category, Al
 from api.utils import generate_sitemap, APIException
 from flask_cors import cross_origin
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+import requests
 import bcrypt
 
 import cloudinary
@@ -330,17 +331,33 @@ def set_content():
         if content is None:
             abort(404)
 
-        content.phone_number = request.json.get(
-            'phone_number', content.phone_number)
+        # Generate the coordinates based on the street and city parameters
+        query = f"{request.json.get('location_street', content.location_street)}, {request.json.get('location_city', content.location_city)}, Spain"
+        params = {
+            'access_key': '2cf36a4863b2e5d59892ba8631a3d81f',
+            'query': query,
+            'country': 'ES',
+            'limit': 1
+        }
+        response = requests.get('http://api.positionstack.com/v1/forward', params=params)
+        if response.status_code == 200:
+            result = response.json()
+            if result['data']:
+                coordinates = f"{result['data'][0]['latitude']},{result['data'][0]['longitude']}"
+            else:
+                # habrá que ver como controlamos los errores
+                abort(400, 'Location not found')
+        else:
+            # Handle error case
+            abort(500)
+
+        content.phone_number = request.json.get('phone_number', content.phone_number)
         content.instagram = request.json.get('instagram', content.instagram)
         content.twitter = request.json.get('twitter', content.twitter)
         content.facebook = request.json.get('facebook', content.facebook)
-        content.location_street = request.json.get(
-            'location_street', content.location_street)
-        content.location_city = request.json.get(
-            'location_city', content.location_city)
-        content.location_coordinates = request.json.get(
-            'location_coordinates', content.location_coordinates)
+        content.location_street = request.json.get('location_street', content.location_street)
+        content.location_city = request.json.get('location_city', content.location_city)
+        content.location_coordinates = coordinates
         content.image_link = request.json.get('image_link', content.image_link)
 
         db.session.commit()
@@ -435,11 +452,11 @@ def get_template_data(restaurant_name):
 
 
 @api.route('/createcategory', methods=['POST', 'PUT'])
-@jwt_required()  # Necesita autenticación
+# @jwt_required()  # Necesita autenticación
 def create_category():
     data = json.loads(request.data)
 
-    content_web = Web.query.get(data["web_id"])
+    content_web = Web.query.filter_by(name=data["web_name"]).first()
 
     if content_web is None:
         abort(404)
@@ -448,7 +465,7 @@ def create_category():
         # Create a new Food_category object and add it to the database
         food_category = Food_category(
             name=data["name"],
-            web_id=data["web_id"],
+            web=content_web,
         )
         db.session.add(food_category)
         db.session.commit()
@@ -467,43 +484,61 @@ def create_category():
 
     return jsonify({"msg": "ok"}), 200
 
-# public endpoint to get restaurant categories
+#list all the categories of a restaurant
+@api.route('/foodcategories/<name>', methods=['GET'])
+def get_categories_from_restaurant(name):
+    restaurant_web = Web.query.filter_by(name=name).first()
+    web_id = restaurant_web.id
+    categories = Food_category.query.filter_by(web_id=web_id).all()
 
-
-@api.route('/foodcategories/<int:web_id>', methods=['GET'])
-def get_categories_from_restaurant(web_id):
-    categories_from_restaurant = Food_category.query.filter_by(
-        web_id=web_id).serialize()
-    if categories_from_restaurant is None:
-        abort(404)
-    response_body = {
-        "msg": "ok",
-        "from_restaurant_id": web_id,
-        "result": categories_from_restaurant
-    }
+    if not categories:
+        response_body = {
+            "msg": "no categories",
+            "from_restaurant_id": web_id,
+            "result": []
+        }
+    else:
+        categories_list = [category.serialize() for category in categories]
+        response_body = {
+            "msg": "ok",
+            "from_restaurant_id": web_id,
+            "result": categories_list
+        }
     return jsonify(response_body), 200
 
+
 # Endpoint for deleting a category
-
-
 @api.route("/deletecategory/<int:category_id>", methods=["DELETE"])
 def category_delete(category_id):
     category = Food_category.query.get(category_id)
+    if not category:
+        return jsonify({"msg": "Category not found"}), 404
+
+    # Delete all the foods in the category
+    foods = Food.query.filter_by(category_id=category_id).all()
+    for food in foods:
+        allergens = Allergens.query.filter_by(food_id=food.id).first()
+        db.session.delete(allergens)
+        db.session.delete(food)
+
+    # Delete the category
     db.session.delete(category)
     db.session.commit()
 
     return jsonify({"msg": "ok"}), 200
 
-# endpoint to create food
-
-
-@api.route('/createfood', methods=['POST', 'PUT'])
-@jwt_required()  # Necesita autenticación
-def create_food():
+#endpoint to create or update food
+@api.route('/food', methods=['POST', 'PUT'])
+#@jwt_required()  # Necesita autenticación
+@cross_origin()
+def create_or_update_food():
     data = json.loads(request.data)
+    print(data)
+    if data is None:
+        abort(400, 'Missing JSON data')
 
-    content_web = Web.query.get(data["web_id"])
-
+    content_web = Web.query.filter_by(name=data["web_name"]).first()
+    
     if content_web is None:
         abort(404)
 
@@ -514,55 +549,179 @@ def create_food():
             description=data["description"],
             price=data["price"],
             category_id=data["category_id"],
-            web_id=data["web_id"],
+            web_id=content_web.id,
         )
         db.session.add(food)
         db.session.commit()
 
+        # Create allergens for the new food item
+        allergens = data.get("allergens")
+        if allergens:
+            allergens_table = Allergens(food_id=food.id, **allergens)
+            db.session.add(allergens_table)
+            db.session.commit()
+
     elif request.method == 'PUT':
-        # Modify an existing Content object and update the database
+        # Modify an existing Food object and update the database
         food_id = data["food_id"]
         food = Food.query.get(food_id)
 
         if food is None:
             abort(404)
 
-        food.name = request.json.get('name', food.name)
-        food.description = request.json.get('description', food.description)
-        food.price = request.json.get('price', food.price)
-        food.image = request.json.get('image', food.image)
+        food.name = data.get('name', food.name)
+        food.description = data.get('description', food.description)
+        food.price = data.get('price', food.price)
+        
+        # Update photo for the food item
+        print(request.files)
+        # if 'image' in request.files:
+        #     result = cloudinary.uploader.upload(
+        #         request.files['image'], public_id=f'food_photo_{food_id}')
+        #     food.photo = result['secure_url']
+
+        # Update allergens for the food item
+        allergens = data.get("allergens")
+        if allergens:
+            allergens_table = Allergens.query.filter_by(food_id=food.id).first()
+            if allergens_table:
+                for allergen, value in allergens.items():
+                    setattr(allergens_table, allergen, value)
+            else:
+                allergens_table = Allergens(food_id=food.id, **allergens)
+                db.session.add(allergens_table)
+                db.session.commit()
 
         db.session.commit()
 
     return jsonify({"msg": "ok"}), 200
 
-# public endpoint to get restaurant food
+#list of all the food in a category of a restaurant
+@api.route('/foodinacategory/<restaurant_name>/<categoryname>', methods=['GET'])
+def get_food_from_category(restaurant_name, categoryname):
+    restaurant = Web.query.filter_by(name=restaurant_name).first()
+    if restaurant is None:
+        return jsonify({"msg": "No restaurant found"}), 404
 
+    category = Food_category.query.filter_by(name=categoryname).first()
+    if category is None:
+        return jsonify({"msg": "No category found"}), 404
 
-@api.route('/food/<int:web_id>', methods=['GET'])
-def get_food_from_restaurant(web_id):
-    food_from_restaurant = Food.query.filter_by(
-        web_id=web_id).serialize()
-    if food_from_restaurant is None:
-        abort(404)
+    food_from_category = Food.query.filter_by(web_id=restaurant.id, category_id=category.id).all()
+
+    serialized_food = []
+    for food in food_from_category:
+        allergens = food.allergens[0] if food.allergens else None
+        serialized_allergens = {
+            "egg": allergens.egg if allergens else False,
+            "fish": allergens.fish if allergens else False,
+            "peanuts": allergens.peanuts if allergens else False,
+            "soja": allergens.soja if allergens else False,
+            "dairy": allergens.dairy if allergens else False,
+            "nuts": allergens.nuts if allergens else False,
+            "celery": allergens.celery if allergens else False,
+            "mustard": allergens.mustard if allergens else False,
+            "sesame": allergens.sesame if allergens else False,
+            "sulphites": allergens.sulphites if allergens else False,
+            "mollusks": allergens.mollusks if allergens else False,
+            "lupines": allergens.lupines if allergens else False,
+            "gluten": allergens.gluten if allergens else False,
+            "crustaceans": allergens.crustaceans if allergens else False
+        }
+        serialized_food.append({
+            "id": food.id,
+            "name": food.name,
+            "description": food.description,
+            "price": food.price,
+            "category": food.category.name,
+            "allergens": serialized_allergens
+        })
     response_body = {
         "msg": "ok",
-        "from_restaurant_id": web_id,
-        "result": food_from_restaurant
+        "from_restaurant": restaurant_name,
+        "category": categoryname,
+        "result": serialized_food
+    }
+    return jsonify(response_body), 200
+
+#list of all the food in a restaurant
+@api.route('/food/<string:restaurant_name>', methods=['GET'])
+def get_food_from_restaurant(restaurant_name):
+    restaurant = Web.query.filter_by(name=restaurant_name).first()
+    if restaurant is None:
+        return jsonify({"msg": "No restaurant found"}), 404
+
+    food_from_restaurant = Food.query.filter_by(web_id=restaurant.id).all()
+
+    serialized_food = []
+    for food in food_from_restaurant:
+        allergens = food.allergens[0] if food.allergens else None
+        serialized_allergens = {
+            "egg": allergens.egg if allergens else False,
+            "fish": allergens.fish if allergens else False,
+            "peanuts": allergens.peanuts if allergens else False,
+            "soja": allergens.soja if allergens else False,
+            "dairy": allergens.dairy if allergens else False,
+            "nuts": allergens.nuts if allergens else False,
+            "celery": allergens.celery if allergens else False,
+            "mustard": allergens.mustard if allergens else False,
+            "sesame": allergens.sesame if allergens else False,
+            "sulphites": allergens.sulphites if allergens else False,
+            "mollusks": allergens.mollusks if allergens else False,
+            "lupines": allergens.lupines if allergens else False,
+            "gluten": allergens.gluten if allergens else False,
+            "crustaceans": allergens.crustaceans if allergens else False
+        }
+        serialized_food.append({
+            "id": food.id,
+            "name": food.name,
+            "description": food.description,
+            "price": food.price,
+            "category": food.category.name,
+            "allergens": serialized_allergens
+        })
+
+    response_body = {
+        "msg": "ok",
+        "from_restaurant": restaurant_name,
+        "result": serialized_food
     }
     return jsonify(response_body), 200
 
 # Endpoint for deleting food
-
-
-@api.route("/deletefood/<int:food_id>", methods=["DELETE"])
-def food_delete(food_id):
+@api.route("/food/<int:food_id>", methods=["DELETE"])
+def delete_food(food_id):
     food = Food.query.get(food_id)
+
+    if food is None:
+        abort(404)
+
+    # Delete allergens for the food item
+    allergens = Allergens.query.filter_by(food_id=food.id).first()
+    if allergens:
+        db.session.delete(allergens)
+
     db.session.delete(food)
     db.session.commit()
 
     return jsonify({"msg": "ok"}), 200
 
+
+
+@api.route('/image/<int:food_id>', methods=['PUT'])
+def handle_upload_food(food_id):
+    if 'image' in request.files:
+        result = cloudinary.uploader.upload(request.files['image'], public_id=f'dish_{food_id}')
+
+        current_dish = Food.query.get(food_id)
+        current_dish.image = result['secure_url']
+
+        db.session.add(current_dish)
+        db.session.commit()
+
+        return jsonify(ok), 200
+    else:
+        raise APIException('Missing image on the FormData')
 
 @api.route("/deleterestaurant/<int:id>", methods=["DELETE"])
 @jwt_required()
@@ -589,3 +748,4 @@ def delete_restaurant(id):
     db.session.commit()
 
     return jsonify({"msg": "restaurant deleted"}), 200
+
