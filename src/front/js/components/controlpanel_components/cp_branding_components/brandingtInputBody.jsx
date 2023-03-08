@@ -7,6 +7,8 @@ import { BrandingInputGroupName } from "./brandingtInputGroupName.jsx";
 import { updateBranding } from "../../../service/cp_services";
 import { uploadLogo } from "../../../service/create_restaurant_service";
 
+import toast, { Toaster } from "react-hot-toast";
+
 export const BrandingInputBody = (props) => {
 	const { store, actions } = useContext(Context);
 
@@ -19,37 +21,37 @@ export const BrandingInputBody = (props) => {
 		getDataOnLoad();
 	}, []);
 
-	const handleClick = async ()=>{
+	const handleClick = async () => {
 		await updateBranding(store.setBrandingFormData);
 		await uploadLogo(store.bodyuploadLogo, store.setBrandingFormData.web_id);
-	}
+		toast.success("Se ha actualizado el branding😎");
+	};
 
 	useEffect(() => {
 		actions.setSetBrandingFormData({ web_id: store.currentRestaurantId });
 	}, [store.currentRestaurantId]);
 
 	return (
-		<div className="container p-4">
-			<div className="container-fluid p-0">
-				<h2 className="mb-4">Actualiza el branding de tu web</h2>
-			</div>
-			<div className="container-fluid cpbody-container shadow-sm p-3">
-				<div className="row px-5">
-					<BrandingInputGroupName />
-					<BrandingInputGroupLogo />
-					<BrandingInputGroupFont />
-					<BrandingInputGroupColors />
+		<>
+			<div className="container p-4">
+				<div className="container-fluid p-0">
+					<h2 className="mb-4">Actualiza el branding de tu web</h2>
 				</div>
-				<div className="row d-flex justify-content-center my-3">
-					<button
-						type="button"
-						className="btn btn-restify btn-restify-primary btn-form col-4"
-						onClick={handleClick}
-					>
-						Actualizar información
-					</button>
+				<div className="container-fluid cpbody-container shadow-sm p-3">
+					<div className="row px-5">
+						<BrandingInputGroupName />
+						<BrandingInputGroupLogo />
+						<BrandingInputGroupFont />
+						<BrandingInputGroupColors />
+					</div>
+					<div className="row d-flex justify-content-center my-3">
+						<button type="button" className="btn btn-restify btn-restify-primary btn-form col-4" onClick={handleClick}>
+							Actualizar información
+						</button>
+					</div>
 				</div>
 			</div>
-		</div>
+			<Toaster position="top-center" reverseOrder={false} />
+		</>
 	);
 };

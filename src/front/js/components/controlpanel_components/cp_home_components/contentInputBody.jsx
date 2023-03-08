@@ -6,6 +6,8 @@ import { ContentInputGroupContact } from "./contentInputGroupContact.jsx";
 import { ContentInputGroupHeader } from "./contentInputGroupHeader.jsx";
 import { getContent, getWebInfoByName, updateContent, uploadImage } from "../../../service/cp_services";
 
+import toast, { Toaster } from "react-hot-toast";
+
 export const ContentInputBody = (props) => {
 	const { store, actions } = useContext(Context);
 
@@ -24,7 +26,8 @@ export const ContentInputBody = (props) => {
 	}, [store.currentRestaurantId]);
 
 	return (
-		<div className="container p-4">
+		<>
+			<div className="container p-4">
 			<div className="container-fluid p-0">
 				<h2 className="mb-4">Actualiza el contenido de tu restaurante</h2>
 			</div>
@@ -42,6 +45,7 @@ export const ContentInputBody = (props) => {
 						onClick={() => {
 							updateContent(store.setContentFormData);
 							uploadImage(store.bodyUploadImg, store.setContentFormData.content_id);
+							toast.success("Se ha actualizado el branding😎");
 						}}
 					>
 						Actualizar información
@@ -49,5 +53,7 @@ export const ContentInputBody = (props) => {
 				</div>
 			</div>
 		</div>
+		<Toaster position="top-center" reverseOrder={false} />
+		</>
 	);
 };
