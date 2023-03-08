@@ -56,7 +56,9 @@ export const CardRestaurant = (props) => {
 			<img src={brandingData.logo} className="img-card m-auto"></img>
 			<div className="card-body">
 				<label className="form-label">Url del restaurante</label>
-				<CopyToClipboard text={"restify.com/res/" + restaurantData.name}>
+				<CopyToClipboard
+					text={"https://3000-andreslongue-restifyapp-jwetv065gdg.ws-eu89b.gitpod.io/res/" + restaurantData.name}
+				>
 					<div className="copy-text rounded justify-content-between align-items-center">
 						<p className="copy-text-label m-0">{".../res/" + restaurantData.name}</p>
 						<i className="fa-regular fa-copy"></i>
