@@ -20,7 +20,7 @@ function Dish_card(props) {
 							{dish.name}
 						</h5>
 					</Card.Header>
-					<Card.Img variant="top" src={dish.photo_url} className="rounded-circle" />
+					<Card.Img variant="top" src={dish.photo_url} className="m-auto" style={{height: "200px", width: "200px", borderRadius: "50%", objectFit: "cover"}} />
 					<Card.Body>
 						<Card.Text style={styles.color1} className="fs-4">
 							{dish.description}
@@ -34,7 +34,21 @@ function Dish_card(props) {
 					</Modal.Header>
 					<Modal.Body style={{ background: `rgba(${hexToRgb(restaurantinfo.colorback2)}, 0.55)` }}>
 						<div className="row">
-							<img className="col-6" src={dish.photo_url} height="70%" />
+							<div className="col-6">
+								<img src={dish.photo_url} style={{height: "300px", width: "300px", objectFit: "cover"}} />
+								<p>Alérgenos
+									{dish.allergens && (
+										<ul>
+											{Object.entries(dish.allergens)
+											.filter(([key, value]) => value)
+											.map(([key, value]) => (
+												<li key={key}>{key}</li>
+											))}
+										</ul>
+										)}
+								</p>
+							</div>
+							
 							<div className="col-6 text-center pt-3">
 								<p className="fs-4" style={styles.color1}>
 									{dish.description}

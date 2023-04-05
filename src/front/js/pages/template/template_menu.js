@@ -8,58 +8,52 @@ import restaurant_background from "../../../img/restaurant_background.jpg";
 import { useParams } from "react-router-dom";
 
 export const MenuTEMP = () => {
-	const params = useParams();
-	let domain = "https://sample-service-name-tv81.onrender.com";
-	let apirequesturl = `${domain}/api/template_data/${params.webname}`;
-	const [Restaurantinfo, setRestaurantinfo] = useState({});
-	const [Styles, setStyles] = useState({
-		back1: {},
-		back2: {},
-		color1: {},
-		color2: {},
-		colorextra1: {},
-		font: {},
-	});
-	{
-		console.log(apirequesturl);
-	}
-	useEffect(() => {
-		fetch(apirequesturl)
-			.then((response) => response.json())
-			.then((data) => {
-				console.log(data);
-				setStyles({
-					back1: { backgroundColor: `${data.result.colorback1}` },
-					back2: { backgroundColor: `${data.result.colorback2}` },
-					color1: { color: `${data.result.color1}` },
-					color2: { color: `${data.result.color2}` },
-					colorextra1: { color: `${data.result.colorextra1}` },
-					font: { fontFamily: `${data.result.font}` },
-				});
-			});
-	}, []);
-	useEffect(() => {
-		fetch(apirequesturl)
-			.then((response) => response.json())
-			.then((data) => {
-				console.log(data);
-				setRestaurantinfo(data.result);
-			});
-	}, []);
-	return (
-		<>
-			{Object.keys(Restaurantinfo).length > 0 && (
-				<div
-					className="row position-relative gx-0"
-					style={{
-						backgroundImage: `url(${restaurant_background})`,
-						minWidth: "100%",
-						backgroundSize: "cover",
-						objectPosition: "bottom",
-					}}
-				>
-					<style>
-						{`body {
+  const params = useParams()
+  let domain = process.env.BACKEND_URL;
+  let apirequesturl=`${domain}/api/template_data/${params.webname}`
+  const [Restaurantinfo, setRestaurantinfo] = useState ({})
+  const [Styles, setStyles] = useState({
+    back1: {},
+    back2: {},
+    color1: {},
+    color2: {},
+    colorextra1: {},
+    font: {},
+  });
+  useEffect(() => {
+    fetch(apirequesturl)
+    .then(response => response.json())
+    .then(data => {
+      setStyles({
+        back1: { backgroundColor: `${data.result.colorback1}` },
+        back2: { backgroundColor: `${data.result.colorback2}` },
+        color1: { color: `${data.result.color1}` },
+        color2: { color: `${data.result.color2}` },
+        colorextra1: { color: `${data.result.colorextra1}` },
+        font: { fontFamily: `${data.result.font}` },
+      })
+    })
+  }, []);
+  useEffect(() => {
+    fetch(apirequesturl)
+    .then(response => response.json())
+    .then(data => {
+      setRestaurantinfo(data.result)
+    })
+  }, []);
+return (
+  <>
+  {Object.keys(Restaurantinfo).length > 0 && (
+  <div className="row position-relative gx-0" 
+    style={{
+      backgroundImage: `url(${Restaurantinfo.image_link})`,
+      minWidth: '100%',
+      backgroundSize: 'cover',
+      objectPosition: 'bottom',
+    }}
+  >
+    <style>
+      {`body {
         max-width: 100%;
         overflow-x: hidden;
       }`}

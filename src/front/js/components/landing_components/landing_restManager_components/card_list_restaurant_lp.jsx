@@ -21,24 +21,39 @@ export const CardListRest = () => {
 	return (
 		<>
 			{currentUserRestaurants.length === 0 ? (
-				<Row className="mb-4">
-					<p>Parece que aún no creas ningún restaurante. Presiona en "+" para crear el primero 😊</p>
-				</Row>
-			) : null}
-			<Row xs={1} md={3} className="g-4">
-				{currentUserRestaurants.map((restaurant, index) => {
-					return (
-						<Col key={index}>
-							<CardRestaurant id={restaurant.id} name={restaurant.name} key={index} />
+				<>
+					<div className="alert alert-primary" role="alert">
+						<p className="my-0">Parece que aún no creas ningún restaurante. Presiona en "+" para crear el primero 😊</p>
+					</div>
+					<Row>
+						<Col className="d-flex justify-content-center">
+							<CardAddRestaurant />
 						</Col>
-					);
-				})}
-				{currentUserRestaurants.length < 3 ? (
-					<Col>
-						<CardAddRestaurant />
-					</Col>
-				) : null}
-			</Row>
+					</Row>
+				</>
+			) : (
+				<>
+					{currentUserRestaurants.length === 3 && (
+						<div className="alert alert-warning" role="alert">
+							<p className="my-0">¡Has alcanzado el número de restaurantes que puedes crear! 🥵</p>
+						</div>
+					)}
+					<Row xs={1} md={3}>
+						{currentUserRestaurants.map((restaurant, index) => {
+							return (
+								<Col key={index} className="d-flex justify-content-center">
+									<CardRestaurant id={restaurant.id} name={restaurant.name} key={index} />
+								</Col>
+							);
+						})}
+						{currentUserRestaurants.length < 3 ? (
+							<Col>
+								<CardAddRestaurant />
+							</Col>
+						) : null}
+					</Row>
+				</>
+			)}
 		</>
 	);
 };

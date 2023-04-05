@@ -25,7 +25,9 @@ const RegisterModal = () => {
 	}, []);
 
 	useEffect(() => {
-		if (Object.keys(registerForm).length == 5) {
+		console.log(emailExist);
+		console.log(registerForm)
+		if (Object.keys(registerForm).length == 6) {
 			if (
 				!(
 					registerForm.name === "" ||
@@ -34,14 +36,14 @@ const RegisterModal = () => {
 					registerForm.passwordRepeat === "" ||
 					registerForm.email === ""
 				) &&
-				emailExist == false
+				!emailExist
 			) {
 				setShowButton(true);
 			} else {
 				setShowButton(false);
 			}
 		}
-	}, [registerForm]);
+	}, [registerForm, emailExist]);
 
 	useEffect(() => {
 		setPassValidation(registerForm.password === registerForm.passwordRepeat);

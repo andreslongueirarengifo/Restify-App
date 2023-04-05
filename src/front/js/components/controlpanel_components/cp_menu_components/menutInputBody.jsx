@@ -1,12 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { Context } from "../../../store/appContext";
+import { Menu_categories_table } from "./menu_categories_table.jsx";
 
+import { Category_tables } from "./category_tables.jsx";
 export const MenuInputBody = (props) => {
-	const { store, actions } = useContext(Context);
-
-	useEffect(() => {
-		actions.getCurrentRestaurantIdbyWebName(props.webName);
-	}, []);
+	const webName = props.webName
 
 	return (
 		<div className="container p-4">
@@ -15,11 +12,16 @@ export const MenuInputBody = (props) => {
 			</div>
 			<div className="container-fluid cpbody-container shadow-sm p-3">
 				<div className="row px-5">
-				</div>
-				<div className="row d-flex justify-content-center my-3">
-					<button type="button" className="btn btn-restify btn-restify-primary btn-form col-4">
-						Actualizar información
-					</button>
+					<h2 className="caption-text mb-2">Categorías</h2>
+					<p className="mb-4">
+						¡Agrega cuantas categorías quieras! 🤩
+					</p>
+					<Menu_categories_table/>
+					<h2 className="caption-text mb-2 mt-5">Platos</h2>
+					<p className="mb-4">
+						Dentro de las categorías podrás añadir tus platos 😋
+					</p>
+					<Category_tables webName={webName} className="dishes-table"/>
 				</div>
 			</div>
 		</div>

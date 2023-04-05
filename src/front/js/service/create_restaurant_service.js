@@ -2,7 +2,7 @@ export const createRestaurant = async (formData) => {
 	// formData = {name: "sample@email.com", user_id: from token}
 	try {
 		const token = localStorage.getItem("jwt-token");
-		const response = await fetch("https://sample-service-name-tv81.onrender.com" + "/api/createrestautant", {
+		const response = await fetch(process.env.BACKEND_URL + "/api/createrestautant", {
 			method: "POST",
 			mode: "cors",
 			body: JSON.stringify(formData),
@@ -12,7 +12,18 @@ export const createRestaurant = async (formData) => {
 			},
 		});
 		const data = await response.json();
-		console.log(data);
+		return data;
+	} catch (e) {
+		return e;
+	}
+};
+
+export const getRestaurants = async () => {
+	try {
+		const response = await fetch(`${process.env.BACKEND_URL}/api/restaurants`, {
+			method: "GET",
+		});
+		const data = await response.json();
 		return data;
 	} catch (e) {
 		return e;
@@ -22,7 +33,7 @@ export const createRestaurant = async (formData) => {
 export const setBranding = async (formData) => {
 	try {
 		const token = localStorage.getItem("jwt-token");
-		const response = await fetch("https://sample-service-name-tv81.onrender.com" + "/api/setbranding", {
+		const response = await fetch(process.env.BACKEND_URL + "/api/setbranding", {
 			method: "POST",
 			mode: "cors",
 			body: JSON.stringify(formData),
@@ -32,7 +43,6 @@ export const setBranding = async (formData) => {
 			},
 		});
 		const data = await response.json();
-		console.log(data);
 		return data;
 	} catch (e) {
 		return e;
@@ -53,7 +63,7 @@ export const defaultContentCreation = {
 export const setContent = async (formData) => {
 	try {
 		const token = localStorage.getItem("jwt-token");
-		const response = await fetch("https://sample-service-name-tv81.onrender.com" + "/api/setcontent", {
+		const response = await fetch(process.env.BACKEND_URL + "/api/setcontent", {
 			method: "POST",
 			mode: "cors",
 			body: JSON.stringify(formData),
@@ -69,32 +79,28 @@ export const setContent = async (formData) => {
 	}
 };
 
-export const uploadImage = async (file, web_id) => {
+export const uploadLogo = async (file, web_id) => {
 	try {
-		const response = await fetch(`https://sample-service-name-tv81.onrender.com/api/branding/${web_id}/logo`, {
+		const response = await fetch(`${process.env.BACKEND_URL}/api/branding/${web_id}/logo`, {
 			body: file,
 			method: "PUT",
 		});
 		const data = await response.json();
-		console.log("entro en el fetch!!! :D");
 		return data;
 	} catch (e) {
-		console.log("no entro en el fetch¡¡¡¡ D:");
 		return e;
 	}
 };
 
-export const uploadFavicon = async (favicon, web_id) => {
+export const uploadFavicon = async (file, web_id) => {
 	try {
-		const response = await fetch(`https://sample-service-name-tv81.onrender.com/api/branding/${web_id}/favicon`, {
-			body: favicon,
+		const response = await fetch(`${process.env.BACKEND_URL}/api/branding/${web_id}/favicon`, {
+			body: file,
 			method: "PUT",
 		});
 		const data = await response.json();
-		console.log("entro en el fetch!!! :D");
 		return data;
 	} catch (e) {
-		console.log("no entro en el fetch¡¡¡¡ D:");
 		return e;
 	}
 };

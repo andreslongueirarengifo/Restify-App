@@ -1,39 +1,44 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Dropdown from "react-bootstrap/Dropdown";
+import { Context } from "../../../store/appContext";
 
 //images
 import logoWhite from "../../../../img/logo-white.png";
 
 export const NavbarRestManager = (props) => {
 	const navigate = useNavigate();
+	const { store, actions } = useContext(Context);
 
 	const handleClick = (event) => {
 		event.preventDefault();
 		localStorage.removeItem("jwt-token");
-		action.logoutState();
-		navigate(`/`);
+		actions.logoutState();
 	};
 
-	console.log(props);
+	useEffect(() => {
+		actions.loginState();
+	}, []);
+
+	useEffect(() => {
+		if (store.isAuthenticated === false) {
+			navigate(`/`);
+		}
+	}, [store.isAuthenticated]);
 
 	return (
 		<nav
-			className="navbar navbar-dark navbar-expand-lg bg-body-tertiary nav-size"
+			className="navbar navbar-expand-lg bg-body-tertiary nav-sizeº"
 			style={{ backgroundColor: "#352970", alignItems: "center" }}
 		>
-			<div className="container d-flex justify-content-between">
-				<a className="navbar-brand p-0 m-0" href="#">
-					<img src={logoWhite} alt="Restify" width="88" height="24" />
-				</a>
-			</div>
-			<div className="mx-5">
+			<div className="container d-flex justify-content-between w-100">
+				<img src={logoWhite} alt="Restify" width="88" height="24" />
 				<Dropdown>
 					<Dropdown.Toggle
 						id="dropdown-basic"
 						className="img-user"
-						style={{ backgroundImage: `url(${props.user.avatar})` }}
+						style={{ backgroundImage: `url(${props.user.avatar})`, backgroundSize: "cover" }}
 					></Dropdown.Toggle>
 
 					<Dropdown.Menu>

@@ -1,4 +1,5 @@
 @import url("https://fonts.cdnfonts.com/css/gotham");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
 
 .styleWrapper {
 	font-family: "Gotham", sans-serif;
@@ -50,6 +51,12 @@ h2 {
 	background-color: #0a2540;
 }
 
+.createres-background {
+	background-image: url("https://images.pexels.com/photos/1378424/pexels-photo-1378424.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+	background-size: cover;
+	background-position: center;
+}
+
 /* Landing Home Modals */
 
 .modal-fade-blur {
@@ -90,7 +97,7 @@ h2 {
 	padding: 0.3rem;
 	margin: 0.3rem;
 	align-items: center;
-	color:#8679c9;
+	color: #8679c9;
 	font-size: 0.9rem;
 }
 
@@ -189,6 +196,31 @@ h2 {
 	box-shadow: none !important;
 }
 
+/* Transparent Buttons */
+
+.btn-restify-transparent,
+.btn-light:hover {
+	color: white !important;
+}
+
+.btn-restify-transparent {
+	background: rgba(255, 255, 255, 0.15) !important;
+	backdrop-filter: blur(2px) !important;
+	border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.btn-restify-transparent:hover {
+	background-color: rgba(255, 255, 255, 0.35) !important;
+	border-color: rgba(255, 255, 255, 0.35) !important;
+	backdrop-filter: blur(2px) !important;
+	color: white !important;
+}
+
+.btn-restify-transparent:focus,
+.btn-restify-transparent.focus {
+	box-shadow: none !important;
+}
+
 /*#endregion Buttons*/
 
 /*#region Inputs  */
@@ -202,12 +234,17 @@ label {
 	letter-spacing: -0.6px !important;
 }
 
-
 input:focus,
 input.focus,
 select:focus,
 select.focus {
 	box-shadow: 0 0 0 0.1rem #c6baff !important;
+}
+
+.color-input {
+	width: 2rem;
+	height: 2rem;
+	padding: 0;
 }
 
 /*#endregion Inputs  */
@@ -243,8 +280,7 @@ select.focus {
 	border-radius: 50%;
 	height: 10rem;
 	width: 10rem;
-	object-fit: contain;
-	padding: 0.5rem;
+	object-fit: cover;
 }
 
 .img-card-add {
@@ -287,8 +323,8 @@ select.focus {
 }
 
 .cont {
-	margin-left: 5rem;
-	margin-right: 3rem;
+	margin-left: 10rem;
+	margin-right: 10rem;
 }
 
 .welcome > b > span {
@@ -317,8 +353,8 @@ select.focus {
 }
 
 .img-user {
-	width: 1.5rem;
-	height: 1.5rem;
+	width: 2rem;
+	height: 2rem;
 	border-radius: 50%;
 }
 
@@ -350,8 +386,7 @@ select.focus {
 	margin-bottom: 6rem;
 }
 
-
 /*Justify text*/
-.justify{
-  text-align: justify ;
+.justify {
+	text-align: justify;
 }

@@ -6,7 +6,6 @@ import { hexToRgb } from "../section_call_to_action.jsx";
 function Section_presentation(props) {
   const restaurantinfo = props.restaurantinfo
   const styles = props.Styles
-  {console.log(hexToRgb(restaurantinfo.color1))}
   return (  
     <div className="row position-relative gx-0" 
     style={{
