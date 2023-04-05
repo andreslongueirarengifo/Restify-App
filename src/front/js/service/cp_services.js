@@ -45,6 +45,7 @@ export const uploadImage = async (file, content_id) => {
 	}
 };
 
+
 export const getBranding = async (web_id) => {
 	try {
 		const token = localStorage.getItem("jwt-token");

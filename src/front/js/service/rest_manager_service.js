@@ -1,20 +1,19 @@
-export const getCurrentUserRestaurants= async ()=>{
-    try{
-        const token = localStorage.getItem('jwt-token');
-        const response = await fetch(process.env.BACKEND_URL+"/api/currentrestaurants", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': 'Bearer '+ token // ⬅⬅⬅ authorization token
-            }
-        })
-        const data = await response.json();
-        return data;
-    }
-    catch(e){
-        return e
-    }
-}
+export const getCurrentUserRestaurants = async () => {
+	try {
+		const token = localStorage.getItem("jwt-token");
+		const response = await fetch("https://sample-service-name-tv81.onrender.com" + "/api/currentrestaurants", {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token, // ⬅⬅⬅ authorization token
+			},
+		});
+		const data = await response.json();
+		return data;
+	} catch (e) {
+		return e;
+	}
+};
 
 export const getRestaurant= async (web_id)=>{
     try{
@@ -49,3 +48,4 @@ export const getBranding = async (web_id) => {
         return e
     }
 }
+
