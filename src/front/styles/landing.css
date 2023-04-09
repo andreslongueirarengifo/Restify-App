@@ -390,3 +390,23 @@ select.focus {
 .justify {
 	text-align: justify;
 }
+
+.template-menu-item {
+	transition: background-color 0.3s ease-out;
+	background-color: transparent;
+	padding: 0.3rem
+}
+
+.template-menu-item:hover {
+	background-color: rgba(255, 255, 255, 0.15);
+	border-radius: 0.3rem;
+}
+
+.template-button {
+	transition: background-color 0.3s ease-out;
+	padding: 0.3rem
+}
+
+.template-button:hover {
+	background-color: rgb(31, 31, 31);
+}

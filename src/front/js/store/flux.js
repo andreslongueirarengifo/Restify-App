@@ -1,4 +1,5 @@
 import { getWebInfoByName, getContent, getBranding } from "../service/cp_services";
+import { getTemplateData } from "../service/template_services";
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -15,6 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			bodyUploadFavicon: null,
 			webExist: false,
 			bodyUploadImg: null,
+			templateData: {}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -93,6 +95,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await getWebInfoByName(name);
 				setStore({ currentRestaurantId: data.result.id });
 			},
+			getRestaurantTemplateData: async (name) => {
+				const data = await getTemplateData(name);
+				setStore({ templateData: data.result })
+			}
 		},
 	};
 };

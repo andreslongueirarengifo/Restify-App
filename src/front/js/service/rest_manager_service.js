@@ -1,7 +1,7 @@
 export const getCurrentUserRestaurants = async () => {
 	try {
 		const token = localStorage.getItem("jwt-token");
-		const response = await fetch("https://sample-service-name-tv81.onrender.com" + "/api/currentrestaurants", {
+		const response = await fetch(process.env.BACKEND_URL + "/api/currentrestaurants", {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",

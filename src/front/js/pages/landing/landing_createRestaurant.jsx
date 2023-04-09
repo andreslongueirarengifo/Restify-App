@@ -24,9 +24,12 @@ export const CreateRestaurantLP = () => {
 	}
 
 	return (
-		<div className="container-fluid p-0">
+		<>
 			<NavbarRestManager user={currentUserData} />
-			<RegisterBody />
-		</div>
+
+			<div className="col-8 mx-auto p-0">
+				<RegisterBody />
+			</div>
+		</>
 	);
 };
