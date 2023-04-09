@@ -53,10 +53,24 @@ export const Menu = () => {
 						<p style={tooltipStyle}>Toca cada plato para obtener más detalles</p>
 					</div>
 				</div>
-				{food_categories &&
+				{food_categories && food_categories.length > 0 ? (
 					food_categories.map((category, index) => {
 						return <FoodCategoryAccordion key={index} category={category.name} dishList={category.dishes} />;
-					})}
+					})
+				) : (
+					<>
+						<div className="d-flex flex-column align-items-center m-4 p-0">
+							<p className="text-center" style={tooltipStyle}>
+								¡Ops! Parece que aun no hay ninguna categoría
+							</p>
+						</div>
+						<div className="d-flex flex-column align-items-center m-4 p-0">
+							<p className="text-center col-4" style={tooltipStyle}>
+								Para poder empezar a visualizar tus platos de comida y categorias tienes que ir al panel de control y empezar a crearlos
+							</p>
+						</div>
+					</>
+				)}
 				<Footer />
 			</div>
 		</div>

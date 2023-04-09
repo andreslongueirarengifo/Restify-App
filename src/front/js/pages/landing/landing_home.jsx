@@ -20,7 +20,10 @@ export const HomeLP = () => {
 			</div>
 
 			<ServicesLP />
-			<AboutUsLP />
+
+			<div className="py-4" style={{ backgroundColor: "white" }}>
+				<AboutUsLP />
+			</div>
 
 			<Footer />
 		</div>
