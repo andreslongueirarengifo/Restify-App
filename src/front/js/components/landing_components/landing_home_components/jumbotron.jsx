@@ -8,13 +8,13 @@ import ImgJumbotron from "../../../../img/img_jumbotron.png";
 
 const JumbotronLP = () => {
 	return (
-		<Row className="mt-3">
+		<Row className="py-2 col-8 mx-auto">
 			<Col className="d-flex align-items-center p-0">
 				<div className="jumbotron">
-					<h1 style={{ fontSize: "3.7rem" }}>
+					<h1 style={{ fontSize: "3rem" }}>
 						La mejor plataforma para <span style={{ color: "#352970" }}>tu restaurante</span>
 					</h1>
-					<p style={{ fontSize: "1.25rem" }}>
+					<p style={{ fontSize: "1rem" }}>
 						¡Crea tu restaurante en pocos pasos! Estamos para ayudarte a crecer y mejorar tu negocio con una increible
 						web que <b>tú podrás crear 😎</b>
 					</p>

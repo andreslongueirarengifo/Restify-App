@@ -76,7 +76,7 @@ const RegisterModal = () => {
 				className="btn btn-secondary btn-restify-primary btn-rounded"
 				data-bs-toggle="modal"
 				data-bs-target="#registerModal"
-				style={{ fontSize: "1.25rem" }}
+				style={{ fontSize: "1rem" }}
 			>
 				Regístrate
 			</button>
