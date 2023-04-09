@@ -1,5 +1,6 @@
 @import url("https://fonts.cdnfonts.com/css/gotham");
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@500&family=Source+Sans+Pro&display=swap");
 
 .styleWrapper {
 	font-family: "Gotham", sans-serif;
@@ -9,18 +10,50 @@ body {
 	background-color: #f3f4f8;
 }
 
+p {
+	font-family: "Source Sans Pro", sans-serif;
+}
+
 h1,
-h2 {
+h2,
+h3,
+h4 {
+	font-family: "Rubik", sans-serif;
 	letter-spacing: -0.8px;
-	font-weight: bold !important;
 }
 
 h1 {
-	font-size: 38px;
+	font-size: 2.25rem;
 }
 
 h2 {
-	font-size: 24px;
+	font-size: 2rem;
+}
+
+h3 {
+	font-size: 1.75rem;
+}
+
+h4 {
+	font-size: 1.45rem;
+}
+
+@media (max-width: 768px) {
+	h1 {
+		font-size: 1.5rem;
+	}
+
+	h2 {
+		font-size: 1.25rem;
+	}
+
+	h3 {
+		font-size: 1rem;
+	}
+
+	h4 {
+		font-size: 1rem;
+	}
 }
 
 .caption-text {
@@ -118,8 +151,7 @@ h2 {
 
 .btn-restify,
 .btn-rounded {
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
-	font-weight: bold !important;
+	font-family: "Rubik", sans-serif;
 	letter-spacing: -0.6px !important;
 }
 
@@ -228,9 +260,8 @@ h2 {
 /* Labels */
 
 label {
-	font-size: 14px;
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
-	font-weight: bold !important;
+	font-size: 0.85rem;
+	font-family: "Rubik", sans-serif;
 	letter-spacing: -0.6px !important;
 }
 
@@ -394,7 +425,7 @@ select.focus {
 .template-menu-item {
 	transition: background-color 0.3s ease-out;
 	background-color: transparent;
-	padding: 0.3rem
+	padding: 0.3rem;
 }
 
 .template-menu-item:hover {
@@ -404,7 +435,7 @@ select.focus {
 
 .template-button {
 	transition: background-color 0.3s ease-out;
-	padding: 0.3rem
+	padding: 0.3rem;
 }
 
 .template-button:hover {

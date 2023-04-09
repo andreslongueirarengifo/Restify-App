@@ -41,7 +41,7 @@ export const CardListRest = () => {
 					<Row xs={1} md={3}>
 						{currentUserRestaurants.map((restaurant, index) => {
 							return (
-								<Col key={index} className="d-flex justify-content-center">
+								<Col key={index} className="d-flex justify-content-center mb-2">
 									<CardRestaurant id={restaurant.id} name={restaurant.name} key={index} />
 								</Col>
 							);

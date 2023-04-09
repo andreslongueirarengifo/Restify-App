@@ -75,7 +75,7 @@ export const Home = () => {
 				<div className="container-fluid p-0 d-flex justify-content-center mb-4">
 					<div className="col- d-flex justify-content-center mt-3">
 						<ul style={{ listStyle: "none", padding: "0", textAlign: "center" }}>
-							{food_categories &&
+							{food_categories && food_categories.length > 0 ? (
 								food_categories.map((category, index) => {
 									return (
 										<li key={index} style={{ display: "inline-block" }}>
@@ -86,7 +86,21 @@ export const Home = () => {
 											/>
 										</li>
 									);
-								})}
+								})
+							) : (
+								<li>
+									<p
+										style={{
+											...bodyTextStyle,
+											backgroundColor: `${colorback1}26`,
+											padding: "0.5rem",
+											borderRadius: "0.3rem",
+										}}
+									>
+										¡Ops! Parece que aun no hay ninguna categoría
+									</p>
+								</li>
+							)}
 						</ul>
 					</div>
 				</div>

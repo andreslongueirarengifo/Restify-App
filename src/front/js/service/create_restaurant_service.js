@@ -57,7 +57,7 @@ export const defaultContentCreation = {
 	location_street: "Dirección",
 	location_city: "Barcelona",
 	location_coordinates: "41.379118,2.175238",
-	image_link: "https://m.media-amazon.com/images/I/71vonbE-r2L._AC_SY355_.jpg",
+	image_link: "https://images.pexels.com/photos/1378424/pexels-photo-1378424.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 };
 
 export const setContent = async (formData) => {

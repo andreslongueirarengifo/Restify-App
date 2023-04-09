@@ -6,15 +6,15 @@ export const AboutUsLP = () => {
 	return (
 		<div className="col-8 mx-auto">
 			<h4 style={{ color: "#352970" }}>
-				<b>Sobre nosotros</b>
+				Sobre nosotros
 			</h4>
 			<h3>
-				<b>¿Quienes somos?</b>
+				¿Quienes somos?
 			</h3>
 
 			<div className="row mt-5">
 				<div className="col-lg-5 d-flex justify-content-center">
-					<img src={HandAboutUs} alt="" />
+					<img src={HandAboutUs} alt="" style={{ width: "100%" }} />
 				</div>
 				<div className="col-lg-6 justify">
 					<p>

@@ -30,7 +30,7 @@ export const RestManagerLP = () => {
 	return (
 		<div className="container-fluid p-0">
 			<NavbarRestManager user={currentUserData} />
-			<div className="col-8 mx-auto py-4">
+			<div className="col-8 mx-auto py-4 px-0">
 				<h2 className="welcome">
 					¡Bienvenido, <span>{currentUserData.name}</span>!
 				</h2>
