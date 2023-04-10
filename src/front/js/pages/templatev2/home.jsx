@@ -29,7 +29,7 @@ export const Home = () => {
 	};
 
 	const jumbotronTextBodyStyle = {
-		color: color1,
+		color: "#fff",
 		fontFamily: font,
 		fontWeight: "bold",
 		fontSize: "2rem",
@@ -75,7 +75,7 @@ export const Home = () => {
 					</div>
 				</div>
 				<div className="container-fluid p-0 d-flex justify-content-center" style={webBackgroundStyle}>
-					<div className="col- d-flex justify-content-center mt-3">
+					<div className="col- d-flex justify-content-center mt-3" style={{minHeight: "15rem"}}>
 						<ul style={{ listStyle: "none", padding: "0", textAlign: "center" }}>
 							{food_categories && food_categories.length > 0 ? (
 								food_categories.map((category, index) => {
