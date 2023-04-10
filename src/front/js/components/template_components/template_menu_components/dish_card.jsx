@@ -16,13 +16,13 @@ function Dish_card(props) {
 			<div key={index} className="col-10 col-md-4 mx-auto p-4">
 				<Card style={{ width: "", background: "transparent" }} className="mx-auto border-0" onClick={handleShow}>
 					<Card.Header className="border-0">
-						<h5 style={styles.color1} className="fs-3">
+						<h5 style={{color:"black"}} className="fs-3">
 							{dish.name}
 						</h5>
 					</Card.Header>
 					<Card.Img variant="top" src={dish.photo_url} className="m-auto" style={{height: "200px", width: "200px", borderRadius: "50%", objectFit: "cover"}} />
 					<Card.Body>
-						<Card.Text style={styles.color1} className="fs-4">
+						<Card.Text style={{color:"black"}} className="fs-4">
 							{dish.description}
 						</Card.Text>
 					</Card.Body>
@@ -50,10 +50,10 @@ function Dish_card(props) {
 							</div>
 							
 							<div className="col-6 text-center pt-3">
-								<p className="fs-4" style={styles.color1}>
+								<p className="fs-4" style={{color:"black"}}>
 									{dish.description}
 								</p>
-								<p className="fs-3 float-end" style={styles.color1}>
+								<p className="fs-3 float-end" style={{color:"black"}}>
 									{dish.price}€
 								</p>
 							</div>
