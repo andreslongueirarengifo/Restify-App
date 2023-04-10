@@ -43,7 +43,7 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
 
       <Modal show={showModal} onHide={handleModalClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Eliminar categoría</Modal.Title>
+          <Modal.Title className="caption-text fw-bold">Eliminar categoría</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>¿Estás seguro de eliminar la categoría?</p>
@@ -53,7 +53,7 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
           <Button variant="secondary" onClick={handleModalClose}>
             Cancelar
           </Button>
-          <Button variant="danger" onClick={handleDeleteConfirmed}>
+          <Button className="red-button" onClick={handleDeleteConfirmed}>
             Eliminar categoría
           </Button>
         </Modal.Footer>
@@ -127,7 +127,7 @@ export const Menu_categories_table = (props) => {
             key: 'name',
             field: 'name',
             title: 'Categorias',
-            style: { color: '#707070' },
+            style: { color: '#352970' },
             dataType: DataType.String,
           },
           {
@@ -177,7 +177,7 @@ export const Menu_categories_table = (props) => {
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
       <Modal.Header closeButton>
-          <Modal.Title>Crear Nueva categoria</Modal.Title>
+          <Modal.Title className="caption-text fw-bold">Crear Nueva categoria</Modal.Title>
         </Modal.Header>
         <Form onSubmit={handleAddCategory}>
           <Modal.Body>
@@ -190,7 +190,7 @@ export const Menu_categories_table = (props) => {
             <Button variant="secondary" onClick={() => setShowModal(false)}>
               Cancelar
             </Button>
-            <Button variant="primary" type="submit">
+            <Button className="accept-button" type="submit">
               Crear categoría
             </Button>
           </Modal.Footer>

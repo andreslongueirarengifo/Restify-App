@@ -68,8 +68,8 @@ export const Home = () => {
 					</div>
 				</div>
 				<div className="container-fluid p-0 d-flex justify-content-center">
-					<div className="col-8 d-flex justify-content-between mt-3">
-						<p style={bodyTextStyle}>Descubre en nuestro menu todos los platos de comida que tenemos para ofrecerte</p>
+					<div className="col-6 d-flex justify-content-between mt-3 text-center">
+						<h5 style={bodyTextStyle} className="fw-bold">Descubre en nuestro menu todos los platos de comida que tenemos para ofrecerte</h5>
 					</div>
 				</div>
 				<div className="container-fluid p-0 d-flex justify-content-center mb-4">

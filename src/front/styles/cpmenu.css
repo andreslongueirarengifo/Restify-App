@@ -1,0 +1,17 @@
+img:hover{
+    cursor: pointer;
+}
+.ka-thead{
+    color: #352970 !important
+}
+.ka-cell{
+    color:black !important
+}
+.accept-button{
+    background-color:#352970 !important;
+    border-color:#352970 !important
+}
+.red-button{
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
