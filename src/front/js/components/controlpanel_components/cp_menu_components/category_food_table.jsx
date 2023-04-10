@@ -22,14 +22,14 @@ const DeleteModal = ({ show, onHide, onDelete }) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Eliminar Plato</Modal.Title>
+        <Modal.Title className='caption-text fw-bold'>Eliminar Plato</Modal.Title>
       </Modal.Header>
       <Modal.Body>¿Estás seguro de eliminar este plato?</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" disabled={isDeleting} onClick={onHide}>
           Cancelar
         </Button>
-        <Button variant="danger" disabled={isDeleting} onClick={handleDelete}>
+        <Button className="red-button" disabled={isDeleting} onClick={handleDelete}>
           {isDeleting ? 'Eliminando...' : 'Eliminar'}
         </Button>
       </Modal.Footer>
@@ -72,9 +72,9 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
     const params = useParams();
     const [tableProps, changeTableProps] = useState({
       columns: [
-        { key: 'name', field: 'name', title: 'Platos', width: 100, style: { color: '#707070' }, dataType: DataType.String},
-        { key: 'precio', field:'price', title:'precio', width: 100, style: { color: '#707070' }, dataType: DataType.Number},
-        { key: 'description', field:'description', width: 200,title:'Descripción', style: { color: '#707070' }, dataType: DataType.String},
+        { key: 'name', field: 'name', title: 'Platos', width: 100, dataType: DataType.String},
+        { key: 'precio', field:'price', title:'precio', width: 100, dataType: DataType.Number},
+        { key: 'description', field:'description', width: 200,title:'Descripción', dataType: DataType.String},
         { key: ':delete', width: 70, style: { textAlign: 'center' } },
         { key: ':edit', width: 70, style: { textAlign: 'center' } },
         { key: 'addColumn', width: 70, style: { textAlign: 'center' } }
@@ -126,7 +126,7 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
           </div>
           <Modal show={showModal} onHide={() => setShowModal(false)}>
             <Modal.Header closeButton>
-              <Modal.Title>Añadir un nuevo plato</Modal.Title>
+              <Modal.Title className='caption-text fw-bold'>Añadir un nuevo plato</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <div className='row'>
@@ -139,14 +139,14 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
                </div>
                <div className='row'>
                 <label htmlFor="description">Descripción: </label>
-                <input type="text" id="description" value={description} onChange={e => setDescription(e.target.value)} />
+                <textarea type="text" id="description" value={description} onChange={e => setDescription(e.target.value)} />
               </div>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={() => setShowModal(false)}>
                 Cancelar
               </Button>
-              <Button variant="primary" onClick={handleSave} disabled={!name || !price}>
+              <Button className="accept-button" onClick={handleSave} disabled={!name || !price}>
                 Añadir
               </Button>
             </Modal.Footer>
@@ -296,7 +296,7 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
         {selectedFood && (
   <Modal show={true} onHide={() => setSelectedFood(null)}>
     <Modal.Header closeButton>
-      <Modal.Title>Editar Plato</Modal.Title>
+      <Modal.Title className='caption-text bold'>Editar Plato</Modal.Title>
     </Modal.Header>
     <Modal.Body>
       <form>
@@ -317,7 +317,7 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
         </div>
         <div className="form-group">
           <label htmlFor="foodDescription">Descripción</label>
-          <input
+          <textarea
             type="text"
             className="form-control"
             id="foodDescription"
@@ -347,7 +347,7 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="foodImage">Foto</label>
+          <label htmlFor="foodImage">Foto</label><br/>
           <input
             type="file"
             className="form-control-file"
@@ -642,7 +642,7 @@ const DeleteRow = ({ dispatch, rowKeyValue }) => {
       <Button variant="secondary" onClick={() => setSelectedFood(null)}>
         Cerrar
       </Button>
-      <Button variant="primary" onClick={handleSaveChanges}>
+      <Button className="accept-button" onClick={handleSaveChanges}>
         Guardar Cambios
       </Button>
     </Modal.Footer>

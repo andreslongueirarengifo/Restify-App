@@ -32,7 +32,7 @@ export const NavbarRestManager = (props) => {
 			className="navbar navbar-expand-lg bg-body-tertiary nav-sizeº"
 			style={{ backgroundColor: "#352970", alignItems: "center" }}
 		>
-			<div className="container d-flex justify-content-between w-100">
+			<div className="col-8 mx-auto d-flex justify-content-between" style={{ backgroundColor: "#352970", alignItems: "center" }}>
 				<img src={logoWhite} alt="Restify" width="88" height="24" />
 				<Dropdown>
 					<Dropdown.Toggle

@@ -18,6 +18,11 @@ import { ContactTEMP } from "./pages/template/template_contact";
 import { HomeTEMP } from "./pages/template/template_home";
 import { MenuTEMP } from "./pages/template/template_menu";
 
+//templateV2
+import { Home } from "./pages/templatev2/home.jsx";
+import { Contact } from "./pages/templatev2/contact.jsx";
+import { Menu } from "./pages/templatev2/menu.jsx";
+
 import injectContext from "./store/appContext";
 
 //create your first component
@@ -33,9 +38,9 @@ const Layout = () => {
                 <Route element={<HomeLP />} path="/" />
                 <Route element={<RestManagerLP />} path="/rest-manager" />
                 <Route element={<CreateRestaurantLP />} path="/createrestaurant" />
-                <Route element={<ContactTEMP />} path="res/:webname/contact" />
-                <Route element={<HomeTEMP />} path="res/:webname/" />
-                <Route element={<MenuTEMP />} path="res/:webname/menu" />
+                <Route element={<Contact />} path="res/:webname/contact" />
+                <Route element={<Home />} path="res/:webname/" />
+                <Route element={<Menu />} path="res/:webname/menu" />
                 <Route element={<BrandingCP />}path="/controlpanel/branding/:webName" />
                 <Route element={<HomeCP />} path="/controlpanel/home/:webName" />
                 <Route element={<MenuCP />} path="/controlpanel/menu/:webName" />

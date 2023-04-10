@@ -4,6 +4,7 @@ import { MenuInputBody } from "../../components/controlpanel_components/cp_menu_
 import { NavbarCP } from "../../components/controlpanel_components/navbar_cp.jsx";
 import { TopBarCP } from "../../components/controlpanel_components/topbar_cp.jsx";
 import { Context } from "../../store/appContext.js";
+import "../../../styles/cpmenu.css"
 
 export const MenuCP = () => {
 
