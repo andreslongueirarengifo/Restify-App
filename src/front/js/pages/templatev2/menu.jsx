@@ -21,7 +21,7 @@ export const Menu = () => {
 	};
 
 	const jumbotronTextBodyStyle = {
-		color: color2,
+		color: color1,
 		fontFamily: font,
 		fontWeight: "bold",
 		fontSize: "2rem",
@@ -66,7 +66,8 @@ export const Menu = () => {
 						</div>
 						<div className="d-flex flex-column align-items-center m-4 p-0">
 							<p className="text-center col-4" style={tooltipStyle}>
-								Para poder empezar a visualizar tus platos de comida y categorias tienes que ir al panel de control y empezar a crearlos
+								Para poder empezar a visualizar tus platos de comida y categorias tienes que ir al panel de control y
+								empezar a crearlos
 							</p>
 						</div>
 					</>

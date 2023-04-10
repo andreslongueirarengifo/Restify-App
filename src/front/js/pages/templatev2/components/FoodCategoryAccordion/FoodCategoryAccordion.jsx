@@ -13,13 +13,13 @@ export const FoodCategoryAccordion = (props) => {
 	};
 
 	const bodyTextStyle = {
-		color: color1,
+		color: color2,
 		fontFamily: font,
 	};
 
 	const accordionItemStyle = {
 		fontFamily: font,
-		color: color1,
+		color: color2,
 		margin: "0",
 	};
 

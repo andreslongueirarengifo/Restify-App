@@ -8,16 +8,16 @@ export const Footer = () => {
 	const linkHome = `/res/${webname}`;
 	const linkMenu = `/res/${webname}/menu`;
 	const linkContact = `/res/${webname}/contact`;
-	const { colorback1, restaurant_street, restaurant_city, color2, font, twitter_url, facebook_url, instagram_url } =
+	const { colorback1,colorback2, restaurant_street, restaurant_city,color1, color2, font, twitter_url, facebook_url, instagram_url } =
 		store.templateData;
 
 	const footerBackgroundStyle = {
-		backgroundColor: colorback1,
+		backgroundColor: colorback2,
 		height: "9rem",
 	};
 
 	const menuItemsStyle = {
-		color: color2,
+		color: color1,
 		fontFamily: font,
 		margin: "0rem",
 		transition: "background-color 0.3s ease-out",

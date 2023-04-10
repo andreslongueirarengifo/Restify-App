@@ -29,7 +29,7 @@ export const Home = () => {
 	};
 
 	const jumbotronTextBodyStyle = {
-		color: color2,
+		color: color1,
 		fontFamily: font,
 		fontWeight: "bold",
 		fontSize: "2rem",
@@ -69,7 +69,9 @@ export const Home = () => {
 				</div>
 				<div className="container-fluid p-0 d-flex justify-content-center" style={webBackgroundStyle}>
 					<div className="col-6 d-flex justify-content-between mt-3 text-center">
-						<h5 style={bodyTextStyle} className="fw-bold">Descubre en nuestro menu todos los platos de comida que tenemos para ofrecerte</h5>
+						<h5 style={bodyTextStyle} className="fw-bold">
+							Descubre en nuestro menu todos los platos de comida que tenemos para ofrecerte
+						</h5>
 					</div>
 				</div>
 				<div className="container-fluid p-0 d-flex justify-content-center" style={webBackgroundStyle}>
