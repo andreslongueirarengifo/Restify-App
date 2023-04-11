@@ -37,7 +37,7 @@ export const Contact = () => {
 	};
 
 	const jumbotronTextBodyStyle = {
-		color: color2,
+		color: color1,
 		fontFamily: font,
 		fontWeight: "bold",
 		fontSize: "2rem",
@@ -58,8 +58,8 @@ export const Contact = () => {
 	const mapStyle = {
 		width: "100%",
 		height: "25rem",
-		border: "0"
-	}
+		border: "0",
+	};
 
 	return (
 		<div className="container-fluid p-0" style={webBackgroundStyle}>
@@ -74,13 +74,7 @@ export const Contact = () => {
 				</div>
 			</div>
 			<div className="col-8 mx-auto mb-3">
-				<iframe
-					src={location}
-					style={mapStyle}
-					allowFullScreen=""
-					aria-hidden="false"
-					tabIndex="0"
-				/>
+				<iframe src={location} style={mapStyle} allowFullScreen="" aria-hidden="false" tabIndex="0" />
 			</div>
 			<div className="container-fluid p-0" style={jumbotronBackgroundStyle}>
 				<div id="jumbotron-body" className="d-flex justify-content-center align-items-center h-100">
