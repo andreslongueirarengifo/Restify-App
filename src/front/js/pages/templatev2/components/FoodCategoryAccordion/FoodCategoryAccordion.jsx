@@ -8,6 +8,10 @@ export const FoodCategoryAccordion = (props) => {
 
 	const { colorback1, colorback2, color1, color2, font, image_link, food_categories } = store.templateData;
 
+	const headerStyle = {
+		backgroundColor: colorback1,
+	};
+
 	const containerStyle = {
 		backgroundColor: colorback2,
 	};
@@ -25,7 +29,7 @@ export const FoodCategoryAccordion = (props) => {
 
 	const accordionTitleStyle = {
 		fontFamily: font,
-		color: colorback1,
+		color: color2,
 		fontWeight: "bold",
 		padding: "1rem",
 		margin: "0",
@@ -47,13 +51,13 @@ export const FoodCategoryAccordion = (props) => {
 	};
 
 	return (
-		<div className="col-md-8 mx-auto" style={containerStyle}>
+		<div className="col-md-8 mx-auto" style={headerStyle}>
 			<p style={accordionTitleStyle}>{category}</p>
-			<div className="accordion accordion-flush mb-4" id={`${category}-accordion`}>
+			<div className="accordion accordion-flush mb-4" id={`${category}-accordion`} style={containerStyle}>
 				{dishList &&
 					dishList.map((dish, index) => {
 						return (
-							<div key={index} className="accordion-item">
+							<div key={index} className="accordion-item" style={containerStyle}>
 								<h2 className="accordion-header">
 									<button
 										className="accordion-button collapsed"
@@ -62,6 +66,7 @@ export const FoodCategoryAccordion = (props) => {
 										data-bs-target={`#${category}-${index}`}
 										aria-expanded="false"
 										aria-controls={`${category}-${index}`}
+										style={containerStyle}
 									>
 										<div
 											style={{
@@ -93,7 +98,7 @@ export const FoodCategoryAccordion = (props) => {
 														objectFit: "cover",
 														borderRadius: "0.25rem",
 														marginBottom: "0.5rem",
-														paddingRight: "0.5rem"
+														paddingRight: "0.5rem",
 													}}
 												/>
 											</div>
